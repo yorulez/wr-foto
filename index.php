@@ -1,27 +1,27 @@
-<? // WR-foto v 1.2  //  02.08.15 г.  //  Miha-ingener@yandex.ru
+<? // WR-foto v 1.2  //  02.08.15 Рі.  //  Miha-ingener@yandex.ru
 
-// ссылка razdel= не работет. ИСПРАВИТЬ!!!
+// СЃСЃС‹Р»РєР° razdel= РЅРµ СЂР°Р±РѕС‚РµС‚. РРЎРџР РђР’РРўР¬!!!
 
-error_reporting (E_ALL); // ВРЕМЕННО - на время тестирования и отладки скрипта!
-// error_reporting(0); // РАЗКОМЕНТИРУЙТЕ для постоянной работы!!!
-@ini_set('register_globals','off');// Все скрипты написаны для этой настройки php
+error_reporting (E_ALL); // Р’Р Р•РњР•РќРќРћ - РЅР° РІСЂРµРјСЏ С‚РµСЃС‚РёСЂРѕРІР°РЅРёСЏ Рё РѕС‚Р»Р°РґРєРё СЃРєСЂРёРїС‚Р°!
+// error_reporting(0); // Р РђР—РљРћРњР•РќРўРР РЈР™РўР• РґР»СЏ РїРѕСЃС‚РѕСЏРЅРЅРѕР№ СЂР°Р±РѕС‚С‹!!!
+@ini_set('register_globals','off');// Р’СЃРµ СЃРєСЂРёРїС‚С‹ РЅР°РїРёСЃР°РЅС‹ РґР»СЏ СЌС‚РѕР№ РЅР°СЃС‚СЂРѕР№РєРё php
 
 $sendadmin=FALSE;
-$flashupload=1; // ВКЛЮЧИТЬ FLASH-загрузчик? 1/0
+$flashupload=1; // Р’РљР›Р®Р§РРўР¬ FLASH-Р·Р°РіСЂСѓР·С‡РёРє? 1/0
 
 include "data/config.php";
 
-$smwidth="150"; // Ширина миниизображения
-$smheight="120"; // Высота миниизображения
-$valid_types=array("jpg","jpeg","gif","png");  // допустимые расширения загружаемых файлов
+$smwidth="150"; // РЁРёСЂРёРЅР° РјРёРЅРёРёР·РѕР±СЂР°Р¶РµРЅРёСЏ
+$smheight="120"; // Р’С‹СЃРѕС‚Р° РјРёРЅРёРёР·РѕР±СЂР°Р¶РµРЅРёСЏ
+$valid_types=array("jpg","jpeg","gif","png");  // РґРѕРїСѓСЃС‚РёРјС‹Рµ СЂР°СЃС€РёСЂРµРЅРёСЏ Р·Р°РіСЂСѓР¶Р°РµРјС‹С… С„Р°Р№Р»РѕРІ
 
-// Определяем URL галереи
+// РћРїСЂРµРґРµР»СЏРµРј URL РіР°Р»РµСЂРµРё
 $host=$_SERVER["HTTP_HOST"]; $self=$_SERVER["PHP_SELF"]; $furl=str_replace('index.php','',"http://$host$self");
 
-// Временно, чтобы удалить из поисковиков лишние страницы (до 07.2016 г.)
+// Р’СЂРµРјРµРЅРЅРѕ, С‡С‚РѕР±С‹ СѓРґР°Р»РёС‚СЊ РёР· РїРѕРёСЃРєРѕРІРёРєРѕРІ Р»РёС€РЅРёРµ СЃС‚СЂР°РЅРёС†С‹ (РґРѕ 07.2016 Рі.)
 if (isset($_GET['add'])) { if ($_GET['add']=="razdel") { header("HTTP/1.1 404 Moved Permanently"); header("Location: $furl"); } }
 
-function replacer ($text) { // ФУНКЦИЯ очистки кода
+function replacer ($text) { // Р¤РЈРќРљР¦РРЇ РѕС‡РёСЃС‚РєРё РєРѕРґР°
 $text=str_replace("&#032;",' ',$text);
 $text=str_replace(">",'&gt;',$text);
 $text=str_replace("<",'&lt;',$text);
@@ -31,7 +31,7 @@ $text=preg_replace("/\n/",'<br>',$text);
 $text=preg_replace("/\\\$/",'&#036;',$text);
 $text=preg_replace("/\r/",'',$text);
 $text=preg_replace("/\\\/",'&#092;',$text);
-// если magic_quotes включена - чистим везде СЛЭШи в этих случаях: одиночные (') и двойные кавычки ("), обратный слеш (\)
+// РµСЃР»Рё magic_quotes РІРєР»СЋС‡РµРЅР° - С‡РёСЃС‚РёРј РІРµР·РґРµ РЎР›Р­РЁРё РІ СЌС‚РёС… СЃР»СѓС‡Р°СЏС…: РѕРґРёРЅРѕС‡РЅС‹Рµ (') Рё РґРІРѕР№РЅС‹Рµ РєР°РІС‹С‡РєРё ("), РѕР±СЂР°С‚РЅС‹Р№ СЃР»РµС€ (\)
 if (get_magic_quotes_gpc()) { $text=str_replace("&#092;&quot;",'&quot;',$text); $text=str_replace("&#092;'",'\'',$text); $text=str_replace("&#092;&#092;",'&#092;',$text); }
 $text=str_replace("\r\n","<br> ",$text);
 $text=str_replace("\n\n",'<p> ',$text);
@@ -42,35 +42,35 @@ $text=str_replace('   ',' ',$text);
 return $text; }
 
 
-// Функция содержит ПРОДОЛЖЕНИЕ ШАПКИ. Вызывается: addtop();
+// Р¤СѓРЅРєС†РёСЏ СЃРѕРґРµСЂР¶РёС‚ РџР РћР”РћР›Р–Р•РќРР• РЁРђРџРљР. Р’С‹Р·С‹РІР°РµС‚СЃСЏ: addtop();
 function addtop() { global $wrfname,$fskin,$date,$time;
 if (isset($_COOKIE['wrfcookies'])) {$wrfc=$_COOKIE['wrfcookies']; $wrfc=replacer($wrfc); $wrfc=explode("|", $wrfc);  $wrfname=$wrfc[0];} else {unset($wrfname); unset($wrfpass); $wrfpass="";}
-if (isset($wrfname)) { // ищем КУКи и выводим ИМЯ
+if (isset($wrfname)) { // РёС‰РµРј РљРЈРљРё Рё РІС‹РІРѕРґРёРј РРњРЇ
 print"<table width=98% border=0 cellSpacing=0 cellPadding=2><tr><td class=catHead colspan=2 height=18><span class=cattitle>
-<nobr><h2 style=\"padding: 5px; margin: 1px\">Учётная запись</h2></nobr></span></td></tr></table><br>
-<a href='tools.php?event=profile&pname=$wrfname'>Ваш профиль</a>&nbsp; 
-<a href='index.php?event=clearcooke' class=mainmenu>Выход [<B>$wrfname</B>]</a><br><br>";
+<nobr><h2 style=\"padding: 5px; margin: 1px\">РЈС‡С‘С‚РЅР°СЏ Р·Р°РїРёСЃСЊ</h2></nobr></span></td></tr></table><br>
+<a href='tools.php?event=profile&pname=$wrfname'>Р’Р°С€ РїСЂРѕС„РёР»СЊ</a>&nbsp; 
+<a href='index.php?event=clearcooke' class=mainmenu>Р’С‹С…РѕРґ [<B>$wrfname</B>]</a><br><br>";
 } else { 
 print "<span class=mainmenu>
-<a href='tools.php?event=reg' class=mainmenu>Регистрация</a>&nbsp;&nbsp;
-<a href='tools.php?event=login' class=mainmenu> Вход</a>";}
+<a href='tools.php?event=reg' class=mainmenu>Р РµРіРёСЃС‚СЂР°С†РёСЏ</a>&nbsp;&nbsp;
+<a href='tools.php?event=login' class=mainmenu> Р’С…РѕРґ</a>";}
 return true;}
 
 
 
-function prcmp ($a, $b) {if ($a==$b) return 0; if ($a<$b) return -1; return 1;} // Функция сортировки
+function prcmp ($a, $b) {if ($a==$b) return 0; if ($a<$b) return -1; return 1;} // Р¤СѓРЅРєС†РёСЏ СЃРѕСЂС‚РёСЂРѕРІРєРё
 
 
-/* Функция img_resize($src,$dest,$width,$height,$rgb,$quality): генерация thumbnails
-Обязательные параметры: имя исходного файла, имя генерируемого файла, ширина и высота генерируемого изображения, в пикселях
-Необязательные параметры: цвет фона (по умолчанию - белый), качество генерируемого JPEG, по умолчанию - максимальное (100) */
+/* Р¤СѓРЅРєС†РёСЏ img_resize($src,$dest,$width,$height,$rgb,$quality): РіРµРЅРµСЂР°С†РёСЏ thumbnails
+РћР±СЏР·Р°С‚РµР»СЊРЅС‹Рµ РїР°СЂР°РјРµС‚СЂС‹: РёРјСЏ РёСЃС…РѕРґРЅРѕРіРѕ С„Р°Р№Р»Р°, РёРјСЏ РіРµРЅРµСЂРёСЂСѓРµРјРѕРіРѕ С„Р°Р№Р»Р°, С€РёСЂРёРЅР° Рё РІС‹СЃРѕС‚Р° РіРµРЅРµСЂРёСЂСѓРµРјРѕРіРѕ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ, РІ РїРёРєСЃРµР»СЏС…
+РќРµРѕР±СЏР·Р°С‚РµР»СЊРЅС‹Рµ РїР°СЂР°РјРµС‚СЂС‹: С†РІРµС‚ С„РѕРЅР° (РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ - Р±РµР»С‹Р№), РєР°С‡РµСЃС‚РІРѕ РіРµРЅРµСЂРёСЂСѓРµРјРѕРіРѕ JPEG, РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ - РјР°РєСЃРёРјР°Р»СЊРЅРѕРµ (100) */
 function img_resize($src, $dest, $width, $height, $rgb=0xFFFFFF, $quality=95) {
   if (!file_exists($src)) return false;
   $size = getimagesize($src);
   if ($size === false) return false;
-  // Определяем исходный формат по MIME-информации, предоставленной
-  // функцией getimagesize, и выбираем соответствующую формату
-  // imagecreatefrom-функцию.
+  // РћРїСЂРµРґРµР»СЏРµРј РёСЃС…РѕРґРЅС‹Р№ С„РѕСЂРјР°С‚ РїРѕ MIME-РёРЅС„РѕСЂРјР°С†РёРё, РїСЂРµРґРѕСЃС‚Р°РІР»РµРЅРЅРѕР№
+  // С„СѓРЅРєС†РёРµР№ getimagesize, Рё РІС‹Р±РёСЂР°РµРј СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰СѓСЋ С„РѕСЂРјР°С‚Сѓ
+  // imagecreatefrom-С„СѓРЅРєС†РёСЋ.
   $format = strtolower(substr($size['mime'], strpos($size['mime'], '/')+1));
   $icfunc = "imagecreatefrom" . $format;
   if (!function_exists($icfunc)) return false;
@@ -101,24 +101,24 @@ return true; }
 
 
 
-function nospam() { global $max_key,$rand_key; // Функция АНТИСПАМ
+function nospam() { global $max_key,$rand_key; // Р¤СѓРЅРєС†РёСЏ РђРќРўРРЎРџРђРњ
 if (array_key_exists("image", $_REQUEST)) { $num=replacer($_REQUEST["image"]);
 for ($i=0; $i<10; $i++) {if (md5("$i+$rand_key")==$num) {imgwr($st,$i); die();}} }
 $xkey=""; mt_srand(time()+(double)microtime()*1000000);
-$dopkod=mktime(0,0,0,date("m"),date("d"),date("Y")); // доп.код: меняется каждые 24 часа
-$stime=md5("$dopkod+$rand_key");// доп.код
-echo'<TR><TD class=row2><span class=genmed><B>Защитный код</B></span>:</TD><TD class=row2>';
+$dopkod=mktime(0,0,0,date("m"),date("d"),date("Y")); // РґРѕРї.РєРѕРґ: РјРµРЅСЏРµС‚СЃСЏ РєР°Р¶РґС‹Рµ 24 С‡Р°СЃР°
+$stime=md5("$dopkod+$rand_key");// РґРѕРї.РєРѕРґ
+echo'<TR><TD class=row2><span class=genmed><B>Р—Р°С‰РёС‚РЅС‹Р№ РєРѕРґ</B></span>:</TD><TD class=row2>';
 for ($i=0; $i<$max_key; $i++) {
 $snum[$i]=mt_rand(0,9); $psnum=md5($snum[$i]+$rand_key+$dopkod);
 echo "<img src=antispam.php?image=$psnum border='0' alt=''>\n";
 $xkey=$xkey.$snum[$i];}
-$xkey=md5("$xkey+$rand_key+$dopkod"); //число + ключ из config.php + код меняющийся кажые 24 часа
+$xkey=md5("$xkey+$rand_key+$dopkod"); //С‡РёСЃР»Рѕ + РєР»СЋС‡ РёР· config.php + РєРѕРґ РјРµРЅСЏСЋС‰РёР№СЃСЏ РєР°Р¶С‹Рµ 24 С‡Р°СЃР°
 print" <input name='usernum' id='txt_usernum' class=post type='text' style='WIDTH: 70px;' maxlength=$max_key size=6> 
-(введите число, указанное на картинке) <input name=xkey type=hidden value='$xkey'><input name=stime type=hidden value='$stime'></TD></TR>";
+(РІРІРµРґРёС‚Рµ С‡РёСЃР»Рѕ, СѓРєР°Р·Р°РЅРЅРѕРµ РЅР° РєР°СЂС‚РёРЅРєРµ) <input name=xkey type=hidden value='$xkey'><input name=stime type=hidden value='$stime'></TD></TR>";
 return; }
 
 
-// БЛОК ЛОГИНЗА - сохранение логина,емайла и пароля антиспама для быстрой работы с фотоальбомом
+// Р‘Р›РћРљ Р›РћР“РРќР—Рђ - СЃРѕС…СЂР°РЅРµРЅРёРµ Р»РѕРіРёРЅР°,РµРјР°Р№Р»Р° Рё РїР°СЂРѕР»СЏ Р°РЅС‚РёСЃРїР°РјР° РґР»СЏ Р±С‹СЃС‚СЂРѕР№ СЂР°Р±РѕС‚С‹ СЃ С„РѕС‚РѕР°Р»СЊР±РѕРјРѕРј
 if (isset($_GET['loginza'])) {
 
 if (isset($_GET['save'])) {
@@ -128,12 +128,12 @@ if (isset($_POST['usernum'])) $usernum=replacer($_POST['usernum']); else exit();
 setcookie("wrfotocookies", "$name|$email|$usernum|", time()+1728000);
 Header("Location: index.php"); exit; }
 
-print"<center><h1>Логинимся</h1>
+print"<center><h1>Р›РѕРіРёРЅРёРјСЃСЏ</h1>
 <table border=0 width=450 align=center><form action='index.php?loginza&save' method=POST>
-<tr><td class=row1 width=100 height=25><span class=gen><b>Имя</b></span></td><td class=row1><input type=text name=name maxlength=$maxname size=35></td></tr>
+<tr><td class=row1 width=100 height=25><span class=gen><b>РРјСЏ</b></span></td><td class=row1><input type=text name=name maxlength=$maxname size=35></td></tr>
 <tr><td class=row2 height=25><span class=gen>E-mail</span></td><td class=row2><input type=text name=email size=35></td></tr> 
-<tr><td class=row2 height=25><span class=gen><B>Ответьте на вопрос:</B></span></td><td class=row2><input name='usernum' type='text' maxlength=20 size=25> ($antispam2012v)</td></tr>
-</tr><tr><td class=row1 colspan=4 align=center height=28><input type=submit class=post value='  Сохранить данные  '></td></form>";
+<tr><td class=row2 height=25><span class=gen><B>РћС‚РІРµС‚СЊС‚Рµ РЅР° РІРѕРїСЂРѕСЃ:</B></span></td><td class=row2><input name='usernum' type='text' maxlength=20 size=25> ($antispam2012v)</td></tr>
+</tr><tr><td class=row1 colspan=4 align=center height=28><input type=submit class=post value='  РЎРѕС…СЂР°РЅРёС‚СЊ РґР°РЅРЅС‹Рµ  '></td></form>";
 exit;}
 
 
@@ -148,18 +148,18 @@ exit;}
 
 
 
-// РЕПУТАЦИЯ - окно выбора: шаг 1
+// Р Р•РџРЈРўРђР¦РРЇ - РѕРєРЅРѕ РІС‹Р±РѕСЂР°: С€Р°Рі 1
 if (isset($_GET['addrepa'])) {
 
-if (!isset($_GET['fotoname'])) exit("Нет данных переменной fotoname."); $fotoname=replacer($_GET['fotoname']);
+if (!isset($_GET['fotoname'])) exit("РќРµС‚ РґР°РЅРЅС‹С… РїРµСЂРµРјРµРЅРЅРѕР№ fotoname."); $fotoname=replacer($_GET['fotoname']);
 
-/* черновик или вариант <table border=1 align=center>
+/* С‡РµСЂРЅРѕРІРёРє РёР»Рё РІР°СЂРёР°РЅС‚ <table border=1 align=center>
 <TR align=center><TD><img src='smile/sad.gif'></TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD><TD><img src='smile/smile.gif'></td></tr>
 <TR align=center><TD width=30>1</td><TD>2</td><TD>3</td><TD>4</td><TD>5</td></tr></table> */
 
-print "<html><head><title>Изменение РЕЙТИНГА фотографии:</title></head><body leftMargin=0 topMargin=0 rightMargin=0>
+print "<html><head><title>РР·РјРµРЅРµРЅРёРµ Р Р•Р™РўРРќР“Рђ С„РѕС‚РѕРіСЂР°С„РёРё:</title></head><body leftMargin=0 topMargin=0 rightMargin=0>
 <center><table cellpadding=0 cellspacing=8><TR><FORM action='index.php?repasave' method=post>
-<TD colspan=7 align=center><B>Изменение РЕЙТИНГА фотографии</B></TD></TR><TR height=40>
+<TD colspan=7 align=center><B>РР·РјРµРЅРµРЅРёРµ Р Р•Р™РўРРќР“Рђ С„РѕС‚РѕРіСЂР°С„РёРё</B></TD></TR><TR height=40>
 <TD bgcolor=#880003><font size=+2 color=white>-5<INPUT name=repa type=radio value='-5'></TD>
 <TD bgcolor=#FF2025><font size=+2 color=white>-2<INPUT name=repa type=radio value='-2'></TD>
 <TD bgcolor=#FFB7B9><font size=+2 color=white>-1<INPUT name=repa type=radio value='-1'></TD>
@@ -167,57 +167,57 @@ print "<html><head><title>Изменение РЕЙТИНГА фотографии:</title></head><body lef
 <TD bgcolor=#A4FFAA><font size=+2 color=white>+1<INPUT name=repa type=radio value='+1'></TD>
 <TD bgcolor=#00C10F><font size=+2 color=white>+2<INPUT name=repa type=radio value='+2'></TD>
 <TD bgcolor=#00880B><font size=+2 color=white>+5<INPUT name=repa type=radio value='+5'></TD></TR>
-<TR><TD colspan=7><B>Комментарий:</B>  <INPUT type=hidden name=fotoname value='$fotoname'><INPUT type=text name=pochemu size=45 value=''><INPUT type=submit value=Отправить></td></TR>
+<TR><TD colspan=7><B>РљРѕРјРјРµРЅС‚Р°СЂРёР№:</B>  <INPUT type=hidden name=fotoname value='$fotoname'><INPUT type=text name=pochemu size=45 value=''><INPUT type=submit value=РћС‚РїСЂР°РІРёС‚СЊ></td></TR>
 </TABLE></FORM>";
 
-if (is_file("$datadir/rating.dat")) { // Ищем в файле инфу об этой фото и выводим, если есть
+if (is_file("$datadir/rating.dat")) { // РС‰РµРј РІ С„Р°Р№Р»Рµ РёРЅС„Сѓ РѕР± СЌС‚РѕР№ С„РѕС‚Рѕ Рё РІС‹РІРѕРґРёРј, РµСЃР»Рё РµСЃС‚СЊ
 $file="$datadir/rating.dat"; $lines=file("$file"); $i=count($lines);
-print"<table border=1 cellpadding=2 cellspacing=0 width=100%><TR><TD colspan=5 align=center><B>ЛОГ изменения РЕЙТИНГА фотографии</B></td></tr>
-<TR align=center><TD>Когда</TD><TD>IP</TD><TD>Бал</TD><TD width=55%>Комментарий</TD></TR>";
+print"<table border=1 cellpadding=2 cellspacing=0 width=100%><TR><TD colspan=5 align=center><B>Р›РћР“ РёР·РјРµРЅРµРЅРёСЏ Р Р•Р™РўРРќР“Рђ С„РѕС‚РѕРіСЂР°С„РёРё</B></td></tr>
+<TR align=center><TD>РљРѕРіРґР°</TD><TD>IP</TD><TD>Р‘Р°Р»</TD><TD width=55%>РљРѕРјРјРµРЅС‚Р°СЂРёР№</TD></TR>";
 $sbal=null; $itogo=null; $chislo=null;
 if ($i>0) do {$i--; $dt=explode("|",$lines[$i]);
 $chislo=$dt[1];
 if ($dt[1]>0) $dt[1]="<TD align=center bgcolor=#B7FFB7><B>$dt[1]"; else $dt[1]="<TD align=center bgcolor=#FF9F9F><B>$dt[1]";
 if ($dt[2]==$fotoname) {
-$dt[0]=date("d.m.y в H:i",$dt[0]); 
+$dt[0]=date("d.m.y РІ H:i",$dt[0]); 
 print"<TR><TD align=center><small>$dt[0]</small></TD><TD align=center><B>$dt[3]</B></TD>$dt[1]</B></TD><TD><small>$dt[4]</small></TD></TR>";
 $itogo++; $sbal=$sbal+$chislo;
 }
 } while($i>0);
 if ($itogo>0) $sbal=round($sbal/$itogo,2);
-print"</table><B>$sbal</B>"; } // есть есть файл
+print"</table><B>$sbal</B>"; } // РµСЃС‚СЊ РµСЃС‚СЊ С„Р°Р№Р»
 exit; }
 
 
 
-if (isset($_GET['repasave'])) {  // РЕПУТАЦИЯ - сохранение: ШАГ - 2
+if (isset($_GET['repasave'])) {  // Р Р•РџРЈРўРђР¦РРЇ - СЃРѕС…СЂР°РЅРµРЅРёРµ: РЁРђР“ - 2
 
-// Считываем данные, включаем защиты
-if (!isset($_POST['fotoname'])) exit("Нет данных переменной name."); $name=replacer($_POST['fotoname']);
-if (isset($_POST['repa'])) $repa=replacer($_POST['repa']); else exit("Нет данных переменной repa");
-if (isset($_POST['pochemu'])) $pochemu=replacer($_POST['pochemu']); else exit("Укажите причину смены репутации");
-if (!is_numeric($repa)) exit("<B>$back. Попытка взлома. Не хулигань, друг!");
-if ($repa>5 or $repa<-5) exit("<B>$back. Попытка взлома. Репу можно менять только на +-5 пунктов. Не хулигань, друг!");
-if (strlen($pochemu)<1 or strlen($pochemu)>150) exit("<B>$back. Текст причины должен быть указан! И быть не более 150 символов!");
+// РЎС‡РёС‚С‹РІР°РµРј РґР°РЅРЅС‹Рµ, РІРєР»СЋС‡Р°РµРј Р·Р°С‰РёС‚С‹
+if (!isset($_POST['fotoname'])) exit("РќРµС‚ РґР°РЅРЅС‹С… РїРµСЂРµРјРµРЅРЅРѕР№ name."); $name=replacer($_POST['fotoname']);
+if (isset($_POST['repa'])) $repa=replacer($_POST['repa']); else exit("РќРµС‚ РґР°РЅРЅС‹С… РїРµСЂРµРјРµРЅРЅРѕР№ repa");
+if (isset($_POST['pochemu'])) $pochemu=replacer($_POST['pochemu']); else exit("РЈРєР°Р¶РёС‚Рµ РїСЂРёС‡РёРЅСѓ СЃРјРµРЅС‹ СЂРµРїСѓС‚Р°С†РёРё");
+if (!is_numeric($repa)) exit("<B>$back. РџРѕРїС‹С‚РєР° РІР·Р»РѕРјР°. РќРµ С…СѓР»РёРіР°РЅСЊ, РґСЂСѓРі!");
+if ($repa>5 or $repa<-5) exit("<B>$back. РџРѕРїС‹С‚РєР° РІР·Р»РѕРјР°. Р РµРїСѓ РјРѕР¶РЅРѕ РјРµРЅСЏС‚СЊ С‚РѕР»СЊРєРѕ РЅР° +-5 РїСѓРЅРєС‚РѕРІ. РќРµ С…СѓР»РёРіР°РЅСЊ, РґСЂСѓРі!");
+if (strlen($pochemu)<1 or strlen($pochemu)>150) exit("<B>$back. РўРµРєСЃС‚ РїСЂРёС‡РёРЅС‹ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ СѓРєР°Р·Р°РЅ! Р Р±С‹С‚СЊ РЅРµ Р±РѕР»РµРµ 150 СЃРёРјРІРѕР»РѕРІ!");
 
-// Защита от накруток по фото. Ставим КУКи на фото, если уже есть куки с именем фото - то облом!
-if (isset($_COOKIE[$name])) exit("<br><br><br><br><center><h3><font color=red>Вы уже голосовали за это фото!</font><br><br> Повторное голосование разрешено раз в сутки!<br> Накрутка голосований запрещена!</h3></center>");
+// Р—Р°С‰РёС‚Р° РѕС‚ РЅР°РєСЂСѓС‚РѕРє РїРѕ С„РѕС‚Рѕ. РЎС‚Р°РІРёРј РљРЈРљРё РЅР° С„РѕС‚Рѕ, РµСЃР»Рё СѓР¶Рµ РµСЃС‚СЊ РєСѓРєРё СЃ РёРјРµРЅРµРј С„РѕС‚Рѕ - С‚Рѕ РѕР±Р»РѕРј!
+if (isset($_COOKIE[$name])) exit("<br><br><br><br><center><h3><font color=red>Р’С‹ СѓР¶Рµ РіРѕР»РѕСЃРѕРІР°Р»Рё Р·Р° СЌС‚Рѕ С„РѕС‚Рѕ!</font><br><br> РџРѕРІС‚РѕСЂРЅРѕРµ РіРѕР»РѕСЃРѕРІР°РЅРёРµ СЂР°Р·СЂРµС€РµРЅРѕ СЂР°Р· РІ СЃСѓС‚РєРё!<br> РќР°РєСЂСѓС‚РєР° РіРѕР»РѕСЃРѕРІР°РЅРёР№ Р·Р°РїСЂРµС‰РµРЅР°!</h3></center>");
 //setcookie("$name", "+", time()+86400);
-$today=time(); $ip=$_SERVER['REMOTE_ADDR']; // определяем IP юзера
+$today=time(); $ip=$_SERVER['REMOTE_ADDR']; // РѕРїСЂРµРґРµР»СЏРµРј IP СЋР·РµСЂР°
 
-// считываем последнее голосование в память
+// СЃС‡РёС‚С‹РІР°РµРј РїРѕСЃР»РµРґРЅРµРµ РіРѕР»РѕСЃРѕРІР°РЅРёРµ РІ РїР°РјСЏС‚СЊ
 $file="$datadir/rating.dat"; $lines=file("$file"); $i=count($lines)-1; $dtt=explode("|",$lines[$i]);
 
-// Проверяем IP последнего голосовавшего, если такой же как сейчас - облом
-if ($dtt[2]==$name and $dtt[3]==$ip) exit("Голосовать с одного IP за одно и то же фото ЗАПРЕЩЕНО!");
+// РџСЂРѕРІРµСЂСЏРµРј IP РїРѕСЃР»РµРґРЅРµРіРѕ РіРѕР»РѕСЃРѕРІР°РІС€РµРіРѕ, РµСЃР»Рё С‚Р°РєРѕР№ Р¶Рµ РєР°Рє СЃРµР№С‡Р°СЃ - РѕР±Р»РѕРј
+if ($dtt[2]==$name and $dtt[3]==$ip) exit("Р“РѕР»РѕСЃРѕРІР°С‚СЊ СЃ РѕРґРЅРѕРіРѕ IP Р·Р° РѕРґРЅРѕ Рё С‚Рѕ Р¶Рµ С„РѕС‚Рѕ Р—РђРџР Р•Р©Р•РќРћ!");
 
-// Если Вам нужно, чтобы можно было проголосовать с одного IP ТОЛЬКО ЗА ОДНО ФОТО, то, разкоментируйте строку!
-// if ($dtt[3]==$ip) exit("Голосовать с одного IP за несколько фото ЗАПРЕЩЕНО!"); 
+// Р•СЃР»Рё Р’Р°Рј РЅСѓР¶РЅРѕ, С‡С‚РѕР±С‹ РјРѕР¶РЅРѕ Р±С‹Р»Рѕ РїСЂРѕРіРѕР»РѕСЃРѕРІР°С‚СЊ СЃ РѕРґРЅРѕРіРѕ IP РўРћР›Р¬РљРћ Р—Рђ РћР”РќРћ Р¤РћРўРћ, С‚Рѕ, СЂР°Р·РєРѕРјРµРЅС‚РёСЂСѓР№С‚Рµ СЃС‚СЂРѕРєСѓ!
+// if ($dtt[3]==$ip) exit("Р“РѕР»РѕСЃРѕРІР°С‚СЊ СЃ РѕРґРЅРѕРіРѕ IP Р·Р° РЅРµСЃРєРѕР»СЊРєРѕ С„РѕС‚Рѕ Р—РђРџР Р•Р©Р•РќРћ!"); 
 
-// Проверяем время последнего голосования (ФЛУД) Разрешено голосовать не чаще 1 раз в 60 секунд
-if (($today-$dtt[0])<=30) exit("Включена защита от флуда. Голосовать за любое фото чаще 1 раз в 30 секунд запрещено!");
+// РџСЂРѕРІРµСЂСЏРµРј РІСЂРµРјСЏ РїРѕСЃР»РµРґРЅРµРіРѕ РіРѕР»РѕСЃРѕРІР°РЅРёСЏ (Р¤Р›РЈР”) Р Р°Р·СЂРµС€РµРЅРѕ РіРѕР»РѕСЃРѕРІР°С‚СЊ РЅРµ С‡Р°С‰Рµ 1 СЂР°Р· РІ 60 СЃРµРєСѓРЅРґ
+if (($today-$dtt[0])<=30) exit("Р’РєР»СЋС‡РµРЅР° Р·Р°С‰РёС‚Р° РѕС‚ С„Р»СѓРґР°. Р“РѕР»РѕСЃРѕРІР°С‚СЊ Р·Р° Р»СЋР±РѕРµ С„РѕС‚Рѕ С‡Р°С‰Рµ 1 СЂР°Р· РІ 30 СЃРµРєСѓРЅРґ Р·Р°РїСЂРµС‰РµРЅРѕ!");
 
-//дата в UNIX-формате|сколько балов|ИМЯ фотографии|IP-шник|комментарий||||
+//РґР°С‚Р° РІ UNIX-С„РѕСЂРјР°С‚Рµ|СЃРєРѕР»СЊРєРѕ Р±Р°Р»РѕРІ|РРњРЇ С„РѕС‚РѕРіСЂР°С„РёРё|IP-С€РЅРёРє|РєРѕРјРјРµРЅС‚Р°СЂРёР№||||
 $fp=fopen("$datadir/rating.dat","a+");
 flock ($fp,LOCK_EX);
 fputs($fp,"$today|$repa|$name|$ip|$pochemu||||\r\n");
@@ -225,21 +225,21 @@ fflush ($fp);
 flock ($fp,LOCK_UN);
 fclose($fp);
 
-exit("<div align=center><BR><BR><BR>Рейтинг <B>успешно</B> пересчитан.<BR><BR><BR><a href='' onClick='self.close()'><b>Закрыть окно</b></a></div>"); }
+exit("<div align=center><BR><BR><BR>Р РµР№С‚РёРЅРі <B>СѓСЃРїРµС€РЅРѕ</B> РїРµСЂРµСЃС‡РёС‚Р°РЅ.<BR><BR><BR><a href='' onClick='self.close()'><b>Р—Р°РєСЂС‹С‚СЊ РѕРєРЅРѕ</b></a></div>"); }
 
 
 
 
 
 
-function addmsg($qm) { // ФУНКЦИЯ добавления темы/сообщения
+function addmsg($qm) { // Р¤РЈРќРљР¦РРЇ РґРѕР±Р°РІР»РµРЅРёСЏ С‚РµРјС‹/СЃРѕРѕР±С‰РµРЅРёСЏ
 global $wrfname,$maxname,$canupfile,$antispam,$max_key,$rand_key,$max_upfile_size,$smile,$smiles,$valid_types,$datadir,$flashupload,$id,$antispam2012v;
 
-//Проверка ЗАПРЕТА IP-пользователя на добавление объявлений (файл bad_ip.dat)
-$ip=$_SERVER['REMOTE_ADDR']; // определяем IP юзера
+//РџСЂРѕРІРµСЂРєР° Р—РђРџР Р•РўРђ IP-РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РЅР° РґРѕР±Р°РІР»РµРЅРёРµ РѕР±СЉСЏРІР»РµРЅРёР№ (С„Р°Р№Р» bad_ip.dat)
+$ip=$_SERVER['REMOTE_ADDR']; // РѕРїСЂРµРґРµР»СЏРµРј IP СЋР·РµСЂР°
 if (is_file("$datadir/bad_ip.dat")) { $lines=file("$datadir/bad_ip.dat"); $i=count($lines);
 if ($i>0) {do {$i--; $idt=explode("|", $lines[$i]);
-   if ($idt[0]===$ip) exit("<TR><TD colspan=2><center><br><br><B>Админитратор заблокировал для Вашего IP: $ip<br> возможность добавлять что-либо по следующей причине:<br><br> <font color=red><B>$idt[1].</B></font><br><br>Вам разрешено просматривать фотоальбом,<br> а вот ДОБАВЛЯТЬ разделы и фотографии категорически ЗАПРЕЩЕНО!</B><br><br><br><br>");
+   if ($idt[0]===$ip) exit("<TR><TD colspan=2><center><br><br><B>РђРґРјРёРЅРёС‚СЂР°С‚РѕСЂ Р·Р°Р±Р»РѕРєРёСЂРѕРІР°Р» РґР»СЏ Р’Р°С€РµРіРѕ IP: $ip<br> РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ РґРѕР±Р°РІР»СЏС‚СЊ С‡С‚Рѕ-Р»РёР±Рѕ РїРѕ СЃР»РµРґСѓСЋС‰РµР№ РїСЂРёС‡РёРЅРµ:<br><br> <font color=red><B>$idt[1].</B></font><br><br>Р’Р°Рј СЂР°Р·СЂРµС€РµРЅРѕ РїСЂРѕСЃРјР°С‚СЂРёРІР°С‚СЊ С„РѕС‚РѕР°Р»СЊР±РѕРј,<br> Р° РІРѕС‚ Р”РћР‘РђР’Р›РЇРўР¬ СЂР°Р·РґРµР»С‹ Рё С„РѕС‚РѕРіСЂР°С„РёРё РєР°С‚РµРіРѕСЂРёС‡РµСЃРєРё Р—РђРџР Р•Р©Р•РќРћ!</B><br><br><br><br>");
 } while($i > "1");} unset($lines);}
 
 $max=round($max_upfile_size/10485.76)/100;
@@ -249,25 +249,25 @@ print"<form id=\"form1\" action=\"index.php?event=addanswer\" method=\"post\" en
 $addrazdel=FALSE; if (isset($_GET['add'])) { if ($_GET['add']=="newrazdel") $addrazdel=TRUE;}
 
 if ($addrazdel==TRUE) {
-print"<TR><TD class=row1><span class=genmed><b>Выбирете ФОТО</B></span></TD><td colspan=2 class=row1 valign=top>Добавление <B>";
+print"<TR><TD class=row1><span class=genmed><b>Р’С‹Р±РёСЂРµС‚Рµ Р¤РћРўРћ</B></span></TD><td colspan=2 class=row1 valign=top>Р”РѕР±Р°РІР»РµРЅРёРµ <B>";
 foreach($valid_types as $v) print "$v, ";
-print"</B> максимально допустмый размер: <B>$max Мб.</B><br>
+print"</B> РјР°РєСЃРёРјР°Р»СЊРЅРѕ РґРѕРїСѓСЃС‚РјС‹Р№ СЂР°Р·РјРµСЂ: <B>$max РњР±.</B><br>
 <input type=file name=file class=post size=70></td></tr>";
 } // $addrazdel=FALSE
 
-// Считываем КУКИ блока ЛОГИНЗА и упрощаем жизнь тому, кто добавляет фото!
+// РЎС‡РёС‚С‹РІР°РµРј РљРЈРљР Р±Р»РѕРєР° Р›РћР“РРќР—Рђ Рё СѓРїСЂРѕС‰Р°РµРј Р¶РёР·РЅСЊ С‚РѕРјСѓ, РєС‚Рѕ РґРѕР±Р°РІР»СЏРµС‚ С„РѕС‚Рѕ!
 if (isset($_COOKIE['wrfotocookies'])) {$wrfc=$_COOKIE['wrfotocookies']; $wrfc=replacer($wrfc); $wrfc=explode("|", $wrfc); $name=$wrfc[0]; $email=$wrfc[1]; $usernum=$wrfc[2]; } else {$name=""; $email=""; $usernum="";}
 //if (isset($wrfc)) print_r($wrfc);
 
 
-print"<tr><td class=row1 width=200 height=25><span class=gen><b>Имя</b></span></td><td class=row1>
+print"<tr><td class=row1 width=200 height=25><span class=gen><b>РРјСЏ</b></span></td><td class=row1>
 <input type=text name=name id='txt_name' class=post value='$name' maxlength=$maxname size=65></td></tr>
 
 <tr><td class=row2 width=200 height=25><span class=gen>E-mail</span></td><td class=row2>
 <input type=text name=email id='txt_email' value='$email' class=post size=65></td></tr>
 
-<tr><td class=row1 valign=top><span class=genmed><b>Название фото (серии фото)</b><br><br>
-<small>* При добавлении нескольких фото к названию добавится порядковый номер фото в разделе.</small></td>
+<tr><td class=row1 valign=top><span class=genmed><b>РќР°Р·РІР°РЅРёРµ С„РѕС‚Рѕ (СЃРµСЂРёРё С„РѕС‚Рѕ)</b><br><br>
+<small>* РџСЂРё РґРѕР±Р°РІР»РµРЅРёРё РЅРµСЃРєРѕР»СЊРєРёС… С„РѕС‚Рѕ Рє РЅР°Р·РІР°РЅРёСЋ РґРѕР±Р°РІРёС‚СЃСЏ РїРѕСЂСЏРґРєРѕРІС‹Р№ РЅРѕРјРµСЂ С„РѕС‚Рѕ РІ СЂР°Р·РґРµР»Рµ.</small></td>
 <td class=row1 valign=top><textarea name=msg id='txt_msg' cols=62 rows=2 class=post></textarea></td></tr>";
 
 
@@ -275,7 +275,7 @@ if ($flashupload==TRUE and $addrazdel==FALSE) {
 
 $max=round($max_upfile_size/10485.76)/100;
 
-print"<tr><td class=row2 width=200 height=25><span class=gen><B>Ответьте на вопрос:</B></span></td><td class=row2>
+print"<tr><td class=row2 width=200 height=25><span class=gen><B>РћС‚РІРµС‚СЊС‚Рµ РЅР° РІРѕРїСЂРѕСЃ:</B></span></td><td class=row2>
 <input name='usernum' id='txt_usernum' class=post type='text' value='$usernum' maxlength=20 size=25> ($antispam2012v)</td></tr>";
 
 print"
@@ -299,7 +299,7 @@ post_params: {'PHPSESSID' : '".session_id()."',
 'usernum':'txt_usernum'},
 file_size_limit : '".$max." MB',
 file_types : '*.jpg;*.png;*.gif;*.jpeg;',
-file_types_description : 'Фотофайлы: ',
+file_types_description : 'Р¤РѕС‚РѕС„Р°Р№Р»С‹: ',
 file_upload_limit : 200,
 file_queue_limit : 0,
 custom_settings : {
@@ -308,7 +308,7 @@ cancelButtonId : 'btnCancel'
 },
 debug: false,
 
-// Настройки кнопки
+// РќР°СЃС‚СЂРѕР№РєРё РєРЅРѕРїРєРё
 button_image_url: 'flashupload/uploadbtn199x36.png',
 button_width: '199',
 button_height: '36',
@@ -330,40 +330,40 @@ swfu = new SWFUpload(settings)
 
 
 print"
-<TR><TD class=row1><span class=genmed><b>Выбирете ФОТО</B><br><br> *
- Подсказка: <B>допустимые типы файлов: "; foreach($valid_types as $v) print "$v, "; print"</B><br> максимально допустмый размер каждой фото: <B>$max Мб.</B><br>
+<TR><TD class=row1><span class=genmed><b>Р’С‹Р±РёСЂРµС‚Рµ Р¤РћРўРћ</B><br><br> *
+ РџРѕРґСЃРєР°Р·РєР°: <B>РґРѕРїСѓСЃС‚РёРјС‹Рµ С‚РёРїС‹ С„Р°Р№Р»РѕРІ: "; foreach($valid_types as $v) print "$v, "; print"</B><br> РјР°РєСЃРёРјР°Р»СЊРЅРѕ РґРѕРїСѓСЃС‚РјС‹Р№ СЂР°Р·РјРµСЂ РєР°Р¶РґРѕР№ С„РѕС‚Рѕ: <B>$max РњР±.</B><br>
 </span></TD><td colspan=2 class=row1 valign=top>
-<div class=\"fieldset flash\" id=\"fsUploadProgress\"><span class=\"legend\">Очередь загрузки</span></div>
-<div id=\"divStatus\">0 файлов загружено</div><div><span id=\"spanButtonPlaceHolder\"></span>
-<input id=\"btnCancel\" type=\"button\" value=\"Отменить все загрузки\" onclick=\"swfu.cancelQueue();\" disabled=\"disabled\" style=\"margin-left: 2px; font-size: 8pt; height: 29px;\" /></div>
+<div class=\"fieldset flash\" id=\"fsUploadProgress\"><span class=\"legend\">РћС‡РµСЂРµРґСЊ Р·Р°РіСЂСѓР·РєРё</span></div>
+<div id=\"divStatus\">0 С„Р°Р№Р»РѕРІ Р·Р°РіСЂСѓР¶РµРЅРѕ</div><div><span id=\"spanButtonPlaceHolder\"></span>
+<input id=\"btnCancel\" type=\"button\" value=\"РћС‚РјРµРЅРёС‚СЊ РІСЃРµ Р·Р°РіСЂСѓР·РєРё\" onclick=\"swfu.cancelQueue();\" disabled=\"disabled\" style=\"margin-left: 2px; font-size: 8pt; height: 29px;\" /></div>
 
-<!--Если у Вас возникли какие-либо проблемы с загрузкой фотографий, Вы также можете воспользоваться <a href=\"index.php?add=newrazdel&id=$id\">стандартным загрузчиком фотографий.</a>--></div>";
-} // Если включен ФЛЭШ-загрузчик
+<!--Р•СЃР»Рё Сѓ Р’Р°СЃ РІРѕР·РЅРёРєР»Рё РєР°РєРёРµ-Р»РёР±Рѕ РїСЂРѕР±Р»РµРјС‹ СЃ Р·Р°РіСЂСѓР·РєРѕР№ С„РѕС‚РѕРіСЂР°С„РёР№, Р’С‹ С‚Р°РєР¶Рµ РјРѕР¶РµС‚Рµ РІРѕСЃРїРѕР»СЊР·РѕРІР°С‚СЊСЃСЏ <a href=\"index.php?add=newrazdel&id=$id\">СЃС‚Р°РЅРґР°СЂС‚РЅС‹Рј Р·Р°РіСЂСѓР·С‡РёРєРѕРј С„РѕС‚РѕРіСЂР°С„РёР№.</a>--></div>";
+} // Р•СЃР»Рё РІРєР»СЋС‡РµРЅ Р¤Р›Р­РЁ-Р·Р°РіСЂСѓР·С‡РёРє
 
 if ($addrazdel==TRUE) {
 
-if ($antispam==TRUE) nospam(); // АНТИСПАМ !
-echo'<tr><td class=row1 colspan=2 align=center height=28><input type=submit tabindex=5 class=mainoption value=" Отправить ">&nbsp;&nbsp;&nbsp;<input type=reset tabindex=6 class=mainoption value=" Очистить "></td></tr></table></form>';}
+if ($antispam==TRUE) nospam(); // РђРќРўРРЎРџРђРњ !
+echo'<tr><td class=row1 colspan=2 align=center height=28><input type=submit tabindex=5 class=mainoption value=" РћС‚РїСЂР°РІРёС‚СЊ ">&nbsp;&nbsp;&nbsp;<input type=reset tabindex=6 class=mainoption value=" РћС‡РёСЃС‚РёС‚СЊ "></td></tr></table></form>';}
 
 echo'</tr></table></form>';
 
-return;} // КОНЕЦ функции-формы ДОБАВЛЕНИЯ ТЕМЫ/ОТВЕТА
+return;} // РљРћРќР•Р¦ С„СѓРЅРєС†РёРё-С„РѕСЂРјС‹ Р”РћР‘РђР’Р›Р•РќРРЇ РўР•РњР«/РћРўР’Р•РўРђ
 
 
 
-// Выбран ВЫХОД из галереи - очищаем куки
+// Р’С‹Р±СЂР°РЅ Р’Р«РҐРћР” РёР· РіР°Р»РµСЂРµРё - РѕС‡РёС‰Р°РµРј РєСѓРєРё
 if(isset($_GET['event'])) {if ($_GET['event']=="clearcooke") {setcookie("wrfcookies","",time()); Header("Location: $furl"); exit;}}
 
 
 
 
-// ПРАВИЛА скрипта
+// РџР РђР’РР›Рђ СЃРєСЂРёРїС‚Р°
 if(isset($_GET['rules'])) { 
-$frtname=""; $frname="Правила »";
-include("$fskin/top.html"); addtop();  // подключаем ШАПКУ
+$frtname=""; $frname="РџСЂР°РІРёР»Р° В»";
+include("$fskin/top.html"); addtop();  // РїРѕРґРєР»СЋС‡Р°РµРј РЁРђРџРљРЈ
 echo'
-<center><span class=maintitle>Правила и условия использования ФОТАЛЬБОМА</span><br><br>
-<table cellpadding=8 cellspacing=1 width=950 class=forumline><tr><th class=thHead height=25 valign=middle>Правила работы с фотоальбомом</th></tr><tr>
+<center><span class=maintitle>РџСЂР°РІРёР»Р° Рё СѓСЃР»РѕРІРёСЏ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ Р¤РћРўРђР›Р¬Р‘РћРњРђ</span><br><br>
+<table cellpadding=8 cellspacing=1 width=950 class=forumline><tr><th class=thHead height=25 valign=middle>РџСЂР°РІРёР»Р° СЂР°Р±РѕС‚С‹ СЃ С„РѕС‚РѕР°Р»СЊР±РѕРјРѕРј</th></tr><tr>
 <td class=row1><span class=gen>';
 if (is_file("$datadir/pravila.html")) include"$datadir/pravila.html";
 echo'</tr></table>';  exit; }
@@ -372,13 +372,13 @@ echo'</tr></table>';  exit; }
 
 
 
-// ФОРМА выбора рубрики для добавления фото
+// Р¤РћР РњРђ РІС‹Р±РѕСЂР° СЂСѓР±СЂРёРєРё РґР»СЏ РґРѕР±Р°РІР»РµРЅРёСЏ С„РѕС‚Рѕ
 if(isset($_GET['addfoto'])) {
-$frtname=""; $frname="Добавление разделов и фото »";
-include("$fskin/top.html"); addtop();  // подключаем ШАПКУ
+$frtname=""; $frname="Р”РѕР±Р°РІР»РµРЅРёРµ СЂР°Р·РґРµР»РѕРІ Рё С„РѕС‚Рѕ В»";
+include("$fskin/top.html"); addtop();  // РїРѕРґРєР»СЋС‡Р°РµРј РЁРђРџРљРЈ
 $mainlines=file("$datadir/wrfoto.dat"); $mmax=count($mainlines); $i=0; $kolvo=""; $cn=0;
 echo'<form action="index.php?add=newrazdel" metod=post>
-<tr class=row1><TD>Категория / Раздел:</TD><TD><SELECT name=id class=maxiinput><option>Выберите рубрику:</option>\r\n';
+<tr class=row1><TD>РљР°С‚РµРіРѕСЂРёСЏ / Р Р°Р·РґРµР»:</TD><TD><SELECT name=id class=maxiinput><option>Р’С‹Р±РµСЂРёС‚Рµ СЂСѓР±СЂРёРєСѓ:</option>\r\n';
 
 do { $dt=explode("|",$mainlines[$i]); $itogo="";
 if (is_file("data/topic$dt[0].dat"))  {
@@ -401,7 +401,7 @@ if ($kolvo!="") print"$submenu";
 $i++; $kolvo=0;
 } while($i<$mmax);
 if ($cn>0) echo'</optgroup>';
-print"</select><input type=hidden name=add value=newrazdel><INPUT type=submit value=Добавить></form>";
+print"</select><input type=hidden name=add value=newrazdel><INPUT type=submit value=Р”РѕР±Р°РІРёС‚СЊ></form>";
 exit; }
 
 
@@ -416,46 +416,46 @@ exit; }
 
 
 
-// ДОБАВЛЕНИЕ ТЕМЫ или ОТВЕТА - ШАГ 1
+// Р”РћР‘РђР’Р›Р•РќРР• РўР•РњР« РёР»Рё РћРўР’Р•РўРђ - РЁРђР“ 1
 if(isset($_GET['event'])) {
 
 
 
 if ($_GET['event']=="addanswer") {
 
-if ($stop==TRUE) exit("Временно добавление тем и сообщений приостановлено!");
+if ($stop==TRUE) exit("Р’СЂРµРјРµРЅРЅРѕ РґРѕР±Р°РІР»РµРЅРёРµ С‚РµРј Рё СЃРѕРѕР±С‰РµРЅРёР№ РїСЂРёРѕСЃС‚Р°РЅРѕРІР»РµРЅРѕ!");
 
-//Проверка ЗАПРЕТА IP-пользователя на добавление объявлений (файл bad_ip.dat)
-$ip=$_SERVER['REMOTE_ADDR']; // определяем IP юзера
+//РџСЂРѕРІРµСЂРєР° Р—РђРџР Р•РўРђ IP-РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РЅР° РґРѕР±Р°РІР»РµРЅРёРµ РѕР±СЉСЏРІР»РµРЅРёР№ (С„Р°Р№Р» bad_ip.dat)
+$ip=$_SERVER['REMOTE_ADDR']; // РѕРїСЂРµРґРµР»СЏРµРј IP СЋР·РµСЂР°
 if (is_file("$datadir/bad_ip.dat")) { $lines=file("$datadir/bad_ip.dat"); $i=count($lines);
 if ($i>0) {do {$i--; $idt=explode("|", $lines[$i]);
-   if ($idt[0]===$ip) exit("<noindex><script language='Javascript'>function reload() {location = \"$furl\"}; setTimeout('reload()', 10000);</script><center><br><br><B>Админитратор заблокировал для Вашего IP: $ip<br> возможность добавлять что-либо по следующей причине:<br><br> <font color=red><B>$idt[1].</B></font><br><br>Вам разрешено просматривать сообщения,<br> а вот ДОБАВЛЯТЬ ТЕМЫ/СООБЩЕНИЯ категорически ЗАПРЕЩЕНО!</B></noindex>");
+   if ($idt[0]===$ip) exit("<noindex><script language='Javascript'>function reload() {location = \"$furl\"}; setTimeout('reload()', 10000);</script><center><br><br><B>РђРґРјРёРЅРёС‚СЂР°С‚РѕСЂ Р·Р°Р±Р»РѕРєРёСЂРѕРІР°Р» РґР»СЏ Р’Р°С€РµРіРѕ IP: $ip<br> РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ РґРѕР±Р°РІР»СЏС‚СЊ С‡С‚Рѕ-Р»РёР±Рѕ РїРѕ СЃР»РµРґСѓСЋС‰РµР№ РїСЂРёС‡РёРЅРµ:<br><br> <font color=red><B>$idt[1].</B></font><br><br>Р’Р°Рј СЂР°Р·СЂРµС€РµРЅРѕ РїСЂРѕСЃРјР°С‚СЂРёРІР°С‚СЊ СЃРѕРѕР±С‰РµРЅРёСЏ,<br> Р° РІРѕС‚ Р”РћР‘РђР’Р›РЇРўР¬ РўР•РњР«/РЎРћРћР‘Р©Р•РќРРЇ РєР°С‚РµРіРѕСЂРёС‡РµСЃРєРё Р—РђРџР Р•Р©Р•РќРћ!</B></noindex>");
 } while($i > "1");} unset($lines);}
 
 if (isset($_GET['id'])) $id=$_GET['id']; if ((!ctype_digit($id)) or (strlen($id)!=7)) exit();
 $fid=substr($id,0,3);
 
-// Считываем данные: автор, емайл, описание, защитный код
+// РЎС‡РёС‚С‹РІР°РµРј РґР°РЅРЅС‹Рµ: Р°РІС‚РѕСЂ, РµРјР°Р№Р», РѕРїРёСЃР°РЅРёРµ, Р·Р°С‰РёС‚РЅС‹Р№ РєРѕРґ
 if (isset($_POST['email'])) $email=replacer($_POST['email']); else $email="";
 if (isset($_POST['name'])) $name=replacer($_POST['name']); else $name="";
 if (isset($_POST['msg'])) $msg=replacer($_POST['msg']); else $msg="";
 if (isset($_POST['usernum'])) $usernum=replacer($_POST['usernum']); else $usernum="";
 
-// Заменяем символ | чтобы не повредилась структура данных
+// Р—Р°РјРµРЅСЏРµРј СЃРёРјРІРѕР» | С‡С‚РѕР±С‹ РЅРµ РїРѕРІСЂРµРґРёР»Р°СЃСЊ СЃС‚СЂСѓРєС‚СѓСЂР° РґР°РЅРЅС‹С…
 $name=str_replace("|","&#124;",$name); $email=str_replace("|","&#124;",$email); $msg=str_replace("|","&#124;",$msg);
 
-//--А-Н-Т-И-С-П-А-М--проверка кода--
+//--Рђ-Рќ-Рў-Р-РЎ-Рџ-Рђ-Рњ--РїСЂРѕРІРµСЂРєР° РєРѕРґР°--
 if ($antispam2012==TRUE) {if (strtolower($antispam2012o)!=strtolower($usernum) or strlen($usernum)<1) 
-{header("HTTP/1.1 500 File Upload Error"); exit("введите имя и/или описание фото!");}}
+{header("HTTP/1.1 500 File Upload Error"); exit("РІРІРµРґРёС‚Рµ РёРјСЏ Рё/РёР»Рё РѕРїРёСЃР°РЅРёРµ С„РѕС‚Рѕ!");}}
 
-if (strlen($name)<1 or strlen($msg)<3) {header("HTTP/1.1 500 File Upload Error"); exit("введите имя и/или описание фото!");}
+if (strlen($name)<1 or strlen($msg)<3) {header("HTTP/1.1 500 File Upload Error"); exit("РІРІРµРґРёС‚Рµ РёРјСЏ Рё/РёР»Рё РѕРїРёСЃР°РЅРёРµ С„РѕС‚Рѕ!");}
 
-// ЕСЛИ файл не загружен или есть какакая то проблема, то ВЫВОДИМ ОШИБКУ 500
+// Р•РЎР›Р С„Р°Р№Р» РЅРµ Р·Р°РіСЂСѓР¶РµРЅ РёР»Рё РµСЃС‚СЊ РєР°РєР°РєР°СЏ С‚Рѕ РїСЂРѕР±Р»РµРјР°, С‚Рѕ Р’Р«Р’РћР”РРњ РћРЁРР‘РљРЈ 500
 if (!isset($_FILES["Filedata"]) || !is_uploaded_file($_FILES["Filedata"]["tmp_name"]) || $_FILES["Filedata"]["error"] != 0) {
 header("HTTP/1.1 500 File Upload Error"); echo $_FILES["Filedata"]["error"]; exit; }
 
 
-if (isset($_FILES)) { //если получен файл, то проверяем размер и тип файла
+if (isset($_FILES)) { //РµСЃР»Рё РїРѕР»СѓС‡РµРЅ С„Р°Р№Р», С‚Рѕ РїСЂРѕРІРµСЂСЏРµРј СЂР°Р·РјРµСЂ Рё С‚РёРї С„Р°Р№Р»Р°
 
 $ext = end(explode('.', strtolower($_FILES['Filedata']['name'])));
 if (!in_array($ext, $valid_types)) return;
@@ -464,29 +464,29 @@ if ($max_upfile_size < $_FILES['Filedata']['size']) return;
 
 if (is_uploaded_file($_FILES['Filedata']['tmp_name'])) {
 
-// Переименовываем все файлы по маске: ХХХYYYYZZZZ, где ZZZZ - случайное число.
+// РџРµСЂРµРёРјРµРЅРѕРІС‹РІР°РµРј РІСЃРµ С„Р°Р№Р»С‹ РїРѕ РјР°СЃРєРµ: РҐРҐРҐYYYYZZZZ, РіРґРµ ZZZZ - СЃР»СѓС‡Р°Р№РЅРѕРµ С‡РёСЃР»Рѕ.
 $key=mt_rand(1000,9999); $fileName = $filedir.'/'."$id$key.$ext";
 
 move_uploaded_file($_FILES['Filedata']['tmp_name'], $fileName);
 
-// Создаём миниатюрку изображения
+// РЎРѕР·РґР°С‘Рј РјРёРЅРёР°С‚СЋСЂРєСѓ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ
 $smallfoto="$filedir/sm-$id$key.jpg";
 img_resize("$fileName", "$smallfoto", $smwidth, $smheight);
 if (is_file("$datadir/$id.dat")) $idlines=file("$datadir/$id.dat"); $iid=count($idlines)+1; $msg.=" $iid";
 
 $fsize=$_FILES['Filedata']['size'];
-$fotoksize=round($fsize/1024); // размер ЗАГРУЖАЕМОГО файла в Кб.
-$size=getimagesize($fileName); // Определяем габариты файла (ШИРИНА и ВЫСОТА)
+$fotoksize=round($fsize/1024); // СЂР°Р·РјРµСЂ Р—РђР“Р РЈР–РђР•РњРћР“Рћ С„Р°Р№Р»Р° РІ РљР±.
+$size=getimagesize($fileName); // РћРїСЂРµРґРµР»СЏРµРј РіР°Р±Р°СЂРёС‚С‹ С„Р°Р№Р»Р° (РЁРР РРќРђ Рё Р’Р«РЎРћРўРђ)
 
-$date=date("d.m.y"); // число.месяц.год
-$time=date("H:i"); // часы:минуты:секунды
+$date=date("d.m.y"); // С‡РёСЃР»Рѕ.РјРµСЃСЏС†.РіРѕРґ
+$time=date("H:i"); // С‡Р°СЃС‹:РјРёРЅСѓС‚С‹:СЃРµРєСѓРЅРґС‹
 $today=time();
-$ip=$_SERVER['REMOTE_ADDR']; // определяем IP юзера
+$ip=$_SERVER['REMOTE_ADDR']; // РѕРїСЂРµРґРµР»СЏРµРј IP СЋР·РµСЂР°
 $fileName=str_replace("$filedir/",'',$fileName);
 if (!is_file("$smallfoto")) $smallfoto=$fileName;
 $smallfoto=str_replace("$filedir/",'',$smallfoto);
 
-//$usernum - проверять если верный код то сохранять иначе по бороде.
+//$usernum - РїСЂРѕРІРµСЂСЏС‚СЊ РµСЃР»Рё РІРµСЂРЅС‹Р№ РєРѕРґ С‚Рѕ СЃРѕС…СЂР°РЅСЏС‚СЊ РёРЅР°С‡Рµ РїРѕ Р±РѕСЂРѕРґРµ.
 
 if (!is_file("$datadir/$id.dat")) $nlines2=1; else
 {$nlinesdat=file("$datadir/$id.dat"); $nlines2=count($nlinesdat)+1; $ndt=explode("|", $nlinesdat[0]); $razdel_name=$ndt[3];}
@@ -496,7 +496,7 @@ $record="$name|$email||razdel_name|$msg|$date|$time|$id||$today|$name|razdel_nam
 $record=iconv("UTF-8","windows-1251",$record);
 $record=str_replace("razdel_name","$razdel_name",$record);
 
-if (strlen($id)==3) { // пишем данные в файл
+if (strlen($id)==3) { // РїРёС€РµРј РґР°РЅРЅС‹Рµ РІ С„Р°Р№Р»
 $fp=fopen("$datadir/topic$fid.dat","a+");
 flock ($fp,LOCK_EX);
 fputs($fp,$record);
@@ -513,24 +513,24 @@ fclose($fp);
 
 
 
-// Прибавляем +1 при каждом загруженном фото!
+// РџСЂРёР±Р°РІР»СЏРµРј +1 РїСЂРё РєР°Р¶РґРѕРј Р·Р°РіСЂСѓР¶РµРЅРЅРѕРј С„РѕС‚Рѕ!
 $realfid=null; $fotodetali=null;
 $realbase="1"; if (is_file("$datadir/wrfoto.dat")) $mainlines=file("$datadir/wrfoto.dat");
 $i=count($mainlines);
 do {$i--; $dt=explode("|", $mainlines[$i]);
-if ($dt[0]==$fid) {$realfid=$i; if ($dt[1]=="razdel") exit("$back. Данной ветки фотоальбома не существует");} // присваиваем $realfid - № п/п строки
+if ($dt[0]==$fid) {$realfid=$i; if ($dt[1]=="razdel") exit("$back. Р”Р°РЅРЅРѕР№ РІРµС‚РєРё С„РѕС‚РѕР°Р»СЊР±РѕРјР° РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚");} // РїСЂРёСЃРІР°РёРІР°РµРј $realfid - в„– Рї/Рї СЃС‚СЂРѕРєРё
 } while($i>0);
 
-if ($realbase==TRUE) { // Если подключена рабочая база, а не копия
+if ($realbase==TRUE) { // Р•СЃР»Рё РїРѕРґРєР»СЋС‡РµРЅР° СЂР°Р±РѕС‡Р°СЏ Р±Р°Р·Р°, Р° РЅРµ РєРѕРїРёСЏ
 $lines=file("$datadir/wrfoto.dat"); $max=sizeof($lines)-1;
 $dt=explode("|", $lines[$realfid]); $dt[5]++;
 $main_id="$fid$id";
 $txtdat="$dt[0]|$dt[1]|$dt[2]|$main_id|$dt[4]|$dt[5]|$smname|$date|$time|$tektime|$smzag|$dt[11]|$dt[12]||||";
 $kategory_name="$dt[1]";
-// запись данных на главную страницу
+// Р·Р°РїРёСЃСЊ РґР°РЅРЅС‹С… РЅР° РіР»Р°РІРЅСѓСЋ СЃС‚СЂР°РЅРёС†Сѓ
 $fp=fopen("$datadir/wrfoto.dat","a+");
 flock ($fp,LOCK_EX);
-ftruncate ($fp,0);//УДАЛЯЕМ СОДЕРЖИМОЕ ФАЙЛА
+ftruncate ($fp,0);//РЈР”РђР›РЇР•Рњ РЎРћР”Р•Р Р–РРњРћР• Р¤РђР™Р›Рђ
 for ($i=0;$i<=$max;$i++) {if ($i==$realfid) fputs($fp,"$txtdat\r\n"); else fputs($fp,$lines[$i]);}
 fflush ($fp);
 flock ($fp,LOCK_UN);
@@ -539,7 +539,7 @@ fclose($fp);
 
 
 
-if ($newmess==TRUE) { // запись в отдельный файл нового сообщения
+if ($newmess==TRUE) { // Р·Р°РїРёСЃСЊ РІ РѕС‚РґРµР»СЊРЅС‹Р№ С„Р°Р№Р» РЅРѕРІРѕРіРѕ СЃРѕРѕР±С‰РµРЅРёСЏ
 if (is_file("$datadir/topic$fid.dat")) $nlines=count(file("$datadir/topic$fid.dat")); else $nlines=1;
 
 $timestamp=time();
@@ -553,13 +553,13 @@ $ntext=str_replace("
 ", "<br>", $ntext);
 //$newlineexit=$ntext;
 
-// Блок проверяет, есть ли уже новое сообщение в этой теме. Если есть - отсеивает. На выходе - массив без этой строки.
+// Р‘Р»РѕРє РїСЂРѕРІРµСЂСЏРµС‚, РµСЃС‚СЊ Р»Рё СѓР¶Рµ РЅРѕРІРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ РІ СЌС‚РѕР№ С‚РµРјРµ. Р•СЃР»Рё РµСЃС‚СЊ - РѕС‚СЃРµРёРІР°РµС‚. РќР° РІС‹С…РѕРґРµ - РјР°СЃСЃРёРІ Р±РµР· СЌС‚РѕР№ СЃС‚СЂРѕРєРё.
 for ($i=0;$i<=$ni;$i++) { $ndt=explode("|",$newlines[$i]);
 if (isset($ndt[1])) {if ("$id"!=$ndt[1]) $newlineexit.="$newlines[$i]"; $i2++; } }
 
-// Записываем свежее сообщение в массив и далее сохраняем его в файл
-if ($maxzd<1) { // Если тема доступна для всех - нет ограничений по звёздам
-if ($i2>0) { // Если есть такая тема, то пишем весь массив, иначе тока строку
+// Р—Р°РїРёСЃС‹РІР°РµРј СЃРІРµР¶РµРµ СЃРѕРѕР±С‰РµРЅРёРµ РІ РјР°СЃСЃРёРІ Рё РґР°Р»РµРµ СЃРѕС…СЂР°РЅСЏРµРј РµРіРѕ РІ С„Р°Р№Р»
+if ($maxzd<1) { // Р•СЃР»Рё С‚РµРјР° РґРѕСЃС‚СѓРїРЅР° РґР»СЏ РІСЃРµС… - РЅРµС‚ РѕРіСЂР°РЅРёС‡РµРЅРёР№ РїРѕ Р·РІС‘Р·РґР°Рј
+if ($i2>0) { // Р•СЃР»Рё РµСЃС‚СЊ С‚Р°РєР°СЏ С‚РµРјР°, С‚Рѕ РїРёС€РµРј РІРµСЃСЊ РјР°СЃСЃРёРІ, РёРЅР°С‡Рµ С‚РѕРєР° СЃС‚СЂРѕРєСѓ
 $newlineexit.=$ntext;
 $fp=fopen("$newmessfile","w");
 flock ($fp,LOCK_EX);
@@ -599,10 +599,10 @@ exit(0);
 
 if ($_GET['event']=="addtopic") {
 
-if ($stop==TRUE) exit("Временно добавление тем и сообщений приостановлено!");
+if ($stop==TRUE) exit("Р’СЂРµРјРµРЅРЅРѕ РґРѕР±Р°РІР»РµРЅРёРµ С‚РµРј Рё СЃРѕРѕР±С‰РµРЅРёР№ РїСЂРёРѕСЃС‚Р°РЅРѕРІР»РµРЅРѕ!");
 
 if (isset($_POST['name'])) $name=$_POST['name'];
-$name=trim($name); // Вырезает ПРОБЕЛьные символы 
+$name=trim($name); // Р’С‹СЂРµР·Р°РµС‚ РџР РћР‘Р•Р›СЊРЅС‹Рµ СЃРёРјРІРѕР»С‹ 
 $zag=$_POST['zag']; $msg=$_POST['msg'];
 
 $fid=$_GET['id']; 
@@ -613,116 +613,116 @@ if (isset($_POST['who'])) $who=$_POST['who']; else $who="";
 if (isset($_POST['email'])) $email=$_POST['email']; else $email="";
 if (isset($_POST['page'])) $page=$_POST['page'];
 if (isset($_POST['maxzd'])) $maxzd=$_POST['maxzd']; else $maxzd="0"; if ($maxzd==null) $maxzd="0";
-if ((!ctype_digit($maxzd)) or (strlen($maxzd)>2)) exit("<B>$back. Попытка взлома по звёздам или ошибка в файле статистики</B>");
+if ((!ctype_digit($maxzd)) or (strlen($maxzd)>2)) exit("<B>$back. РџРѕРїС‹С‚РєР° РІР·Р»РѕРјР° РїРѕ Р·РІС‘Р·РґР°Рј РёР»Рё РѕС€РёР±РєР° РІ С„Р°Р№Р»Рµ СЃС‚Р°С‚РёСЃС‚РёРєРё</B>");
 
-// защита по топику fid
-if (!ctype_digit($fid) or strlen($fid)>3) exit("<B>$back. Попытка взлома через номер рубрики. Номер должен содержать только цифры и быть менее 4 символов</B>");
+// Р·Р°С‰РёС‚Р° РїРѕ С‚РѕРїРёРєСѓ fid
+if (!ctype_digit($fid) or strlen($fid)>3) exit("<B>$back. РџРѕРїС‹С‚РєР° РІР·Р»РѕРјР° С‡РµСЂРµР· РЅРѕРјРµСЂ СЂСѓР±СЂРёРєРё. РќРѕРјРµСЂ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ С‚РѕР»СЊРєРѕ С†РёС„СЂС‹ Рё Р±С‹С‚СЊ РјРµРЅРµРµ 4 СЃРёРјРІРѕР»РѕРІ</B>");
 
-//--А-Н-Т-И-С-П-А-М--проверка кода--
+//--Рђ-Рќ-Рў-Р-РЎ-Рџ-Рђ-Рњ--РїСЂРѕРІРµСЂРєР° РєРѕРґР°--
 if ($antispam==TRUE and !isset($_COOKIE['wrfcookies'])) {
-if (!isset($_POST['usernum']) or !isset($_POST['xkey']) or !isset($_POST['stime']) ) exit("данные из формы не поступили!");
+if (!isset($_POST['usernum']) or !isset($_POST['xkey']) or !isset($_POST['stime']) ) exit("РґР°РЅРЅС‹Рµ РёР· С„РѕСЂРјС‹ РЅРµ РїРѕСЃС‚СѓРїРёР»Рё!");
 $usernum=replacer($_POST['usernum']); $xkey=replacer($_POST['xkey']); $stime=replacer($_POST['stime']);
-$dopkod=mktime(0,0,0,date("m"),date("d"),date("Y")); // доп.код. Меняется каждые 24 часа
-$usertime=md5("$dopkod+$rand_key");// доп.код
+$dopkod=mktime(0,0,0,date("m"),date("d"),date("Y")); // РґРѕРї.РєРѕРґ. РњРµРЅСЏРµС‚СЃСЏ РєР°Р¶РґС‹Рµ 24 С‡Р°СЃР°
+$usertime=md5("$dopkod+$rand_key");// РґРѕРї.РєРѕРґ
 $userkey=md5("$usernum+$rand_key+$dopkod");
-if (($usertime!=$stime) or ($userkey!=$xkey)) exit("введён ОШИБОЧНЫЙ код!");}
+if (($usertime!=$stime) or ($userkey!=$xkey)) exit("РІРІРµРґС‘РЅ РћРЁРР‘РћР§РќР«Р™ РєРѕРґ!");}
 
-// проходим по всем разделам и топикам - ищем запращиваемый
-// на тот случай, если wrfoto.dat - пуст, подключаем резервную копию
+// РїСЂРѕС…РѕРґРёРј РїРѕ РІСЃРµРј СЂР°Р·РґРµР»Р°Рј Рё С‚РѕРїРёРєР°Рј - РёС‰РµРј Р·Р°РїСЂР°С‰РёРІР°РµРјС‹Р№
+// РЅР° С‚РѕС‚ СЃР»СѓС‡Р°Р№, РµСЃР»Рё wrfoto.dat - РїСѓСЃС‚, РїРѕРґРєР»СЋС‡Р°РµРј СЂРµР·РµСЂРІРЅСѓСЋ РєРѕРїРёСЋ
 
 $realbase="1"; if (is_file("$datadir/wrfoto.dat")) $mainlines=file("$datadir/wrfoto.dat");
 if (!isset($mainlines)) $datasize=0; else $datasize=sizeof($mainlines);
 if ($datasize<=0) {if (is_file("$datadir/copy.dat")) {$realbase="0"; $mainlines=file("$datadir/copy.dat"); $datasize=sizeof($mainlines);}}
-if ($datasize<=0) exit("$back. Проблемы с Базой данных, файл данных пуст - обратитесь к администратору");
+if ($datasize<=0) exit("$back. РџСЂРѕР±Р»РµРјС‹ СЃ Р‘Р°Р·РѕР№ РґР°РЅРЅС‹С…, С„Р°Р№Р» РґР°РЅРЅС‹С… РїСѓСЃС‚ - РѕР±СЂР°С‚РёС‚РµСЃСЊ Рє Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂСѓ");
 $i=count($mainlines);
 
 $realfid=null; $fotodetali=null;
 do {$i--; $dt=explode("|", $mainlines[$i]);
-if ($dt[0]==$fid) {$realfid=$i; if ($dt[1]=="razdel") exit("$back. Данной ветки фотоальбома не существует");} // присваиваем $realfid - № п/п строки
+if ($dt[0]==$fid) {$realfid=$i; if ($dt[1]=="razdel") exit("$back. Р”Р°РЅРЅРѕР№ РІРµС‚РєРё С„РѕС‚РѕР°Р»СЊР±РѕРјР° РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚");} // РїСЂРёСЃРІР°РёРІР°РµРј $realfid - в„– Рї/Рї СЃС‚СЂРѕРєРё
 } while($i>0);
 
-if (!isset($realfid)) exit("$back. Ошибка с номером рубрики. Она не существует в базе");
+if (!isset($realfid)) exit("$back. РћС€РёР±РєР° СЃ РЅРѕРјРµСЂРѕРј СЂСѓР±СЂРёРєРё. РћРЅР° РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚ РІ Р±Р°Р·Рµ");
 
 $dt=explode("|",$mainlines[$realfid]);
 if (is_file("$datadir/topic$fid.dat")) {$tlines=file("$datadir/topic$fid.dat"); $tc=count($tlines)-2; $i=$tc+2; $ok=null;
-// нужно пробежаться по топику, найти тему. Если есть - нормуль, нету - значит добавление сообщений ЗАПРЕЩЕНО!
+// РЅСѓР¶РЅРѕ РїСЂРѕР±РµР¶Р°С‚СЊСЃСЏ РїРѕ С‚РѕРїРёРєСѓ, РЅР°Р№С‚Рё С‚РµРјСѓ. Р•СЃР»Рё РµСЃС‚СЊ - РЅРѕСЂРјСѓР»СЊ, РЅРµС‚Сѓ - Р·РЅР°С‡РёС‚ РґРѕР±Р°РІР»РµРЅРёРµ СЃРѕРѕР±С‰РµРЅРёР№ Р—РђРџР Р•Р©Р•РќРћ!
 if ($_GET['event']=="addanswer") {
 do {$i--; $tdt=explode("|", $tlines[$i]);
-if ($tdt[7]=="$fid$id") {$ok=1; if ($tdt[8]=="closed") exit("$back тема закрыта и добавление сообщений запрещено!"); }
+if ($tdt[7]=="$fid$id") {$ok=1; if ($tdt[8]=="closed") exit("$back С‚РµРјР° Р·Р°РєСЂС‹С‚Р° Рё РґРѕР±Р°РІР»РµРЅРёРµ СЃРѕРѕР±С‰РµРЅРёР№ Р·Р°РїСЂРµС‰РµРЅРѕ!"); }
 } while($i>0);
-if ($ok!=1) exit("$back тема закрыта и добавление сообщений запрещено!"); }
+if ($ok!=1) exit("$back С‚РµРјР° Р·Р°РєСЂС‹С‚Р° Рё РґРѕР±Р°РІР»РµРЅРёРµ СЃРѕРѕР±С‰РµРЅРёР№ Р·Р°РїСЂРµС‰РµРЅРѕ!"); }
 
 } else $tc="2";
-if ($dt[11]>0) {if ($tc>=$dt[11]) exit("$back. Превышено ограничение на кол-во допустимых тем в данной рубрике! Не более <B>$dt[11]</B> тем!");}
+if ($dt[11]>0) {if ($tc>=$dt[11]) exit("$back. РџСЂРµРІС‹С€РµРЅРѕ РѕРіСЂР°РЅРёС‡РµРЅРёРµ РЅР° РєРѕР»-РІРѕ РґРѕРїСѓСЃС‚РёРјС‹С… С‚РµРј РІ РґР°РЅРЅРѕР№ СЂСѓР±СЂРёРєРµ! РќРµ Р±РѕР»РµРµ <B>$dt[11]</B> С‚РµРј!");}
 
 print"<html><head><link rel='stylesheet' href='$fskin/style.css' type='text/css'></head><body>";
 
-if ($_GET['event']=="addtopic" and $cangutema==FALSE and !isset($wrfname)) exit("<center>Администратор запретил гостям создавать темы!</center><BR><BR>");
-if ($_GET['event']=="addanswer" and $cangumsg==FALSE and !isset($wrfname)) exit("<center>Администратор запретил гостям отвечать в темах!</center><BR><BR>");
+if ($_GET['event']=="addtopic" and $cangutema==FALSE and !isset($wrfname)) exit("<center>РђРґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂ Р·Р°РїСЂРµС‚РёР» РіРѕСЃС‚СЏРј СЃРѕР·РґР°РІР°С‚СЊ С‚РµРјС‹!</center><BR><BR>");
+if ($_GET['event']=="addanswer" and $cangumsg==FALSE and !isset($wrfname)) exit("<center>РђРґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂ Р·Р°РїСЂРµС‚РёР» РіРѕСЃС‚СЏРј РѕС‚РІРµС‡Р°С‚СЊ РІ С‚РµРјР°С…!</center><BR><BR>");
 
-// БЛОК ГЕНЕРИРУЕТ СЛЕДУЮЩИЙ ПО ПОРЯДКУ НОМЕР ТЕМЫ, начиная просмотр с 1000
-// считываем весь файл с темами в память
+// Р‘Р›РћРљ Р“Р•РќР•Р РР РЈР•Рў РЎР›Р•Р”РЈР®Р©РР™ РџРћ РџРћР РЇР”РљРЈ РќРћРњР•Р  РўР•РњР«, РЅР°С‡РёРЅР°СЏ РїСЂРѕСЃРјРѕС‚СЂ СЃ 1000
+// СЃС‡РёС‚С‹РІР°РµРј РІРµСЃСЊ С„Р°Р№Р» СЃ С‚РµРјР°РјРё РІ РїР°РјСЏС‚СЊ
 if ($_GET['event']=="addtopic") { $id=1000; $id="$fid$id";
 $allid=null; $records=file("$datadir/topic$fid.dat"); $imax=count($records); $i=$imax;
 if ($i > 0) { do {$i--; $rd=explode("|",$records[$i]); $allid[$i]=$rd[7]; } while($i>0);
-//natcasesort($allid); // сортируем по возрастанию
+//natcasesort($allid); // СЃРѕСЂС‚РёСЂСѓРµРј РїРѕ РІРѕР·СЂР°СЃС‚Р°РЅРёСЋ
 do $id++; while(in_array($id,$allid) or is_file("$datadir/$id.dat"));
 } else $id=$fid."1000"; } // if (event==addtopic)
 
-// генерируем имя файлу с темой - СТАРЫЙ механизм
+// РіРµРЅРµСЂРёСЂСѓРµРј РёРјСЏ С„Р°Р№Р»Сѓ СЃ С‚РµРјРѕР№ - РЎРўРђР Р«Р™ РјРµС…Р°РЅРёР·Рј
 //if ($_GET['event']=="addtopic") { if ($fid<10) $add="0"; else $add="";
 //do $id=mt_rand(1000,9999); while (file_exists("$datadir/$add$fid$id.dat"));
 //$id="$add$fid$id"; }
 
-if (!isset($_FILES['file']['name'])) exit("Сделайте выбор файла для загрузки!");
+if (!isset($_FILES['file']['name'])) exit("РЎРґРµР»Р°Р№С‚Рµ РІС‹Р±РѕСЂ С„Р°Р№Р»Р° РґР»СЏ Р·Р°РіСЂСѓР·РєРё!");
 
-if (isset($_FILES['file']['name'])) { // ЕСЛИ ДОБАВЛЯЕМ ФАЙЛ
+if (isset($_FILES['file']['name'])) { // Р•РЎР›Р Р”РћР‘РђР’Р›РЇР•Рњ Р¤РђР™Р›
 $fotoname=replacer($_FILES['file']['name']); 
-if (strlen($fotoname)<3) exit("ОШИБКА загрузки файла! Введите имя файла или сделайте выбор другого файла!");
-else { $fotosize=$_FILES['file']['size']; // Имя и размер файла
+if (strlen($fotoname)<3) exit("РћРЁРР‘РљРђ Р·Р°РіСЂСѓР·РєРё С„Р°Р№Р»Р°! Р’РІРµРґРёС‚Рµ РёРјСЏ С„Р°Р№Р»Р° РёР»Рё СЃРґРµР»Р°Р№С‚Рµ РІС‹Р±РѕСЂ РґСЂСѓРіРѕРіРѕ С„Р°Р№Р»Р°!");
+else { $fotosize=$_FILES['file']['size']; // РРјСЏ Рё СЂР°Р·РјРµСЂ С„Р°Р№Р»Р°
 
-//---- ЗАЩИТЫ от ВЗЛОМА -----
+//---- Р—РђР©РРўР« РѕС‚ Р’Р—Р›РћРњРђ -----
 
-// 1. Проверяем РАСШИРЕНИЕ
+// 1. РџСЂРѕРІРµСЂСЏРµРј Р РђРЎРЁРР Р•РќРР•
 $ext = strtolower(substr($fotoname, 1 + strrpos($fotoname, ".")));
-if (!in_array($ext, $valid_types)) {echo "<B>ФАЙЛ НЕ загружен.</B> Возможные причины:<BR>
-- разрешена загрузка только файлов с такими расширениями: <B>";
+if (!in_array($ext, $valid_types)) {echo "<B>Р¤РђР™Р› РќР• Р·Р°РіСЂСѓР¶РµРЅ.</B> Р’РѕР·РјРѕР¶РЅС‹Рµ РїСЂРёС‡РёРЅС‹:<BR>
+- СЂР°Р·СЂРµС€РµРЅР° Р·Р°РіСЂСѓР·РєР° С‚РѕР»СЊРєРѕ С„Р°Р№Р»РѕРІ СЃ С‚Р°РєРёРјРё СЂР°СЃС€РёСЂРµРЅРёСЏРјРё: <B>";
 $patern=""; foreach($valid_types as $v) print"$v, ";
 print"</B><BR>
-- Вы пытаетесь загрузить файл с двойным расширением;<BR>
-- неверно введён адрес или выбран испорченный файл;</B><BR>"; exit;}
+- Р’С‹ РїС‹С‚Р°РµС‚РµСЃСЊ Р·Р°РіСЂСѓР·РёС‚СЊ С„Р°Р№Р» СЃ РґРІРѕР№РЅС‹Рј СЂР°СЃС€РёСЂРµРЅРёРµРј;<BR>
+- РЅРµРІРµСЂРЅРѕ РІРІРµРґС‘РЅ Р°РґСЂРµСЃ РёР»Рё РІС‹Р±СЂР°РЅ РёСЃРїРѕСЂС‡РµРЅРЅС‹Р№ С„Р°Р№Р»;</B><BR>"; exit;}
 
-// 2. считаем КОЛ-ВО ТОЧЕК в выражении - если большей одной - СВОБОДЕН!
-$findtchka=substr_count($fotoname, "."); if ($findtchka>1) exit("ТОЧКА встречается в имени файла $findtchka раз(а). Это ЗАПРЕЩЕНО! <BR>\r\n");
+// 2. СЃС‡РёС‚Р°РµРј РљРћР›-Р’Рћ РўРћР§Р•Рљ РІ РІС‹СЂР°Р¶РµРЅРёРё - РµСЃР»Рё Р±РѕР»СЊС€РµР№ РѕРґРЅРѕР№ - РЎР’РћР‘РћР”Р•Рќ!
+$findtchka=substr_count($fotoname, "."); if ($findtchka>1) exit("РўРћР§РљРђ РІСЃС‚СЂРµС‡Р°РµС‚СЃСЏ РІ РёРјРµРЅРё С„Р°Р№Р»Р° $findtchka СЂР°Р·(Р°). Р­С‚Рѕ Р—РђРџР Р•Р©Р•РќРћ! <BR>\r\n");
 
-// 3. если в имени есть .php, .html, .htm - свободен! 
-$bag="Извините, но в имени ФАйла <B>запрещено</B> использовать .php, .html, .htm";
-if (preg_match("/\.php/i",$fotoname)) exit("Вхождение <B>.php</B> найдено. $bag");
-if (preg_match("/\.html/i",$fotoname)) exit("Вхождение <B>.html</B> найдено. $bag");
-if (preg_match("/\.htm/i",$fotoname)) exit("Вхождение <B>.htm</B> найдено. $bag");
+// 3. РµСЃР»Рё РІ РёРјРµРЅРё РµСЃС‚СЊ .php, .html, .htm - СЃРІРѕР±РѕРґРµРЅ! 
+$bag="РР·РІРёРЅРёС‚Рµ, РЅРѕ РІ РёРјРµРЅРё Р¤РђР№Р»Р° <B>Р·Р°РїСЂРµС‰РµРЅРѕ</B> РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ .php, .html, .htm";
+if (preg_match("/\.php/i",$fotoname)) exit("Р’С…РѕР¶РґРµРЅРёРµ <B>.php</B> РЅР°Р№РґРµРЅРѕ. $bag");
+if (preg_match("/\.html/i",$fotoname)) exit("Р’С…РѕР¶РґРµРЅРёРµ <B>.html</B> РЅР°Р№РґРµРЅРѕ. $bag");
+if (preg_match("/\.htm/i",$fotoname)) exit("Р’С…РѕР¶РґРµРЅРёРµ <B>.htm</B> РЅР°Р№РґРµРЅРѕ. $bag");
 
-// 4. Размер файла
-$fotoksize=round($fotosize/1024); // размер ЗАГРУЖАЕМОГО файла в Кб.
-$fotomax=round($max_upfile_size/1024); // максимальный размер файла в Кб.
-if ($fotoksize>$fotomax) exit("Вы превысили допустимый размер файла! <BR><B>Максимально допустимый</B> размер: <B>$fotomax </B>Кб.<BR> <B>Вы пытаетесь</B> загрузить файл размером: <B>$fotoksize</B> Кб!");
+// 4. Р Р°Р·РјРµСЂ С„Р°Р№Р»Р°
+$fotoksize=round($fotosize/1024); // СЂР°Р·РјРµСЂ Р—РђР“Р РЈР–РђР•РњРћР“Рћ С„Р°Р№Р»Р° РІ РљР±.
+$fotomax=round($max_upfile_size/1024); // РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ СЂР°Р·РјРµСЂ С„Р°Р№Р»Р° РІ РљР±.
+if ($fotoksize>$fotomax) exit("Р’С‹ РїСЂРµРІС‹СЃРёР»Рё РґРѕРїСѓСЃС‚РёРјС‹Р№ СЂР°Р·РјРµСЂ С„Р°Р№Р»Р°! <BR><B>РњР°РєСЃРёРјР°Р»СЊРЅРѕ РґРѕРїСѓСЃС‚РёРјС‹Р№</B> СЂР°Р·РјРµСЂ: <B>$fotomax </B>РљР±.<BR> <B>Р’С‹ РїС‹С‚Р°РµС‚РµСЃСЊ</B> Р·Р°РіСЂСѓР·РёС‚СЊ С„Р°Р№Р» СЂР°Р·РјРµСЂРѕРј: <B>$fotoksize</B> РљР±!");
 
-// ЕСЛИ включен порядок присвоения файлу случайного имени при загрузке - генерируем случайное имя
+// Р•РЎР›Р РІРєР»СЋС‡РµРЅ РїРѕСЂСЏРґРѕРє РїСЂРёСЃРІРѕРµРЅРёСЏ С„Р°Р№Р»Сѓ СЃР»СѓС‡Р°Р№РЅРѕРіРѕ РёРјРµРЅРё РїСЂРё Р·Р°РіСЂСѓР·РєРµ - РіРµРЅРµСЂРёСЂСѓРµРј СЃР»СѓС‡Р°Р№РЅРѕРµ РёРјСЏ
 if ($_GET['event']!="addtopic") $numb="$fid$id"; else $numb=$id;
 do $key=mt_rand(1000,9999); while (file_exists("$filedir/$numb$key.$ext")); $fotoname="$numb$key.$ext";
 
-if (copy($_FILES['file']['tmp_name'], $filedir."/".$fotoname)) {print "<br><br>Файл УСПЕШНО загружен: $fotoname (Размер: $fotosize байт)"; $fotodetali="1|$fotoname|$fotosize|";}
-else echo "ОШИБКА загрузки файла - $fotoname...\n"; }}
+if (copy($_FILES['file']['tmp_name'], $filedir."/".$fotoname)) {print "<br><br>Р¤Р°Р№Р» РЈРЎРџР•РЁРќРћ Р·Р°РіСЂСѓР¶РµРЅ: $fotoname (Р Р°Р·РјРµСЂ: $fotosize Р±Р°Р№С‚)"; $fotodetali="1|$fotoname|$fotosize|";}
+else echo "РћРЁРР‘РљРђ Р·Р°РіСЂСѓР·РєРё С„Р°Р№Р»Р° - $fotoname...\n"; }}
 
-// Проверяем размер фото. Если "габариты" меньше заданный в админке 150 х 120 - то ничего с ним не делаем
-// блок делает мальное изображение исходной фотки - в качестве превьюшки
+// РџСЂРѕРІРµСЂСЏРµРј СЂР°Р·РјРµСЂ С„РѕС‚Рѕ. Р•СЃР»Рё "РіР°Р±Р°СЂРёС‚С‹" РјРµРЅСЊС€Рµ Р·Р°РґР°РЅРЅС‹Р№ РІ Р°РґРјРёРЅРєРµ 150 С… 120 - С‚Рѕ РЅРёС‡РµРіРѕ СЃ РЅРёРј РЅРµ РґРµР»Р°РµРј
+// Р±Р»РѕРє РґРµР»Р°РµС‚ РјР°Р»СЊРЅРѕРµ РёР·РѕР±СЂР°Р¶РµРЅРёРµ РёСЃС…РѕРґРЅРѕР№ С„РѕС‚РєРё - РІ РєР°С‡РµСЃС‚РІРµ РїСЂРµРІСЊСЋС€РєРё
 $size=getimagesize($_FILES['file']['tmp_name']);
 if ($size[0]>$smwidth or $size[1]>$smheight) {
 $smallfoto="sm-$fotoname";
-if (img_resize("$filedir/$fotoname", "$filedir/$smallfoto", $smwidth, $smheight))  echo 'Изображение масштабировано <B>успешно</B>.'; else  echo '<font color=red><B>Ошибка МАСШАБИРОВАНИЯ фото! Поблемы с GD-библиотекой!</B></font> Обратитесь к Администратору';
+if (img_resize("$filedir/$fotoname", "$filedir/$smallfoto", $smwidth, $smheight))  echo 'РР·РѕР±СЂР°Р¶РµРЅРёРµ РјР°СЃС€С‚Р°Р±РёСЂРѕРІР°РЅРѕ <B>СѓСЃРїРµС€РЅРѕ</B>.'; else  echo '<font color=red><B>РћС€РёР±РєР° РњРђРЎРЁРђР‘РР РћР’РђРќРРЇ С„РѕС‚Рѕ! РџРѕР±Р»РµРјС‹ СЃ GD-Р±РёР±Р»РёРѕС‚РµРєРѕР№!</B></font> РћР±СЂР°С‚РёС‚РµСЃСЊ Рє РђРґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂСѓ';
 } else $smallfoto="$fotoname";
 
 $tektime=time();
-$name=wordwrap($name,30,' ',1); // разрываем длинные строки
+$name=wordwrap($name,30,' ',1); // СЂР°Р·СЂС‹РІР°РµРј РґР»РёРЅРЅС‹Рµ СЃС‚СЂРѕРєРё
 $zag=wordwrap($zag,50,' ',1);
 $name=str_replace("|","I",$name);
 $who=str_replace("|","&#124;",$who);
@@ -733,53 +733,53 @@ $msg=str_replace("|","&#124;",$msg);
 $smname=$name; if (strlen($name)>18) {$smname=substr($name,0,18); $smname.="..";}
 $smzag=$zag; if (strlen($zag)>24) {$smzag=substr($zag,0,24); $smzag.="..";}
 
-if (strlen($id)>8) exit("<B>$back. Номер темы должен быть числом. Критическая ошибка скрипта или попытка взлома</B>");
-if (strlen(ltrim($zag))<3) exit("$back ! Ошибка в вводе данных заголовка!");
+if (strlen($id)>8) exit("<B>$back. РќРѕРјРµСЂ С‚РµРјС‹ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ С‡РёСЃР»РѕРј. РљСЂРёС‚РёС‡РµСЃРєР°СЏ РѕС€РёР±РєР° СЃРєСЂРёРїС‚Р° РёР»Рё РїРѕРїС‹С‚РєР° РІР·Р»РѕРјР°</B>");
+if (strlen(ltrim($zag))<3) exit("$back ! РћС€РёР±РєР° РІ РІРІРѕРґРµ РґР°РЅРЅС‹С… Р·Р°РіРѕР»РѕРІРєР°!");
 
-$ip=$_SERVER['REMOTE_ADDR']; // определяем IP юзера
+$ip=$_SERVER['REMOTE_ADDR']; // РѕРїСЂРµРґРµР»СЏРµРј IP СЋР·РµСЂР°
 $text="$name|$email|$who|$zag|$msg|$date|$time|$id||$tektime|$smname|$smzag|$fotodetali|$ip|$smallfoto|$size[0]|$size[1]|$fotoksize|||||";
 $text=replacer($text); $exd=explode("|",$text); 
 $name=$exd[0]; $zag=$exd[3]; $smname=$exd[10]; $smzag=$exd[11]; $smmsg=$exd[4];
 
-if (!isset($name) || strlen($name) > $maxname || strlen($name) <1) exit("$back Ваше <B>Имя пустое, или превышает $maxname</B> символов!</B></center>");
-if (preg_match("/[^(\\w)| |(\\x7F-\\xFF)|(\\-)]/",$name)) exit("$back Ваше имя содержит запрещённые символы. Разрешены русские и английские буквы, цифры, подчёркивание и тире.");
-if (strlen(ltrim($zag))<3 || strlen($zag) > $maxzag) exit("$back Слишком короткое название темы или <B>название превышает $maxzag</B> символов!</B></center>");
-if (strlen(ltrim($msg))<2 || strlen($msg) > $maxmsg) exit("$back Ваше <B>сообщение короткое или превышает $maxmsg</B> символов.</B></center>");
-if (!preg_match('/^([0-9a-zA-Z]([-.w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-w]*[0-9a-zA-Z].)+[a-zA-Z]{2,9})$/si',$email) and strlen($email)>30 and $email!="") exit("$back и введите корректный E-mail адрес!</B></center>");
+if (!isset($name) || strlen($name) > $maxname || strlen($name) <1) exit("$back Р’Р°С€Рµ <B>РРјСЏ РїСѓСЃС‚РѕРµ, РёР»Рё РїСЂРµРІС‹С€Р°РµС‚ $maxname</B> СЃРёРјРІРѕР»РѕРІ!</B></center>");
+if (preg_match("/[^(\\w)| |(\\x7F-\\xFF)|(\\-)]/",$name)) exit("$back Р’Р°С€Рµ РёРјСЏ СЃРѕРґРµСЂР¶РёС‚ Р·Р°РїСЂРµС‰С‘РЅРЅС‹Рµ СЃРёРјРІРѕР»С‹. Р Р°Р·СЂРµС€РµРЅС‹ СЂСѓСЃСЃРєРёРµ Рё Р°РЅРіР»РёР№СЃРєРёРµ Р±СѓРєРІС‹, С†РёС„СЂС‹, РїРѕРґС‡С‘СЂРєРёРІР°РЅРёРµ Рё С‚РёСЂРµ.");
+if (strlen(ltrim($zag))<3 || strlen($zag) > $maxzag) exit("$back РЎР»РёС€РєРѕРј РєРѕСЂРѕС‚РєРѕРµ РЅР°Р·РІР°РЅРёРµ С‚РµРјС‹ РёР»Рё <B>РЅР°Р·РІР°РЅРёРµ РїСЂРµРІС‹С€Р°РµС‚ $maxzag</B> СЃРёРјРІРѕР»РѕРІ!</B></center>");
+if (strlen(ltrim($msg))<2 || strlen($msg) > $maxmsg) exit("$back Р’Р°С€Рµ <B>СЃРѕРѕР±С‰РµРЅРёРµ РєРѕСЂРѕС‚РєРѕРµ РёР»Рё РїСЂРµРІС‹С€Р°РµС‚ $maxmsg</B> СЃРёРјРІРѕР»РѕРІ.</B></center>");
+if (!preg_match('/^([0-9a-zA-Z]([-.w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-w]*[0-9a-zA-Z].)+[a-zA-Z]{2,9})$/si',$email) and strlen($email)>30 and $email!="") exit("$back Рё РІРІРµРґРёС‚Рµ РєРѕСЂСЂРµРєС‚РЅС‹Р№ E-mail Р°РґСЂРµСЃ!</B></center>");
 
-// функция АНТИФЛУД здесь - повторное добавление сообщения/темы запрещено!
+// С„СѓРЅРєС†РёСЏ РђРќРўРР¤Р›РЈР” Р·РґРµСЃСЊ - РїРѕРІС‚РѕСЂРЅРѕРµ РґРѕР±Р°РІР»РµРЅРёРµ СЃРѕРѕР±С‰РµРЅРёСЏ/С‚РµРјС‹ Р·Р°РїСЂРµС‰РµРЅРѕ!
 if (isset($tlines)) {
 if ($tc<"-1") {$sdt[0]=null; $sdt[3]=null;} else {$last=$tlines[$tc+1]; $sdt=explode("|",$last);}
 
-if ($_GET['event'] =="addtopic")  { // ЕСЛИ добавление ТЕМЫ: имя = имя в файле, тема = последняя тема в файле
-if ($name==$sdt[0] and $exd[3]==$sdt[3]) exit("$back. Такая тема уже создана. Спамить на форуме запрещено!");
+if ($_GET['event'] =="addtopic")  { // Р•РЎР›Р РґРѕР±Р°РІР»РµРЅРёРµ РўР•РњР«: РёРјСЏ = РёРјСЏ РІ С„Р°Р№Р»Рµ, С‚РµРјР° = РїРѕСЃР»РµРґРЅСЏСЏ С‚РµРјР° РІ С„Р°Р№Р»Рµ
+if ($name==$sdt[0] and $exd[3]==$sdt[3]) exit("$back. РўР°РєР°СЏ С‚РµРјР° СѓР¶Рµ СЃРѕР·РґР°РЅР°. РЎРїР°РјРёС‚СЊ РЅР° С„РѕСЂСѓРјРµ Р·Р°РїСЂРµС‰РµРЅРѕ!");
 
-} else { // ЕСЛИ добавление сообщения: имя = имя в файле, сообщение = последнему сообщению в файле
+} else { // Р•РЎР›Р РґРѕР±Р°РІР»РµРЅРёРµ СЃРѕРѕР±С‰РµРЅРёСЏ: РёРјСЏ = РёРјСЏ РІ С„Р°Р№Р»Рµ, СЃРѕРѕР±С‰РµРЅРёРµ = РїРѕСЃР»РµРґРЅРµРјСѓ СЃРѕРѕР±С‰РµРЅРёСЋ РІ С„Р°Р№Р»Рµ
 if (is_file("$datadir/$fid$id.dat")) {$linesn=file("$datadir/$fid$id.dat"); $in=count($linesn)-1;
 if ($in > 0) { $dtf=explode("|",$linesn[$in]);
-if ($name==$dtf[0] and $exd[4]==$dtf[4]) exit("$back. Такое сообщение уже размещено в данной теме. Спамить на форуме запрещено!");}
+if ($name==$dtf[0] and $exd[4]==$dtf[4]) exit("$back. РўР°РєРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ СѓР¶Рµ СЂР°Р·РјРµС‰РµРЅРѕ РІ РґР°РЅРЅРѕР№ С‚РµРјРµ. РЎРїР°РјРёС‚СЊ РЅР° С„РѕСЂСѓРјРµ Р·Р°РїСЂРµС‰РµРЅРѕ!");}
 }
 }} // if $event=="addtopic"
 
 
 $razdelname="";
-if ($realbase==TRUE and $maxzd<1) { // Если подключена рабочая база, а не копия
+if ($realbase==TRUE and $maxzd<1) { // Р•СЃР»Рё РїРѕРґРєР»СЋС‡РµРЅР° СЂР°Р±РѕС‡Р°СЏ Р±Р°Р·Р°, Р° РЅРµ РєРѕРїРёСЏ
 $lines=file("$datadir/wrfoto.dat"); $max=sizeof($lines)-1;
 $dt=explode("|", $lines[$realfid]); $dt[5]++;
 if ($_GET['event']=="addtopic") {$main_id="$id"; $dt[4]++;} else $main_id="$fid$id";
 $txtdat="$dt[0]|$dt[1]|$dt[2]|$main_id|$dt[4]|$dt[5]|$smname|$date|$time|$tektime|$smzag|$dt[11]|$dt[12]||||";
 $razdelname=$dt[1];
-// запись данных на главную страницу
+// Р·Р°РїРёСЃСЊ РґР°РЅРЅС‹С… РЅР° РіР»Р°РІРЅСѓСЋ СЃС‚СЂР°РЅРёС†Сѓ
 $fp=fopen("$datadir/wrfoto.dat","a+");
 flock ($fp,LOCK_EX);
-ftruncate ($fp,0);//УДАЛЯЕМ СОДЕРЖИМОЕ ФАЙЛА
+ftruncate ($fp,0);//РЈР”РђР›РЇР•Рњ РЎРћР”Р•Р Р–РРњРћР• Р¤РђР™Р›Рђ
 for ($i=0;$i<=$max;$i++) {if ($i==$realfid) fputs($fp,"$txtdat\r\n"); else fputs($fp,$lines[$i]);}
 fflush ($fp);
 flock ($fp,LOCK_UN);
 fclose($fp);
 } // if ($realbase==TRUE)
 
-if ($newmess==TRUE and $maxzd<1) { // запись в отдельный файл нового сообщения
+if ($newmess==TRUE and $maxzd<1) { // Р·Р°РїРёСЃСЊ РІ РѕС‚РґРµР»СЊРЅС‹Р№ С„Р°Р№Р» РЅРѕРІРѕРіРѕ СЃРѕРѕР±С‰РµРЅРёСЏ
 if (is_file("$datadir/topic$fid.dat")) $nlines=count(file("$datadir/topic$fid.dat")); else $nlines=1;
 
 if (is_file("$datadir/$fid$id.dat")) $nlines2=count(file("$datadir/$fid$id.dat"))+1; else $nlines2=1;
@@ -791,13 +791,13 @@ $ntext="$fid|$main_id|$date|$time|$smname|$zag|$msg|$nlines|$nlines2|$razdelname
 $ntext=str_replace("
 ", "<br>", $ntext);
 
-// Блок проверяет, есть ли уже новое сообщение в этой теме. Если есть - отсеивает. На выходе - массив без этой строки.
+// Р‘Р»РѕРє РїСЂРѕРІРµСЂСЏРµС‚, РµСЃС‚СЊ Р»Рё СѓР¶Рµ РЅРѕРІРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ РІ СЌС‚РѕР№ С‚РµРјРµ. Р•СЃР»Рё РµСЃС‚СЊ - РѕС‚СЃРµРёРІР°РµС‚. РќР° РІС‹С…РѕРґРµ - РјР°СЃСЃРёРІ Р±РµР· СЌС‚РѕР№ СЃС‚СЂРѕРєРё.
 for ($i=0;$i<=$ni;$i++) { $ndt=explode("|",$newlines[$i]);
 if (isset($ndt[1])) {if ("$fid$id"!=$ndt[1]) $newlineexit.="$newlines[$i]"; $i2++; } }
 
-// Записываем свежее сообщение в массив и далее сохраняем его в файл
-if ($maxzd<1) { // Если тема доступна для всех - нет ограничений по звёздам
-if ($i2>0) { // Если есть такая тема, то пишем весь массив, иначе тока строку
+// Р—Р°РїРёСЃС‹РІР°РµРј СЃРІРµР¶РµРµ СЃРѕРѕР±С‰РµРЅРёРµ РІ РјР°СЃСЃРёРІ Рё РґР°Р»РµРµ СЃРѕС…СЂР°РЅСЏРµРј РµРіРѕ РІ С„Р°Р№Р»
+if ($maxzd<1) { // Р•СЃР»Рё С‚РµРјР° РґРѕСЃС‚СѓРїРЅР° РґР»СЏ РІСЃРµС… - РЅРµС‚ РѕРіСЂР°РЅРёС‡РµРЅРёР№ РїРѕ Р·РІС‘Р·РґР°Рј
+if ($i2>0) { // Р•СЃР»Рё РµСЃС‚СЊ С‚Р°РєР°СЏ С‚РµРјР°, С‚Рѕ РїРёС€РµРј РІРµСЃСЊ РјР°СЃСЃРёРІ, РёРЅР°С‡Рµ С‚РѕРєР° СЃС‚СЂРѕРєСѓ
 $newlineexit.=$ntext;
 $fp=fopen("$newmessfile","w");
 flock ($fp,LOCK_EX);
@@ -830,8 +830,8 @@ fclose($fp);}
 
 
 
-if ($_GET['event'] =="addtopic")  { // Добавление ТЕМЫ - запись данных
-// Пишем В ТОПИК
+if ($_GET['event'] =="addtopic")  { // Р”РѕР±Р°РІР»РµРЅРёРµ РўР•РњР« - Р·Р°РїРёСЃСЊ РґР°РЅРЅС‹С…
+// РџРёС€РµРј Р’ РўРћРџРРљ
 $fp=fopen("$datadir/topic$fid.dat","a+");
 flock ($fp,LOCK_EX);
 fputs($fp,"$text\r\n");
@@ -839,7 +839,7 @@ fflush ($fp);
 flock ($fp,LOCK_UN);
 fclose($fp);
 
-// Пишем В ТЕМУ
+// РџРёС€РµРј Р’ РўР•РњРЈ
 $fp=fopen("$datadir/$id.dat","a+");
 flock ($fp,LOCK_EX);
 fputs($fp,"$text\r\n");
@@ -849,15 +849,15 @@ fclose($fp);
 
 print "<script language='Javascript'>function reload() {location = \"index.php?id=$id\"}; setTimeout('reload()', 1500);</script>
 <table width=100% height=80%><tr><td><table border=1 cellpadding=10 cellspacing=0 bordercolor=#224488 align=center valign=center width=60%><tr><td><center>
-Спасибо, <B>$name</B>, за добавление темы!<BR><BR>Через несколько секунд Вы будете автоматически перемещены в созданную тему.<BR><BR>
-<B><a href='index.php?id=$id'>ДАЛЬШЕ >>></a></B></td></tr></table></td></tr></table></center></body></html>";
+РЎРїР°СЃРёР±Рѕ, <B>$name</B>, Р·Р° РґРѕР±Р°РІР»РµРЅРёРµ С‚РµРјС‹!<BR><BR>Р§РµСЂРµР· РЅРµСЃРєРѕР»СЊРєРѕ СЃРµРєСѓРЅРґ Р’С‹ Р±СѓРґРµС‚Рµ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё РїРµСЂРµРјРµС‰РµРЅС‹ РІ СЃРѕР·РґР°РЅРЅСѓСЋ С‚РµРјСѓ.<BR><BR>
+<B><a href='index.php?id=$id'>Р”РђР›Р¬РЁР• >>></a></B></td></tr></table></td></tr></table></center></body></html>";
 exit; }
 
 
 
-if ($_GET['event'] =="addanswer")  { //ОТВЕТ В ТЕМЕ - запись данных
+if ($_GET['event'] =="addanswer")  { //РћРўР’Р•Рў Р’ РўР•РњР• - Р·Р°РїРёСЃСЊ РґР°РЅРЅС‹С…
 $timetek=time(); $timefile=filemtime("$datadir/$fid$id.dat"); 
-$timer=$timetek-$timefile; // узнаем сколько прошло времени (в секундах) 
+$timer=$timetek-$timefile; // СѓР·РЅР°РµРј СЃРєРѕР»СЊРєРѕ РїСЂРѕС€Р»Рѕ РІСЂРµРјРµРЅРё (РІ СЃРµРєСѓРЅРґР°С…) 
 $fp=fopen("$datadir/$fid$id.dat","a+");
 flock ($fp,LOCK_EX);
 fputs($fp,"$text\r\n");
@@ -868,8 +868,8 @@ if ($timer<0) {$viptime=strtotime("+2 year"); touch("$datadir/$fid$id.dat",$vipt
 
 print "<script language='Javascript'>function reload() {location = \"index.php?id=$fid$id$pageadd#m$in\"}; setTimeout('reload()', 1500);</script>
 <table width=100% height=80%><tr><td><table border=1 cellpadding=10 cellspacing=0 bordercolor=#224488 align=center valign=center width=60%><tr><td><center>
-Спасибо, <B>$name</B>, Ваш ответ успешно добавлен.<BR><BR>Через несколько секунд Вы будете автоматически перемещены в текущую тему <BR><B>$zag</B>.<BR><BR>
-<B><a href='index.php?id=$fid$id$pageadd#m$in'>ДАЛЬШЕ >>></a></B></td></tr></table></td></tr></table></center></body></html>";
+РЎРїР°СЃРёР±Рѕ, <B>$name</B>, Р’Р°С€ РѕС‚РІРµС‚ СѓСЃРїРµС€РЅРѕ РґРѕР±Р°РІР»РµРЅ.<BR><BR>Р§РµСЂРµР· РЅРµСЃРєРѕР»СЊРєРѕ СЃРµРєСѓРЅРґ Р’С‹ Р±СѓРґРµС‚Рµ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё РїРµСЂРµРјРµС‰РµРЅС‹ РІ С‚РµРєСѓС‰СѓСЋ С‚РµРјСѓ <BR><B>$zag</B>.<BR><BR>
+<B><a href='index.php?id=$fid$id$pageadd#m$in'>Р”РђР›Р¬РЁР• >>></a></B></td></tr></table></td></tr></table></center></body></html>";
 exit;
 }
 } //event
@@ -883,74 +883,74 @@ exit;
 
 
 
-// ПОИСК
+// РџРћРРЎРљ
 if(isset($_GET['find'])) {
-$frtname=""; $frname="Поиск фото »";
-include("$fskin/top.html"); addtop();  // подключаем ШАПКУ
+$frtname=""; $frname="РџРѕРёСЃРє С„РѕС‚Рѕ В»";
+include("$fskin/top.html"); addtop();  // РїРѕРґРєР»СЋС‡Р°РµРј РЁРђРџРљРЈ
 
-$minfindme="3"; //минимальное кол-во символов в слове для поиска
-print"<center><span class=maintitle>Поиск фото</span><br><br>
+$minfindme="3"; //РјРёРЅРёРјР°Р»СЊРЅРѕРµ РєРѕР»-РІРѕ СЃРёРјРІРѕР»РѕРІ РІ СЃР»РѕРІРµ РґР»СЏ РїРѕРёСЃРєР°
+print"<center><span class=maintitle>РџРѕРёСЃРє С„РѕС‚Рѕ</span><br><br>
 <form action='index.php?event=go&findme' method=POST>
 <center><table class=forumline align=center width=1000>
-<tr><th class=thHead colspan=4 height=25>Поиск</th></tr>
+<tr><th class=thHead colspan=4 height=25>РџРѕРёСЃРє</th></tr>
 <tr class=row2>
-<td class=row1>Запрос: <input type='text' style='width: 250px' class=post name=findme size=30></TD>
-<TD class=row1>Тип: <select style='FONT-SIZE: 12px; WIDTH: 120px' name=ftype>
-<option value='0'>&quotИ&quot
-<option value='1' selected>&quotИЛИ&quot
-<option value='2'>Вся фраза целиком
+<td class=row1>Р—Р°РїСЂРѕСЃ: <input type='text' style='width: 250px' class=post name=findme size=30></TD>
+<TD class=row1>РўРёРї: <select style='FONT-SIZE: 12px; WIDTH: 120px' name=ftype>
+<option value='0'>&quotР&quot
+<option value='1' selected>&quotРР›Р&quot
+<option value='2'>Р’СЃСЏ С„СЂР°Р·Р° С†РµР»РёРєРѕРј
 </select></td>
-<td class=row1><INPUT type=checkbox name=withregistr><B>С учётом РЕГИСТРА</B></TD>
+<td class=row1><INPUT type=checkbox name=withregistr><B>РЎ СѓС‡С‘С‚РѕРј Р Р•Р“РРЎРўР Рђ</B></TD>
 <input type=hidden name=gdefinder value='1'>
 </tr><tr class=row1>
 <td class=row1 colspan=4 width=\"100%\">
-Язык запросов:<br><UL>
-<LI><B>&quotИ&quot</B> - должны присутствовать оба слова;</LI><br>
-<LI><B>&quotИЛИ&quot</B> - есть ХОТЯ БЫ одно из слов;</LI><br>
-<LI><B>&quotВся фраза целиком&quot</B> - в искомом документе ищите фразу на 100% соответствующую вашему запросу;</LI><BR><BR>
-<LI><B>&quotС учётом РЕГИСТРА&quot</B> - поиск ведётся с учётом введённого ВАМИ РЕГИСТРА;</LI><BR><BR>
-</UL>Скрипт ищет все данные, которые начинаются с введенной вами строки. Например, при запросе &quot фото &quot будут найдены слова &quot фото &quot, &quot фотоальбом &quot, &quot фотография &quot и многие другие.
+РЇР·С‹Рє Р·Р°РїСЂРѕСЃРѕРІ:<br><UL>
+<LI><B>&quotР&quot</B> - РґРѕР»Р¶РЅС‹ РїСЂРёСЃСѓС‚СЃС‚РІРѕРІР°С‚СЊ РѕР±Р° СЃР»РѕРІР°;</LI><br>
+<LI><B>&quotРР›Р&quot</B> - РµСЃС‚СЊ РҐРћРўРЇ Р‘Р« РѕРґРЅРѕ РёР· СЃР»РѕРІ;</LI><br>
+<LI><B>&quotР’СЃСЏ С„СЂР°Р·Р° С†РµР»РёРєРѕРј&quot</B> - РІ РёСЃРєРѕРјРѕРј РґРѕРєСѓРјРµРЅС‚Рµ РёС‰РёС‚Рµ С„СЂР°Р·Сѓ РЅР° 100% СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰СѓСЋ РІР°С€РµРјСѓ Р·Р°РїСЂРѕСЃСѓ;</LI><BR><BR>
+<LI><B>&quotРЎ СѓС‡С‘С‚РѕРј Р Р•Р“РРЎРўР Рђ&quot</B> - РїРѕРёСЃРє РІРµРґС‘С‚СЃСЏ СЃ СѓС‡С‘С‚РѕРј РІРІРµРґС‘РЅРЅРѕРіРѕ Р’РђРњР Р Р•Р“РРЎРўР Рђ;</LI><BR><BR>
+</UL>РЎРєСЂРёРїС‚ РёС‰РµС‚ РІСЃРµ РґР°РЅРЅС‹Рµ, РєРѕС‚РѕСЂС‹Рµ РЅР°С‡РёРЅР°СЋС‚СЃСЏ СЃ РІРІРµРґРµРЅРЅРѕР№ РІР°РјРё СЃС‚СЂРѕРєРё. РќР°РїСЂРёРјРµСЂ, РїСЂРё Р·Р°РїСЂРѕСЃРµ &quot С„РѕС‚Рѕ &quot Р±СѓРґСѓС‚ РЅР°Р№РґРµРЅС‹ СЃР»РѕРІР° &quot С„РѕС‚Рѕ &quot, &quot С„РѕС‚РѕР°Р»СЊР±РѕРј &quot, &quot С„РѕС‚РѕРіСЂР°С„РёСЏ &quot Рё РјРЅРѕРіРёРµ РґСЂСѓРіРёРµ.
 </td>
 
-</tr><tr><td class=row1 colspan=4 align=center height=28><input type=submit class=post value='  Поиск  '></td></form>
+</tr><tr><td class=row1 colspan=4 align=center height=28><input type=submit class=post value='  РџРѕРёСЃРє  '></td></form>
 </tr></table><BR><BR>";
-print "Ограничение на поиск: <BR> - минимальное кол-во символов: <B>$minfindme</B>";
+print "РћРіСЂР°РЅРёС‡РµРЅРёРµ РЅР° РїРѕРёСЃРє: <BR> - РјРёРЅРёРјР°Р»СЊРЅРѕРµ РєРѕР»-РІРѕ СЃРёРјРІРѕР»РѕРІ: <B>$minfindme</B>";
 exit; }
 
 
 
 if (isset($_GET['findme']))  {
 
-$frtname=""; $frname="Поиск фото »";
-include("$fskin/top.html"); addtop();  // подключаем ШАПКУ
+$frtname=""; $frname="РџРѕРёСЃРє С„РѕС‚Рѕ В»";
+include("$fskin/top.html"); addtop();  // РїРѕРґРєР»СЋС‡Р°РµРј РЁРђРџРљРЈ
 
-$minfindme="2"; //минимальное кол-во символов в слове для поиска
-$time=explode(' ', microtime()); $start_time=$time[1]+$time[0];  // считываем начальное время запуска поиска
+$minfindme="2"; //РјРёРЅРёРјР°Р»СЊРЅРѕРµ РєРѕР»-РІРѕ СЃРёРјРІРѕР»РѕРІ РІ СЃР»РѕРІРµ РґР»СЏ РїРѕРёСЃРєР°
+$time=explode(' ', microtime()); $start_time=$time[1]+$time[0];  // СЃС‡РёС‚С‹РІР°РµРј РЅР°С‡Р°Р»СЊРЅРѕРµ РІСЂРµРјСЏ Р·Р°РїСѓСЃРєР° РїРѕРёСЃРєР°
 
 $gdefinder="1"; $ftype=$_POST['ftype'];
-if (!ctype_digit($ftype) or strlen($ftype)>2) exit("<B>$back. Попытка взлома. Хакерам здесь не место.</B>");
+if (!ctype_digit($ftype) or strlen($ftype)>2) exit("<B>$back. РџРѕРїС‹С‚РєР° РІР·Р»РѕРјР°. РҐР°РєРµСЂР°Рј Р·РґРµСЃСЊ РЅРµ РјРµСЃС‚Рѕ.</B>");
 if (!isset($_POST['withregistr'])) $withregistr="0"; else $withregistr="1";
 
-// Защита от взлома
+// Р—Р°С‰РёС‚Р° РѕС‚ РІР·Р»РѕРјР°
 $text=$_POST['findme'];
 $text=replacer($text);
-$findmeword=explode(" ",$text); // Разбиваем $findme на слова
+$findmeword=explode(" ",$text); // Р Р°Р·Р±РёРІР°РµРј $findme РЅР° СЃР»РѕРІР°
 $wordsitogo=count($findmeword);
-$findme=trim($text); // Вырезает ПРОБЕЛьные символы 
-if ($findme == "" || strlen($findme) < $minfindme) exit("$back Ваш запрос пуст, или менее $minfindme символов!</B>");
+$findme=trim($text); // Р’С‹СЂРµР·Р°РµС‚ РџР РћР‘Р•Р›СЊРЅС‹Рµ СЃРёРјРІРѕР»С‹ 
+if ($findme == "" || strlen($findme) < $minfindme) exit("$back Р’Р°С€ Р·Р°РїСЂРѕСЃ РїСѓСЃС‚, РёР»Рё РјРµРЅРµРµ $minfindme СЃРёРјРІРѕР»РѕРІ!</B>");
 
-// Открываем файл с темами формума и запоминаем имена файлов с сообщениями
+// РћС‚РєСЂС‹РІР°РµРј С„Р°Р№Р» СЃ С‚РµРјР°РјРё С„РѕСЂРјСѓРјР° Рё Р·Р°РїРѕРјРёРЅР°РµРј РёРјРµРЅР° С„Р°Р№Р»РѕРІ СЃ СЃРѕРѕР±С‰РµРЅРёСЏРјРё
 
-setlocale(LC_ALL,'ru_RU.CP1251'); // ! РАЗРЕШАЕМ РАБОТУ ФУНКЦИЙ, работающих с регистором и с РУССКИМИ БУКВАМИ
+setlocale(LC_ALL,'ru_RU.CP1251'); // ! Р РђР—Р Р•РЁРђР•Рњ Р РђР‘РћРўРЈ Р¤РЈРќРљР¦РР™, СЂР°Р±РѕС‚Р°СЋС‰РёС… СЃ СЂРµРіРёСЃС‚РѕСЂРѕРј Рё СЃ Р РЈРЎРЎРљРРњР Р‘РЈРљР’РђРњР
 
-// ПЕРВЫЙ цикл - считаем кол-во форумов (записываем в переменную $itogofid)
+// РџР•Р Р’Р«Р™ С†РёРєР» - СЃС‡РёС‚Р°РµРј РєРѕР»-РІРѕ С„РѕСЂСѓРјРѕРІ (Р·Р°РїРёСЃС‹РІР°РµРј РІ РїРµСЂРµРјРµРЅРЅСѓСЋ $itogofid)
 $mainlines = file("$datadir/wrfoto.dat");$i=count($mainlines); $itogofid="0";$number="0"; $oldid="0"; $nump="0";
 do {$i--; $dt=explode("|", $mainlines[$i]);
-if ($dt[1]!="razdel") { $maxzd=$dt[12]; if (!ctype_digit($maxzd)) $maxzd=0; } // считываем ЗВЁЗДы раздела из файла
-if ($dt[1]!="razdel" and $maxzd<1) {$itogofid++; $fids[$itogofid]=$dt[0];} // $itogofid - общее кол-во форумов
+if ($dt[1]!="razdel") { $maxzd=$dt[12]; if (!ctype_digit($maxzd)) $maxzd=0; } // СЃС‡РёС‚С‹РІР°РµРј Р—Р’РЃР—Р”С‹ СЂР°Р·РґРµР»Р° РёР· С„Р°Р№Р»Р°
+if ($dt[1]!="razdel" and $maxzd<1) {$itogofid++; $fids[$itogofid]=$dt[0];} // $itogofid - РѕР±С‰РµРµ РєРѕР»-РІРѕ С„РѕСЂСѓРјРѕРІ
 } while($i > "0");
 
-// ВТОРОЙ цикл - открываем файл с топиком (если он существует) и сохраняем в переменную $topicsid все имена тем
+// Р’РўРћР РћР™ С†РёРєР» - РѕС‚РєСЂС‹РІР°РµРј С„Р°Р№Р» СЃ С‚РѕРїРёРєРѕРј (РµСЃР»Рё РѕРЅ СЃСѓС‰РµСЃС‚РІСѓРµС‚) Рё СЃРѕС…СЂР°РЅСЏРµРј РІ РїРµСЂРµРјРµРЅРЅСѓСЋ $topicsid РІСЃРµ РёРјРµРЅР° С‚РµРј
 do { $fid=$fids[$itogofid];
 if (is_file("$datadir/topic$fid.dat")) {
 $msglines=file("$datadir/topic$fid.dat");
@@ -959,7 +959,7 @@ unset($topicsid); if (count($msglines)>0) { $lines=file("$datadir/topic$fid.dat"
 do {$i--; $dt=explode("|",$lines[$i]); $topicsid[$i]=$dt[7];} while($i > "0"); }
 
 
-// ТРЕТИЙ цикл - последовательно открываем каждую тему
+// РўР Р•РўРР™ С†РёРєР» - РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕ РѕС‚РєСЂС‹РІР°РµРј РєР°Р¶РґСѓСЋ С‚РµРјСѓ
 
 if (isset($topicsid)) {
 
@@ -967,38 +967,38 @@ $ii=count($topicsid);
 do {$ii--;
 $id = str_replace("\r\n","",$topicsid[$ii]);
 
-if (is_file("$datadir/$id.dat")) { // Если файл есть? Бывает, что файлы с сообщениями бьются, тогда при пересчёте они удаляются.
+if (is_file("$datadir/$id.dat")) { // Р•СЃР»Рё С„Р°Р№Р» РµСЃС‚СЊ? Р‘С‹РІР°РµС‚, С‡С‚Рѕ С„Р°Р№Р»С‹ СЃ СЃРѕРѕР±С‰РµРЅРёСЏРјРё Р±СЊСЋС‚СЃСЏ, С‚РѕРіРґР° РїСЂРё РїРµСЂРµСЃС‡С‘С‚Рµ РѕРЅРё СѓРґР°Р»СЏСЋС‚СЃСЏ.
 $file=file("$datadir/$id.dat"); $iii=count($file);
 
-// ЧЕТВЁРТЫЙ цикл - последовательно ищем в каждой теме искомое сообщение
-if ($iii>0) { // если файл с сообщениями НЕ ПУСТОЙ
+// Р§Р•РўР’РЃР РўР«Р™ С†РёРєР» - РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕ РёС‰РµРј РІ РєР°Р¶РґРѕР№ С‚РµРјРµ РёСЃРєРѕРјРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ
+if ($iii>0) { // РµСЃР»Рё С„Р°Р№Р» СЃ СЃРѕРѕР±С‰РµРЅРёСЏРјРё РќР• РџРЈРЎРўРћР™
 do {$iii--; 
 $lines = file("$datadir/$id.dat");
 $dt = explode("|", $lines[$iii]); if (!isset($dt[4])) $dt[4]=" ";
 
-if ($gdefinder=="0") {$msgmass=array($dt[2],$dt[3],$dt[4]); $gi="3"; $add="ях <B>Автор, Текст, Заголовок</B> ";}
-if ($gdefinder=="1") {$msgmass=array($dt[4]); $gi="1"; $add="е <B>Текст</B> ";}
-if ($gdefinder=="2") {$msgmass=array($dt[3],$dt[4]); $gi="2"; $add="ях <B>Текст и Заголовок</B> ";}
-if ($gdefinder=="3") {$msgmass=array($dt[2]); $gi="1"; $add="е <B>Автор</B> ";}
-if ($gdefinder=="4") {$msgmass=array($dt[3]); $gi="1"; $add="е <B>Заголовок</B> ";}
+if ($gdefinder=="0") {$msgmass=array($dt[2],$dt[3],$dt[4]); $gi="3"; $add="СЏС… <B>РђРІС‚РѕСЂ, РўРµРєСЃС‚, Р—Р°РіРѕР»РѕРІРѕРє</B> ";}
+if ($gdefinder=="1") {$msgmass=array($dt[4]); $gi="1"; $add="Рµ <B>РўРµРєСЃС‚</B> ";}
+if ($gdefinder=="2") {$msgmass=array($dt[3],$dt[4]); $gi="2"; $add="СЏС… <B>РўРµРєСЃС‚ Рё Р—Р°РіРѕР»РѕРІРѕРє</B> ";}
+if ($gdefinder=="3") {$msgmass=array($dt[2]); $gi="1"; $add="Рµ <B>РђРІС‚РѕСЂ</B> ";}
+if ($gdefinder=="4") {$msgmass=array($dt[3]); $gi="1"; $add="Рµ <B>Р—Р°РіРѕР»РѕРІРѕРє</B> ";}
 
-// Цикл по местам поиска (0,1,2,3,4)
+// Р¦РёРєР» РїРѕ РјРµСЃС‚Р°Рј РїРѕРёСЃРєР° (0,1,2,3,4)
 do {$gi--;
 
 $msg=$dt[4];
 $msdat=$msgmass[$gi];
 $stroka="0"; $wi=$wordsitogo;
-// ЦИКЛ по КАЖДОМУ слову запроса !
+// Р¦РРљР› РїРѕ РљРђР–Р”РћРњРЈ СЃР»РѕРІСѓ Р·Р°РїСЂРѕСЃР° !
 do {$wi--;
 
 
 
-// БЛОК УСЛОВИЙ ПОИСКА
-if ($withregistr!="1") // регистронезависимый поиск - cимвол "i" после закрывающего ограничителя шаблона - /
+// Р‘Р›РћРљ РЈРЎР›РћР’РР™ РџРћРРЎРљРђ
+if ($withregistr!="1") // СЂРµРіРёСЃС‚СЂРѕРЅРµР·Р°РІРёСЃРёРјС‹Р№ РїРѕРёСЃРє - cРёРјРІРѕР» "i" РїРѕСЃР»Рµ Р·Р°РєСЂС‹РІР°СЋС‰РµРіРѕ РѕРіСЂР°РЅРёС‡РёС‚РµР»СЏ С€Р°Р±Р»РѕРЅР° - /
    {
     if ($ftype=="2") 
         {
-        if (stristr($msdat,$findme))     // ПОИСК по "ВСЕЙ ФРАЗЕ ЦЕЛИКОМ" БЕЗ учёта регистра
+        if (stristr($msdat,$findme))     // РџРћРРЎРљ РїРѕ "Р’РЎР•Р™ Р¤Р РђР—Р• Р¦Р•Р›РРљРћРњ" Р‘Р•Р— СѓС‡С‘С‚Р° СЂРµРіРёСЃС‚СЂР°
             { 
              $stroka++;
              $msg=str_replace($findme," <b><u>$findme</u></b> ",$msg);
@@ -1009,7 +1009,7 @@ if ($withregistr!="1") // регистронезависимый поиск - cимвол "i" после закрывающ
            $str2=strtolower($findmeword[$wi]); 
            if ($str2!="" and strlen($str2) >= $minfindme)
               {
-               if (stristr($str1,$str2)) // ПОИСК БЕЗ учёта регистра при равных прочих условиях
+               if (stristr($str1,$str2)) // РџРћРРЎРљ Р‘Р•Р— СѓС‡С‘С‚Р° СЂРµРіРёСЃС‚СЂР° РїСЂРё СЂР°РІРЅС‹С… РїСЂРѕС‡РёС… СѓСЃР»РѕРІРёСЏС…
                   {
                    $stroka++;
                    $msg=str_replace($findmeword[$wi]," <b><u>$findmeword[$wi]</u></b> ",$msg);
@@ -1022,7 +1022,7 @@ else  //  if ($withregistr!="1")
    {
     if ($ftype=="2")
        {
-        if (strstr($msdat,$findme))           // ПОИСК по "ВСЕЙ ФРАЗЕ ЦЕЛИКОМ" C учёта РЕГИСТРА
+        if (strstr($msdat,$findme))           // РџРћРРЎРљ РїРѕ "Р’РЎР•Р™ Р¤Р РђР—Р• Р¦Р•Р›РРљРћРњ" C СѓС‡С‘С‚Р° Р Р•Р“РРЎРўР Рђ
            {
             $stroka++;
             $msg=str_replace($findme," <b><u>$findme</u></b> ",$msg);
@@ -1031,7 +1031,7 @@ else  //  if ($withregistr!="1")
      else {
            if ($msdat!="" and strlen($findmeword[$wi]) >= $minfindme)
               {
-               if (strstr($msdat,$findmeword[$wi]))     // ПОИСК С учётом РЕГИСТРА при равных прочих условиях
+               if (strstr($msdat,$findmeword[$wi]))     // РџРћРРЎРљ РЎ СѓС‡С‘С‚РѕРј Р Р•Р“РРЎРўР Рђ РїСЂРё СЂР°РІРЅС‹С… РїСЂРѕС‡РёС… СѓСЃР»РѕРІРёСЏС…
                   {
                    $stroka++;
                    $msg=str_replace($findmeword[$wi]," <b><u>$findmeword[$wi]</u></b> ",$msg);
@@ -1043,10 +1043,10 @@ else  //  if ($withregistr!="1")
 
 
 
-} while($wi > "0");  // конец ЦИКЛа по КАЖДОМУ слову запроса
+} while($wi > "0");  // РєРѕРЅРµС† Р¦РРљР›Р° РїРѕ РљРђР–Р”РћРњРЈ СЃР»РѕРІСѓ Р·Р°РїСЂРѕСЃР°
 
 
-// Подготавливаем результирующее сообщение, и если результат соответствует условиям - выводим его
+// РџРѕРґРіРѕС‚Р°РІР»РёРІР°РµРј СЂРµР·СѓР»СЊС‚РёСЂСѓСЋС‰РµРµ СЃРѕРѕР±С‰РµРЅРёРµ, Рё РµСЃР»Рё СЂРµР·СѓР»СЊС‚Р°С‚ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓРµС‚ СѓСЃР»РѕРІРёСЏРј - РІС‹РІРѕРґРёРј РµРіРѕ
 if ($ftype=="0") { if ($stroka==$wordsitogo) $printflag="1"; }
 if ($ftype=="1") { if ($stroka>"0") $printflag="1"; }
 if ($ftype=="2") { if ($stroka==$wordsitogo) $printflag="1"; }
@@ -1054,7 +1054,7 @@ if ($ftype=="2") { if ($stroka==$wordsitogo) $printflag="1"; }
 
 if (!isset($printflag)) $printflag="0";
     if ($printflag=="1")
-       { $msg=str_replace("<br>", " &nbsp;&nbsp;", $msg); // заменяем в сообщении <br> на пару пробелов
+       { $msg=str_replace("<br>", " &nbsp;&nbsp;", $msg); // Р·Р°РјРµРЅСЏРµРј РІ СЃРѕРѕР±С‰РµРЅРёРё <br> РЅР° РїР°СЂСѓ РїСЂРѕР±РµР»РѕРІ
 
 
 if (strlen($msg)>150)
@@ -1071,18 +1071,18 @@ else $msgtowrite=$msg;
 
 if (!isset($m)) {
 print"
-<small><BR>По запросу '<U><B>$findme</B></U>' в пол$add найдено: <HR size=+2 width=950 color=navy>
+<small><BR>РџРѕ Р·Р°РїСЂРѕСЃСѓ '<U><B>$findme</B></U>' РІ РїРѕР»$add РЅР°Р№РґРµРЅРѕ: <HR size=+2 width=950 color=navy>
 <BR><form action='index.php?event=go&findme' method=POST>
 <table class=forumline align=center width=950>
-<tr><th class=thHead colspan=4 height=25>Повторить поиск</th></tr>
+<tr><th class=thHead colspan=4 height=25>РџРѕРІС‚РѕСЂРёС‚СЊ РїРѕРёСЃРє</th></tr>
 <tr class=row2>
-<td class=row1>Запрос: <input type='text' value='$findme' style='width: 250px' class=post name=findme size=30>
+<td class=row1>Р—Р°РїСЂРѕСЃ: <input type='text' value='$findme' style='width: 250px' class=post name=findme size=30>
 <INPUT type=hidden value='1' name=ftype>
 <input type=hidden name=gdefinder value='1'>
-<input type=submit class=post value='  Поиск  '></td></table></form><br>
-<table width=100% class=forumline><TR align=center class=small><TH class=thCornerL><B>№</B></TH><TH class=thCornerL width=35%><B>Заголовок</B></TH><TH class=thCornerL width=70%><B>часть сообщения</B></TH><TH class=thCornerL><B>Совпадений<BR> в теме</B></TH></TR>"; $m="1"; }
+<input type=submit class=post value='  РџРѕРёСЃРє  '></td></table></form><br>
+<table width=100% class=forumline><TR align=center class=small><TH class=thCornerL><B>в„–</B></TH><TH class=thCornerL width=35%><B>Р—Р°РіРѕР»РѕРІРѕРє</B></TH><TH class=thCornerL width=70%><B>С‡Р°СЃС‚СЊ СЃРѕРѕР±С‰РµРЅРёСЏ</B></TH><TH class=thCornerL><B>РЎРѕРІРїР°РґРµРЅРёР№<BR> РІ С‚РµРјРµ</B></TH></TR>"; $m="1"; }
 
-if ($iii>$qq) {$in=$iii+2; $page=ceil($in/$qq);} else $page="1";  // расчитываем верную страницу и номер сообщения
+if ($iii>$qq) {$in=$iii+2; $page=ceil($in/$qq);} else $page="1";  // СЂР°СЃС‡РёС‚С‹РІР°РµРј РІРµСЂРЅСѓСЋ СЃС‚СЂР°РЅРёС†Сѓ Рё РЅРѕРјРµСЂ СЃРѕРѕР±С‰РµРЅРёСЏ
 
 if ($oldid!=$id and $number<100) { $number++; $msgnumber=$iii;
 
@@ -1096,31 +1096,31 @@ $printflag="0"; $nump="0";
 
 } else $nump++;
 
-if ($number>=100) { print"</TR></TABLE> * поиск останавливается, при нахождении более 100 вхождений!"; $gi=0; $iii=0; $ii=0; $itogofid=0;}
+if ($number>=100) { print"</TR></TABLE> * РїРѕРёСЃРє РѕСЃС‚Р°РЅР°РІР»РёРІР°РµС‚СЃСЏ, РїСЂРё РЅР°С…РѕР¶РґРµРЅРёРё Р±РѕР»РµРµ 100 РІС…РѕР¶РґРµРЅРёР№!"; $gi=0; $iii=0; $ii=0; $itogofid=0;}
 
 $oldid=$id;
 } // if $printflag==1
 
-} while($gi > "0");  // конец ЦИКЛа по МЕСТУ поиска
+} while($gi > "0");  // РєРѕРЅРµС† Р¦РРљР›Р° РїРѕ РњР•РЎРўРЈ РїРѕРёСЃРєР°
 
 } while($iii > "0");
-} // если файл с сообщениями НЕПУСТОЙ
+} // РµСЃР»Рё С„Р°Р№Р» СЃ СЃРѕРѕР±С‰РµРЅРёСЏРјРё РќР•РџРЈРЎРўРћР™
 
 } // if is_file("$datadir/$id.dat")
 } while($ii > "0");
 
 } // if isset($topicsid)
 
-} // if файл topic$fid.dat НЕ пуст
+} // if С„Р°Р№Р» topic$fid.dat РќР• РїСѓСЃС‚
 
 
 $itogofid--;
 } while($itogofid > "0");
-if (!isset($m)) echo'<table width=80% align=center><TR><TD>По вашему запросу ничего не найдено.</TD></TR></table>';
+if (!isset($m)) echo'<table width=80% align=center><TR><TD>РџРѕ РІР°С€РµРјСѓ Р·Р°РїСЂРѕСЃСѓ РЅРёС‡РµРіРѕ РЅРµ РЅР°Р№РґРµРЅРѕ.</TD></TR></table>';
 
 $time=explode(' ',microtime());
 $seconds=($time[1]+$time[0]-$start_time);
-echo "</TR></table><HR size=+2 width=99% color=navy><BR><p align=center><small>".str_replace("%1", sprintf("%01.3f", $seconds), "Время поиска: <b>%1</b> секунд.")."</small></p>";
+echo "</TR></table><HR size=+2 width=99% color=navy><BR><p align=center><small>".str_replace("%1", sprintf("%01.3f", $seconds), "Р’СЂРµРјСЏ РїРѕРёСЃРєР°: <b>%1</b> СЃРµРєСѓРЅРґ.")."</small></p>";
 exit;
 }
 
@@ -1143,18 +1143,18 @@ exit;
 
 
 
-// БЛОК подключает копию главного файла при повреждении
+// Р‘Р›РћРљ РїРѕРґРєР»СЋС‡Р°РµС‚ РєРѕРїРёСЋ РіР»Р°РІРЅРѕРіРѕ С„Р°Р№Р»Р° РїСЂРё РїРѕРІСЂРµР¶РґРµРЅРёРё
 if (is_file("$datadir/wrfoto.dat")) {$mainlines=file("$datadir/wrfoto.dat"); $imax=count($mainlines); $i=$imax;}
 if (!isset($mainlines)) $datasize=0; else $datasize=sizeof($mainlines);
 if ($datasize<=0) {if (is_file("$datadir/copy.dat")) {$mainlines=file("$datadir/copy.dat"); $datasize=sizeof($mainlines);}}
-if ($datasize<=0) exit("<center><b>Файл РУБРИК несуществует! Администратор! Зайдите в <a href='admin.php'>админку</a> и создайте рубрики!</b>");
+if ($datasize<=0) exit("<center><b>Р¤Р°Р№Р» Р РЈР‘Р РРљ РЅРµСЃСѓС‰РµСЃС‚РІСѓРµС‚! РђРґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂ! Р—Р°Р№РґРёС‚Рµ РІ <a href='admin.php'>Р°РґРјРёРЅРєСѓ</a> Рё СЃРѕР·РґР°Р№С‚Рµ СЂСѓР±СЂРёРєРё!</b>");
 
 $error=FALSE; $raz=""; $frname=null; $frtname=""; $rfid="";
 
-// ДЛЯ ссылки типа razdel=
+// Р”Р›РЇ СЃСЃС‹Р»РєРё С‚РёРїР° razdel=
 if (isset($_GET['razdel'])) {
 do {$i--; $dt=explode("|", $mainlines[$i]);
-if ($dt[0]==$_GET['razdel']) {$rfid=$i; $frname="$dt[2] »";}
+if ($dt[0]==$_GET['razdel']) {$rfid=$i; $frname="$dt[2] В»";}
 } while($i >0);
 $i=$imax;}
 
@@ -1168,50 +1168,50 @@ $i=$imax;}
 
 $maxtem=999;
 
-if (isset($_GET['id'])) { // Блок выводит в статусной строке: ТЕМА » РАЗДЕЛ » ФОРУМ
+if (isset($_GET['id'])) { // Р‘Р»РѕРє РІС‹РІРѕРґРёС‚ РІ СЃС‚Р°С‚СѓСЃРЅРѕР№ СЃС‚СЂРѕРєРµ: РўР•РњРђ В» Р РђР—Р”Р•Р› В» Р¤РћР РЈРњ
 $id=$_GET['id'];
-if (strlen($id)<=3 and !is_file("$datadir/topic$id.dat")) $error="ый Вами раздел";
-if (strlen($id)!=11 and strlen($id)> 3 and !is_file("$datadir/$id.dat")) $error="ая Вами рубрика";
-if (!ctype_digit($id)) $error="ая Вами рубрика или раздел";
+if (strlen($id)<=3 and !is_file("$datadir/topic$id.dat")) $error="С‹Р№ Р’Р°РјРё СЂР°Р·РґРµР»";
+if (strlen($id)!=11 and strlen($id)> 3 and !is_file("$datadir/$id.dat")) $error="Р°СЏ Р’Р°РјРё СЂСѓР±СЂРёРєР°";
+if (!ctype_digit($id)) $error="Р°СЏ Р’Р°РјРё СЂСѓР±СЂРёРєР° РёР»Рё СЂР°Р·РґРµР»";
 if (isset($_GET['quotemsg'])) $error=TRUE; $fulid=null;
 
 if(strlen($id)>3) {$fulid=$id; $fid=substr($id,0,3); $id=substr($id,3,4);} else $fid=$id;
 $imax=count($mainlines); $i=$imax;
 
-// проходим по всем разделам и топикам - ищем запрашиваемый
+// РїСЂРѕС…РѕРґРёРј РїРѕ РІСЃРµРј СЂР°Р·РґРµР»Р°Рј Рё С‚РѕРїРёРєР°Рј - РёС‰РµРј Р·Р°РїСЂР°С€РёРІР°РµРјС‹Р№
 do {$i--; $dt=explode("|", $mainlines[$i]);
-if ($dt[0]==$fid) { $frname="$dt[1] »";
+if ($dt[0]==$fid) { $frname="$dt[1] В»";
 if (isset($dt[11])) { if($dt[11]>0) $maxtem=$dt[11]; else $maxtem="999";}}
 } while($i >0);
 
 //$frtname="1"; $frname="2"; $fname="3";
-// Блок считывает название темы для отображения в шапке форума
+// Р‘Р»РѕРє СЃС‡РёС‚С‹РІР°РµС‚ РЅР°Р·РІР°РЅРёРµ С‚РµРјС‹ РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РІ С€Р°РїРєРµ С„РѕСЂСѓРјР°
 if (strlen($id)>3 and is_file("$datadir/topic$fid.dat")) {
 $lines=file("$datadir/topic$fid.dat"); $imax=count($lines); $i=$imax;
 if ($i>1) {
 do {$i--; $dt=explode("|",$lines[$i]);
-if($dt[7]=="$fid$id") $frtname="$dt[3] »";
+if($dt[7]=="$fid$id") $frtname="$dt[3] В»";
 } while ($i>0); }}
 
 
-// Если показывается фото крупным планом
+// Р•СЃР»Рё РїРѕРєР°Р·С‹РІР°РµС‚СЃСЏ С„РѕС‚Рѕ РєСЂСѓРїРЅС‹Рј РїР»Р°РЅРѕРј
 if (strlen($fulid)==11) { $frname=""; $fname="";
 if (is_file("$datadir/$fid$id.dat")) { $lines=file("$datadir/$fid$id.dat"); $imax=count($lines); $i=$imax;
 do {$i--; $dt=explode("|",$lines[$i]);
 $dt[13]=str_replace(".jpg","",$dt[13]); $dt[13]=str_replace(".jpeg","",$dt[13]); $dt[13]=str_replace(".png","",$dt[13]); $dt[13]=str_replace(".gif","",$dt[13]);
-if($dt[13]==$fulid) {$frtname=""; $fname="$dt[4] » $dt[3]";}
-//if($dt[13]==$fulid) {$frtname="$dt[4] » $frtname"; $fname="$frtname";}
+if($dt[13]==$fulid) {$frtname=""; $fname="$dt[4] В» $dt[3]";}
+//if($dt[13]==$fulid) {$frtname="$dt[4] В» $frtname"; $fname="$frtname";}
 } while ($i>0); } }
 
 
-if ($error==TRUE) {  // ЗАПРЕЩАЕМ ИНДЕКСАЦИЮ страниц с цитированием / УДАЛЁННЫЕ РАЗДЕЛЫ / ТЕМЫ!
+if ($error==TRUE) {  // Р—РђРџР Р•Р©РђР•Рњ РРќР”Р•РљРЎРђР¦РР® СЃС‚СЂР°РЅРёС† СЃ С†РёС‚РёСЂРѕРІР°РЅРёРµРј / РЈР”РђР›РЃРќРќР«Р• Р РђР—Р”Р•Р›Р« / РўР•РњР«!
 $topurl="$fskin/top.html";
 ob_start(); include $topurl; $topurl=ob_get_contents(); ob_end_clean();
 $topurl=str_replace("<meta name=\"Robots\" content=\"index,follow\">",'<meta name="Robots" content="noindex,follow">',$topurl);
 print"$topurl";
-if (strlen($error)>1) exit("</td></tr></table><div align=center><br>Извините, но запрашиваем$error отсутствует.<br>
-Рекомендую перейти на главную страницу фотоальбома по <a href='$furl'>этой ссылке</a>,<br>
-и найти интересующее Вас фото.<br></div>
+if (strlen($error)>1) exit("</td></tr></table><div align=center><br>РР·РІРёРЅРёС‚Рµ, РЅРѕ Р·Р°РїСЂР°С€РёРІР°РµРј$error РѕС‚СЃСѓС‚СЃС‚РІСѓРµС‚.<br>
+Р РµРєРѕРјРµРЅРґСѓСЋ РїРµСЂРµР№С‚Рё РЅР° РіР»Р°РІРЅСѓСЋ СЃС‚СЂР°РЅРёС†Сѓ С„РѕС‚РѕР°Р»СЊР±РѕРјР° РїРѕ <a href='$furl'>СЌС‚РѕР№ СЃСЃС‹Р»РєРµ</a>,<br>
+Рё РЅР°Р№С‚Рё РёРЅС‚РµСЂРµСЃСѓСЋС‰РµРµ Р’Р°СЃ С„РѕС‚Рѕ.<br></div>
 </td></tr></table></td></tr></table></td></tr></table>"); }
 } // if (isset($_GET['id']))
 
@@ -1221,53 +1221,53 @@ if (strlen($error==FALSE))
 
 
 
-include("$fskin/top.html"); //addtop();  // подключаем ШАПКУ форума
+include("$fskin/top.html"); //addtop();  // РїРѕРґРєР»СЋС‡Р°РµРј РЁРђРџРљРЈ С„РѕСЂСѓРјР°
 
 
 
 
-// выводим ГЛАВНУЮ СТРАНИЦУ ФОТОАЛЬБОМА
+// РІС‹РІРѕРґРёРј Р“Р›РђР’РќРЈР® РЎРўР РђРќРР¦РЈ Р¤РћРўРћРђР›Р¬Р‘РћРњРђ
 
 
-// Выводим все РУБРИКИ НА ГЛАВНОЙ
+// Р’С‹РІРѕРґРёРј РІСЃРµ Р РЈР‘Р РРљР РќРђ Р“Р›РђР’РќРћР™
 $adminmsg=""; if (is_file("$datadir/wrfoto.dat")) $lines=file("$datadir/wrfoto.dat");
 if (!isset($lines)) $datasize=0; else $datasize=sizeof($lines);
-if ($datasize<=0) {if (is_file("$datadir/copy.dat")) {$lines=file("$datadir/copy.dat"); $datasize=sizeof($lines);} $adminmsg="<font color=red><B>Администратор, внимание!!!</B> Файл БД с рубриками повреждён. Восстановите его из резервной копии в админке!</font><br>";}
-if ($datasize<=0) exit("Проблемы с Базой данных - обратитесь к администратору");
+if ($datasize<=0) {if (is_file("$datadir/copy.dat")) {$lines=file("$datadir/copy.dat"); $datasize=sizeof($lines);} $adminmsg="<font color=red><B>РђРґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂ, РІРЅРёРјР°РЅРёРµ!!!</B> Р¤Р°Р№Р» Р‘Р” СЃ СЂСѓР±СЂРёРєР°РјРё РїРѕРІСЂРµР¶РґС‘РЅ. Р’РѕСЃСЃС‚Р°РЅРѕРІРёС‚Рµ РµРіРѕ РёР· СЂРµР·РµСЂРІРЅРѕР№ РєРѕРїРёРё РІ Р°РґРјРёРЅРєРµ!</font><br>";}
+if ($datasize<=0) exit("РџСЂРѕР±Р»РµРјС‹ СЃ Р‘Р°Р·РѕР№ РґР°РЅРЅС‹С… - РѕР±СЂР°С‚РёС‚РµСЃСЊ Рє Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂСѓ");
 $i=count($lines); $n="0"; $a1=-1; $u=$i-1; $fid="0"; $itogotem="0"; $itogomsg="0"; $alt=""; $konec="";
 
 print"<TABLE border=0 cellSpacing=0 cellPadding=0 align=center width='100%'><TR><TD vAlign=top>
 <table border=0 cellSpacing=0 cellPadding=0 width=100%><TR><TD width=270 valign=top>
 
-<table width=98% height=450 border=0 cellSpacing=0 cellPadding=2><tr><td class=catHead colspan=2 height=18><span class=cattitle><h2 style='padding: 5px; margin: 1px'>Категории</h2></span></td></tr>";
+<table width=98% height=450 border=0 cellSpacing=0 cellPadding=2><tr><td class=catHead colspan=2 height=18><span class=cattitle><h2 style='padding: 5px; margin: 1px'>РљР°С‚РµРіРѕСЂРёРё</h2></span></td></tr>";
 
 $itogofoto=""; $a1=$a1+$rfid;
 do {$a1++; $dt=explode("|", $lines[$a1]);
-if (isset($dt[1])) { // Если строчка потерялась в скрипте (пустая строка) - то просто её НЕ выводим
+if (isset($dt[1])) { // Р•СЃР»Рё СЃС‚СЂРѕС‡РєР° РїРѕС‚РµСЂСЏР»Р°СЃСЊ РІ СЃРєСЂРёРїС‚Рµ (РїСѓСЃС‚Р°СЏ СЃС‚СЂРѕРєР°) - С‚Рѕ РїСЂРѕСЃС‚Рѕ РµС‘ РќР• РІС‹РІРѕРґРёРј
 
 if ($dt[1]=="razdel" and isset($_GET['razdel'])) {
-$frname=str_replace('»','',$frname);
+$frname=str_replace('В»','',$frname);
 if($a1==$rfid) print"<tr><td class=row1 valign=top><span class=genmed><li><B>$frname</B></li></span></TD></TR>";
 $konec++;}  else {
 
-// определяем тип: топик или заголовок
+// РѕРїСЂРµРґРµР»СЏРµРј С‚РёРї: С‚РѕРїРёРє РёР»Рё Р·Р°РіРѕР»РѕРІРѕРє
 if ($dt[1]=="razdel")
 print "<tr><td class=row1 valign=top><span class=genmed><li><a href='index.php?razdel=$dt[0]'><B>$dt[2]</B></a></li></span></TD></TR>";
  else {
-//$dt[9] - дата размещения сообщения; $wrftime2 - последнее посещение
-// Если $dt[9] раньше (т.е. больше) $wrftime2 значит раздел форума - новый
+//$dt[9] - РґР°С‚Р° СЂР°Р·РјРµС‰РµРЅРёСЏ СЃРѕРѕР±С‰РµРЅРёСЏ; $wrftime2 - РїРѕСЃР»РµРґРЅРµРµ РїРѕСЃРµС‰РµРЅРёРµ
+// Р•СЃР»Рё $dt[9] СЂР°РЅСЊС€Рµ (С‚.Рµ. Р±РѕР»СЊС€Рµ) $wrftime2 Р·РЅР°С‡РёС‚ СЂР°Р·РґРµР» С„РѕСЂСѓРјР° - РЅРѕРІС‹Р№
 //$foldicon="folder.gif"; if (isset($wrfname)) {if (isset($dt[9])) {if ($dt[9]>$wrftime2) $foldicon="foldernew.gif";}}
 
-if (is_file("$datadir/$dt[3].dat")) { $msgsize=sizeof(file("$datadir/$dt[3].dat")); // считаем кол-во страниц в файле
+if (is_file("$datadir/$dt[3].dat")) { $msgsize=sizeof(file("$datadir/$dt[3].dat")); // СЃС‡РёС‚Р°РµРј РєРѕР»-РІРѕ СЃС‚СЂР°РЅРёС† РІ С„Р°Р№Р»Рµ
 if ($msgsize>$qq) $page=ceil($msgsize/$qq); else $page=1;} else $page=1;
 if ($page!=1) $pageadd="&page=$page"; else $pageadd="";
 
-if ($dt[7]==$date) $dt[7]="сегодня";
-$maxzvezd=null; if (isset($dt[12])) { if ($dt[12]>=1) {$maxzvezd="*Доступна участникам, имеющим <font color=red><B>$dt[12]</B> звезд";
+if ($dt[7]==$date) $dt[7]="СЃРµРіРѕРґРЅСЏ";
+$maxzvezd=null; if (isset($dt[12])) { if ($dt[12]>=1) {$maxzvezd="*Р”РѕСЃС‚СѓРїРЅР° СѓС‡Р°СЃС‚РЅРёРєР°Рј, РёРјРµСЋС‰РёРј <font color=red><B>$dt[12]</B> Р·РІРµР·Рґ";
 $dt[4]=""; $dt[5]="";
-if ($dt[12]==1) $maxzvezd.="у";
-if ($dt[12]==2 or $dt[12]==3 or $dt[12]==4) $maxzvezd.="ы";
-$maxzvezd.=" минимум</font>";}}
+if ($dt[12]==1) $maxzvezd.="Сѓ";
+if ($dt[12]==2 or $dt[12]==3 or $dt[12]==4) $maxzvezd.="С‹";
+$maxzvezd.=" РјРёРЅРёРјСѓРј</font>";}}
 $fid="$dt[0]"; 
 
 $alt="";
@@ -1286,55 +1286,55 @@ $itogotem=$itogotem+$dt[4];$itogomsg=$itogomsg+$dt[5]; }}  if ($konec==2) $a1=$u
 } // if isset($dt[1]
 } while($a1 < $u);
 
-print"<TR><TD align=center class=row1><span class=genmed><B>Всего фото: [ $itogofoto ]</B><br><br>";
+print"<TR><TD align=center class=row1><span class=genmed><B>Р’СЃРµРіРѕ С„РѕС‚Рѕ: [ $itogofoto ]</B><br><br>";
 
 if (is_file("baner_200x200.php")) include("baner_200x200.php");
 
-/* Форма входа ==== Друзья сайта
+/* Р¤РѕСЂРјР° РІС…РѕРґР° ==== Р”СЂСѓР·СЊСЏ СЃР°Р№С‚Р°
 print"<TABLE border=0 cellSpacing=0 cellPadding=0 align=center width='100%'><TR><TD vAlign=top>
 <table border=0 cellSpacing=0 cellPadding=0 width=100%><TR><TD width=270 valign=top>
-<table width=98% height=450 border=0 cellSpacing=0 cellPadding=2><tr><td class=catHead colspan=2 height=18><span class=cattitle><h2 style='padding: 5px; margin: 1px'>Категории</h2></span></td></tr>";
+<table width=98% height=450 border=0 cellSpacing=0 cellPadding=2><tr><td class=catHead colspan=2 height=18><span class=cattitle><h2 style='padding: 5px; margin: 1px'>РљР°С‚РµРіРѕСЂРёРё</h2></span></td></tr>";
 */
 
-//if ($_GET['event']=="login") { // ВХОД на форум УЧАСТНИКОМ
+//if ($_GET['event']=="login") { // Р’РҐРћР” РЅР° С„РѕСЂСѓРј РЈР§РђРЎРўРќРРљРћРњ
 
-if (!isset($_GET['id'])) { // БЛОК выводится ТОЛЬКО на главной!
+if (!isset($_GET['id'])) { // Р‘Р›РћРљ РІС‹РІРѕРґРёС‚СЃСЏ РўРћР›Р¬РљРћ РЅР° РіР»Р°РІРЅРѕР№!
 
 if (isset($_COOKIE['wrfcookies'])) addtop();
 
 else echo '<table width=98% border=0 cellSpacing=0 cellPadding=2><tr><td class=catHead colspan=2 height=18><span class=cattitle>
-<nobr><h2 style="padding: 5px; margin: 1px">Форма входа</h2></nobr></span></td></tr></table><br>
+<nobr><h2 style="padding: 5px; margin: 1px">Р¤РѕСЂРјР° РІС…РѕРґР°</h2></nobr></span></td></tr></table><br>
 <FORM action="tools.php?event=regenter" method=post>
 <TABLE cellPadding=1 cellSpacing=1 border=0>
-<TR><TD>Логин:</TD><TD><INPUT name=name></TD></TR>
-<TR><TD>Пароль:</TD><TD><INPUT type=password name=pass></TD></TR>
-<TR><TD colspan=2><center><INPUT type=submit value="ВОЙТИ »"></TD></TR></TABLE></FORM>
-<a href="tools.php?event=login">Забыли пароль? </a> &nbsp;&nbsp;&nbsp; <a href="tools.php?event=reg">Регистрация</a><BR><br>';
+<TR><TD>Р›РѕРіРёРЅ:</TD><TD><INPUT name=name></TD></TR>
+<TR><TD>РџР°СЂРѕР»СЊ:</TD><TD><INPUT type=password name=pass></TD></TR>
+<TR><TD colspan=2><center><INPUT type=submit value="Р’РћР™РўР В»"></TD></TR></TABLE></FORM>
+<a href="tools.php?event=login">Р—Р°Р±С‹Р»Рё РїР°СЂРѕР»СЊ? </a> &nbsp;&nbsp;&nbsp; <a href="tools.php?event=reg">Р РµРіРёСЃС‚СЂР°С†РёСЏ</a><BR><br>';
 
 
 
 
-// Фото с самым высоким рейтингом
-$fotorandom=TRUE; // Вынести в настройку - формировать колонку с самыми популярными по рейтину фото?
+// Р¤РѕС‚Рѕ СЃ СЃР°РјС‹Рј РІС‹СЃРѕРєРёРј СЂРµР№С‚РёРЅРіРѕРј
+$fotorandom=TRUE; // Р’С‹РЅРµСЃС‚Рё РІ РЅР°СЃС‚СЂРѕР№РєСѓ - С„РѕСЂРјРёСЂРѕРІР°С‚СЊ РєРѕР»РѕРЅРєСѓ СЃ СЃР°РјС‹РјРё РїРѕРїСѓР»СЏСЂРЅС‹РјРё РїРѕ СЂРµР№С‚РёРЅСѓ С„РѕС‚Рѕ?
 
 if ($fotorandom==TRUE) {
 $timetek=time(); $timefile=0;
-if (is_file("$datadir/ratingtop.dat")) $timefile=filemtime("$datadir/ratingtop.dat"); // Проверяем дату создания файла best.dat
-$timer=$timetek-$timefile; // узнаем сколько прошло времени (в секундах) 
+if (is_file("$datadir/ratingtop.dat")) $timefile=filemtime("$datadir/ratingtop.dat"); // РџСЂРѕРІРµСЂСЏРµРј РґР°С‚Сѓ СЃРѕР·РґР°РЅРёСЏ С„Р°Р№Р»Р° best.dat
+$timer=$timetek-$timefile; // СѓР·РЅР°РµРј СЃРєРѕР»СЊРєРѕ РїСЂРѕС€Р»Рѕ РІСЂРµРјРµРЅРё (РІ СЃРµРєСѓРЅРґР°С…) 
 
-if ($timer>=43200) { // запускаем создание файла с рейтингом фото
-if (is_file("$datadir/rating.dat")) { $ffile="$datadir/rating.dat"; $flines=file("$ffile"); $fi=count($flines);} // считываем рейтинг фото
+if ($timer>=43200) { // Р·Р°РїСѓСЃРєР°РµРј СЃРѕР·РґР°РЅРёРµ С„Р°Р№Р»Р° СЃ СЂРµР№С‚РёРЅРіРѕРј С„РѕС‚Рѕ
+if (is_file("$datadir/rating.dat")) { $ffile="$datadir/rating.dat"; $flines=file("$ffile"); $fi=count($flines);} // СЃС‡РёС‚С‹РІР°РµРј СЂРµР№С‚РёРЅРі С„РѕС‚Рѕ
 
-if ($fi>10) { // Если есть хотябы 10 голосов
+if ($fi>10) { // Р•СЃР»Рё РµСЃС‚СЊ С…РѕС‚СЏР±С‹ 10 РіРѕР»РѕСЃРѕРІ
 $ni=0; $c=0;
 do {$fi--; $fdt=explode("|",$flines[$fi]);
 $fdt[1]=$fdt[1]+1-1;
-if ($fdt[1]>=1) {$newflines[$ni]="$fdt[2]"; $ni++;} // выбираем только фото с положительными оценками
+if ($fdt[1]>=1) {$newflines[$ni]="$fdt[2]"; $ni++;} // РІС‹Р±РёСЂР°РµРј С‚РѕР»СЊРєРѕ С„РѕС‚Рѕ СЃ РїРѕР»РѕР¶РёС‚РµР»СЊРЅС‹РјРё РѕС†РµРЅРєР°РјРё
 } while($fi!=0);
 
 if ($ni>2) {
 $data="<table width=98% border=0 cellSpacing=0 cellPadding=2><tr><td class=catHead colspan=2 height=18><span class=cattitle>
-<nobr><h2 style='padding: 5px; margin: 1px'>Фото с рейтингом</h2></nobr></span></td></tr></table><br>";
+<nobr><h2 style='padding: 5px; margin: 1px'>Р¤РѕС‚Рѕ СЃ СЂРµР№С‚РёРЅРіРѕРј</h2></nobr></span></td></tr></table><br>";
 $uniq_foto=array_count_values($newflines); arsort($uniq_foto); reset($uniq_foto); $ni=0;
 while ($ifoto = current($uniq_foto) and $c<=3) {if ($ifoto >=1) {$c++; $data.='<a class="gallery" rel="group" title="" href="'.$filedir.'/'.key($uniq_foto).'.jpg"><img src="'.$filedir.'/sm-'.key($uniq_foto).'.jpg" border=0></a><br><br>';} next($uniq_foto); }
 reset($uniq_foto);
@@ -1342,7 +1342,7 @@ reset($uniq_foto);
 
 } // if ($fi>10)
 
-// запись данных в файл
+// Р·Р°РїРёСЃСЊ РґР°РЅРЅС‹С… РІ С„Р°Р№Р»
 $fp=fopen("$datadir/ratingtop.dat","w+");
 flock ($fp,LOCK_EX);
 fputs($fp, $data);
@@ -1354,15 +1354,15 @@ fclose($fp);
 $ffile=file_get_contents("$datadir/ratingtop.dat"); print"$ffile";
 } // if $fotorandom==TRUE;
 
-} //$id - печатаем только на главной
+} //$id - РїРµС‡Р°С‚Р°РµРј С‚РѕР»СЊРєРѕ РЅР° РіР»Р°РІРЅРѕР№
 
 
 
 
 
-if (is_file("$datadir/msg.dat")) { // БЛОК выводит рекламу, счётчики, информацию из файла msg.dat
+if (is_file("$datadir/msg.dat")) { // Р‘Р›РћРљ РІС‹РІРѕРґРёС‚ СЂРµРєР»Р°РјСѓ, СЃС‡С‘С‚С‡РёРєРё, РёРЅС„РѕСЂРјР°С†РёСЋ РёР· С„Р°Р№Р»Р° msg.dat
 echo '<table width=98% border=0 cellSpacing=0 cellPadding=2><tr><td class=catHead colspan=2 height=18><span class=cattitle>
-<nobr><h2 style="padding: 5px; margin: 1px">Друзья сайта</h2></nobr></span></td></tr></table><br>
+<nobr><h2 style="padding: 5px; margin: 1px">Р”СЂСѓР·СЊСЏ СЃР°Р№С‚Р°</h2></nobr></span></td></tr></table><br>
 <TABLE cellPadding=1 cellSpacing=1 border=0><TR><TD>';
 include("$datadir/msg.dat"); 
 echo'</TD></TR></TABLE></FORM><BR><br>'; }
@@ -1378,39 +1378,39 @@ echo'</span></TD></TR>
 
 
 
-if (!isset($_GET['id'])) { // БЛОК выводится ТОЛЬКО на главной!
+if (!isset($_GET['id'])) { // Р‘Р›РћРљ РІС‹РІРѕРґРёС‚СЃСЏ РўРћР›Р¬РљРћ РЅР° РіР»Р°РІРЅРѕР№!
 
 
-if (is_file("../baner_728x90.php")) { // БЛОК выводит рекламу
+if (is_file("../baner_728x90.php")) { // Р‘Р›РћРљ РІС‹РІРѕРґРёС‚ СЂРµРєР»Р°РјСѓ
 
 print"<table border=0 height=100 cellSpacing=0 cellPadding=3 width=100%>
 <tr><td class=catHead colspan=3 width=100% height=28><span class=cattitle>
-<h2 style='padding: 5px; margin: 1px'>Интересная информация</h2></span></td></tr>
+<h2 style='padding: 5px; margin: 1px'>РРЅС‚РµСЂРµСЃРЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ</h2></span></td></tr>
 <tr align=center><td class=row1 valign=top><span class=genmed>";
 include("../baner_728x90.php"); echo'</span></TD></TR></table>';
-} // БЛОК выводит рекламу
+} // Р‘Р›РћРљ РІС‹РІРѕРґРёС‚ СЂРµРєР»Р°РјСѓ
 
 
 
 
-if (is_file("$datadir/news.dat")) { // БЛОК Недавно добавленные фото
+if (is_file("$datadir/news.dat")) { // Р‘Р›РћРљ РќРµРґР°РІРЅРѕ РґРѕР±Р°РІР»РµРЅРЅС‹Рµ С„РѕС‚Рѕ
 
-$stolb=0; $maxfoto=9; // сколько недавно добавленных фото показывать?
+$stolb=0; $maxfoto=9; // СЃРєРѕР»СЊРєРѕ РЅРµРґР°РІРЅРѕ РґРѕР±Р°РІР»РµРЅРЅС‹С… С„РѕС‚Рѕ РїРѕРєР°Р·С‹РІР°С‚СЊ?
 $nlines=file("$datadir/news.dat"); $nmax=count($nlines); if ($nmax<$maxfoto) $maxfoto=$nmax;
 
-if ($nmax>0) { // печатаем блок ОДИН РАЗ если есть фото
+if ($nmax>0) { // РїРµС‡Р°С‚Р°РµРј Р±Р»РѕРє РћР”РРќ Р РђР— РµСЃР»Рё РµСЃС‚СЊ С„РѕС‚Рѕ
 print"<table border=0 width=100% height=340 cellSpacing=0 cellPadding=3 width=100%>
 <tr><td class=catHead colspan=3 width=100% height=28><span class=cattitle>
-<h2 style='padding: 5px; margin: 1px'>Недавно добавленные фото</h2></span></td></tr>";
+<h2 style='padding: 5px; margin: 1px'>РќРµРґР°РІРЅРѕ РґРѕР±Р°РІР»РµРЅРЅС‹Рµ С„РѕС‚Рѕ</h2></span></td></tr>";
 
 do { $maxfoto--;
 $ndt=explode("|",$nlines[$maxfoto]);
 $file=replacer($ndt[12]); $big_file=replacer($ndt[11]);
 //$foto=str_replace('sm-','',$file); $foto=str_replace('.jpg','',$foto); $foto=str_replace('.png','',$foto);
 if ($stolb==0) echo'<tr align=center>';
-print "<td class=row1 width=33% valign=top align=center><span class=genmed>Категория: <B>$ndt[9]</B><br>
+print "<td class=row1 width=33% valign=top align=center><span class=genmed>РљР°С‚РµРіРѕСЂРёСЏ: <B>$ndt[9]</B><br>
 <a class='gallery' rel='group' title='$ndt[6]' href='$filedir/$big_file'><img border=0 src='$filedir/$file'></a><br>
-Раздел: <a href='index.php?id=$ndt[1]'><B>$ndt[5]</B> »</a> <nobr>[$ndt[8] фото]</nobr></span></TD>";
+Р Р°Р·РґРµР»: <a href='index.php?id=$ndt[1]'><B>$ndt[5]</B> В»</a> <nobr>[$ndt[8] С„РѕС‚Рѕ]</nobr></span></TD>";
 $stolb++;
 if ($stolb>=3) {echo'</TR>'; $stolb=0; }
 } while($maxfoto>0);
@@ -1420,9 +1420,9 @@ echo'</table>';
 } // if ($nmax>0)
 
 
-// БЛОК Случайно выбранные фото
+// Р‘Р›РћРљ РЎР»СѓС‡Р°Р№РЅРѕ РІС‹Р±СЂР°РЅРЅС‹Рµ С„РѕС‚Рѕ
 
-$maxfoto=9; // сколько последних добавленных фото показывать?
+$maxfoto=9; // СЃРєРѕР»СЊРєРѕ РїРѕСЃР»РµРґРЅРёС… РґРѕР±Р°РІР»РµРЅРЅС‹С… С„РѕС‚Рѕ РїРѕРєР°Р·С‹РІР°С‚СЊ?
 $allfoto=null; $p=0; $stolb=0;
 
 if ($handle=opendir($filedir)) { while (($file=readdir($handle))!==false)
@@ -1434,7 +1434,7 @@ $r_keys=array_rand($allfoto,$maxfoto);
 
 print"<table border=0 height=340 cellSpacing=0 cellPadding=3 width=100%>
 <tr><td class=catHead colspan=3 width=100% height=28><span class=cattitle>
-<h2 style='padding: 5px; margin: 1px'>Случайно выбранные фото</h2></span></td></tr>";
+<h2 style='padding: 5px; margin: 1px'>РЎР»СѓС‡Р°Р№РЅРѕ РІС‹Р±СЂР°РЅРЅС‹Рµ С„РѕС‚Рѕ</h2></span></td></tr>";
 
 do {$maxfoto--;
 $file=$allfoto[$r_keys[$maxfoto]];
@@ -1443,7 +1443,7 @@ $foto=str_replace('sm-','',$file);
 if ($stolb==0) echo'<tr align=center>';
 print "<td class=row1 valign=top><span class=genmed>
 <a class='gallery' rel='group' title='$fname' href='$filedir/$foto'><img border=0 src='$filedir/$file'></a><br>
-<a href='index.php?id=$rubrika'>Перейти в раздел »</a></span></TD>";
+<a href='index.php?id=$rubrika'>РџРµСЂРµР№С‚Рё РІ СЂР°Р·РґРµР» В»</a></span></TD>";
 $stolb++;
 if ($stolb>=3) {echo'</TR>'; $stolb=0; }
 
@@ -1452,7 +1452,7 @@ echo'</table>';
 } // if count($allfoto)>9
 
 
-} // КОНЕЦ - вывода новых, случайных фоток и вывода блока рекламы
+} // РљРћРќР•Р¦ - РІС‹РІРѕРґР° РЅРѕРІС‹С…, СЃР»СѓС‡Р°Р№РЅС‹С… С„РѕС‚РѕРє Рё РІС‹РІРѕРґР° Р±Р»РѕРєР° СЂРµРєР»Р°РјС‹
 
 
 
@@ -1472,109 +1472,109 @@ echo'</table>';
 if (isset($_GET['id'])) { $id=$_GET['id'];
 
 
-// страница С ТЕМАМИ выбранной РУБРИКИ
+// СЃС‚СЂР°РЅРёС†Р° РЎ РўР•РњРђРњР РІС‹Р±СЂР°РЅРЅРѕР№ Р РЈР‘Р РРљР
 if (strlen($id)==3) { $fid=$id;
 
-// Защиты
-if (!ctype_digit($fid) or strlen($fid)>3) exit("<B>$back. Номер рубрики должен быть цифровым и содержать менее 4 символов</B>");
-$imax=count($mainlines); if (($fid>999) or (strlen($fid)==0)) exit("<b>Данный раздел удалён или не существует.</b>");
+// Р—Р°С‰РёС‚С‹
+if (!ctype_digit($fid) or strlen($fid)>3) exit("<B>$back. РќРѕРјРµСЂ СЂСѓР±СЂРёРєРё РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ С†РёС„СЂРѕРІС‹Рј Рё СЃРѕРґРµСЂР¶Р°С‚СЊ РјРµРЅРµРµ 4 СЃРёРјРІРѕР»РѕРІ</B>");
+$imax=count($mainlines); if (($fid>999) or (strlen($fid)==0)) exit("<b>Р”Р°РЅРЅС‹Р№ СЂР°Р·РґРµР» СѓРґР°Р»С‘РЅ РёР»Рё РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚.</b>");
 
-// Исключаем ошибку вызова несуществующей страницы
+// РСЃРєР»СЋС‡Р°РµРј РѕС€РёР±РєСѓ РІС‹Р·РѕРІР° РЅРµСЃСѓС‰РµСЃС‚РІСѓСЋС‰РµР№ СЃС‚СЂР°РЅРёС†С‹
 if (!isset($_GET['page'])) $page=1; else {$page=$_GET['page']; if (!ctype_digit($page)) $page=1; if ($page<1) $page=1;}
 
 if ($raz!="razdel") {
 
-// Уточняем статус по кол-ву ЗВЁЗД юзера. Если меньше допустимых N в этой рубрике - то досвиданья!
+// РЈС‚РѕС‡РЅСЏРµРј СЃС‚Р°С‚СѓСЃ РїРѕ РєРѕР»-РІСѓ Р—Р’РЃР—Р” СЋР·РµСЂР°. Р•СЃР»Рё РјРµРЅСЊС€Рµ РґРѕРїСѓСЃС‚РёРјС‹С… N РІ СЌС‚РѕР№ СЂСѓР±СЂРёРєРµ - С‚Рѕ РґРѕСЃРІРёРґР°РЅСЊСЏ!
 $maxzd=null;
 do {$imax--; $ddt=explode("|", $mainlines[$imax]); if ($ddt[0]==$fid) $maxzd=$ddt[12]; } while($imax>"0");
 if ($maxzd>=1) {
-if (!ctype_digit($maxzd)) exit("$back звёзды исчисляются в цифрах. а в файле данных - ерунда!");
+if (!ctype_digit($maxzd)) exit("$back Р·РІС‘Р·РґС‹ РёСЃС‡РёСЃР»СЏСЋС‚СЃСЏ РІ С†РёС„СЂР°С…. Р° РІ С„Р°Р№Р»Рµ РґР°РЅРЅС‹С… - РµСЂСѓРЅРґР°!");
 
-$noacsess="<br><br><br><br><center><table class=forumline width=700><tr><th class=thHead colspan=4 height=25>Доступ в раздел ограничен</th></tr>
-<tr class=row2><td class=row1><center><BR><BR><B><span style='FONT-SIZE: 14px'>Для просмотра данного раздела необходимо быть зарегистрированным и иметь рейтинг не менее $maxzd звёзд.";
+$noacsess="<br><br><br><br><center><table class=forumline width=700><tr><th class=thHead colspan=4 height=25>Р”РѕСЃС‚СѓРї РІ СЂР°Р·РґРµР» РѕРіСЂР°РЅРёС‡РµРЅ</th></tr>
+<tr class=row2><td class=row1><center><BR><BR><B><span style='FONT-SIZE: 14px'>Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РґР°РЅРЅРѕРіРѕ СЂР°Р·РґРµР»Р° РЅРµРѕР±С…РѕРґРёРјРѕ Р±С‹С‚СЊ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅРЅС‹Рј Рё РёРјРµС‚СЊ СЂРµР№С‚РёРЅРі РЅРµ РјРµРЅРµРµ $maxzd Р·РІС‘Р·Рґ.";
 
-// БЛОК проверяет логин и пароль юзера, считывает кол-во его звёзд и сравнивает с заданным в рубрике
-if (isset($_COOKIE['wrfcookies'])) { // весь блок работает при наличии КУКИ
+// Р‘Р›РћРљ РїСЂРѕРІРµСЂСЏРµС‚ Р»РѕРіРёРЅ Рё РїР°СЂРѕР»СЊ СЋР·РµСЂР°, СЃС‡РёС‚С‹РІР°РµС‚ РєРѕР»-РІРѕ РµРіРѕ Р·РІС‘Р·Рґ Рё СЃСЂР°РІРЅРёРІР°РµС‚ СЃ Р·Р°РґР°РЅРЅС‹Рј РІ СЂСѓР±СЂРёРєРµ
+if (isset($_COOKIE['wrfcookies'])) { // РІРµСЃСЊ Р±Р»РѕРє СЂР°Р±РѕС‚Р°РµС‚ РїСЂРё РЅР°Р»РёС‡РёРё РљРЈРљР
 $text=$_COOKIE['wrfcookies']; 
 $text=replacer($text);
-$wrfc=explode("|",$text); $wrfname=$wrfc[0]; if (isset($wrfc[1])) $wrfpass=$wrfc[1]; else exit("$back попытка взлома - в куки нет пароля. Куда он делся ;-) ?");
+$wrfc=explode("|",$text); $wrfname=$wrfc[0]; if (isset($wrfc[1])) $wrfpass=$wrfc[1]; else exit("$back РїРѕРїС‹С‚РєР° РІР·Р»РѕРјР° - РІ РєСѓРєРё РЅРµС‚ РїР°СЂРѕР»СЏ. РљСѓРґР° РѕРЅ РґРµР»СЃСЏ ;-) ?");
 
-// пробегаем файл с юзерами
+// РїСЂРѕР±РµРіР°РµРј С„Р°Р№Р» СЃ СЋР·РµСЂР°РјРё
 $iu=$usercount; $ok=FALSE;
 do {$iu--; $du=explode("|",$userlines[$iu]);
 if (isset($du[1])) { $realname=strtolower($du[0]);
-if (strtolower($wrfname)===$realname & $wrfpass===$du[1]) {$ok="$i"; if ($du[2]<$maxzd) exit("$noacsess У Вас всего $du[2] звёзд.</B></center><BR><BR>$back<BR><BR></td></table><br>"); }}
+if (strtolower($wrfname)===$realname & $wrfpass===$du[1]) {$ok="$i"; if ($du[2]<$maxzd) exit("$noacsess РЈ Р’Р°СЃ РІСЃРµРіРѕ $du[2] Р·РІС‘Р·Рґ.</B></center><BR><BR>$back<BR><BR></td></table><br>"); }}
 } while($iu > "0");
-} else exit("$noacsess</B></center><BR><BR>$back<BR><BR></td></table><br>"); // если юзер тот, за кого себя выдаёт то его пускаем, иначе - обломаем
+} else exit("$noacsess</B></center><BR><BR>$back<BR><BR></td></table><br>"); // РµСЃР»Рё СЋР·РµСЂ С‚РѕС‚, Р·Р° РєРѕРіРѕ СЃРµР±СЏ РІС‹РґР°С‘С‚ С‚Рѕ РµРіРѕ РїСѓСЃРєР°РµРј, РёРЅР°С‡Рµ - РѕР±Р»РѕРјР°РµРј
 if ($ok!=FALSE) exit("$noacsess</B></center><BR><BR>$back<BR><BR></td></table><br>");
 }
 
 
-// определяем есть ли информация в файле с данными
+// РѕРїСЂРµРґРµР»СЏРµРј РµСЃС‚СЊ Р»Рё РёРЅС„РѕСЂРјР°С†РёСЏ РІ С„Р°Р№Р»Рµ СЃ РґР°РЅРЅС‹РјРё
 if (is_file("$datadir/topic$fid.dat")) {
 $msglines=file("$datadir/topic$fid.dat"); $maxi=count($msglines); $i=$maxi;
 
 if (isset($_POST['findme']) or isset($_GET['findme'])) {
-// ЕСЛИ есть фильтр по названию темы, то:
-// - Считываем файл с темами и отбираем в отдельный массив только те, которые содаржат в названии искомую фразу
-// - в $maxi записываем кол-во тем
-// - в $msglines[$i] записываем данные
-setlocale(LC_ALL,'ru_RU.CP1251'); // ! РАЗРЕШАЕМ РАБОТУ ФУНКЦИЙ, работающих с регистором и с РУССКИМИ БУКВАМИ
+// Р•РЎР›Р РµСЃС‚СЊ С„РёР»СЊС‚СЂ РїРѕ РЅР°Р·РІР°РЅРёСЋ С‚РµРјС‹, С‚Рѕ:
+// - РЎС‡РёС‚С‹РІР°РµРј С„Р°Р№Р» СЃ С‚РµРјР°РјРё Рё РѕС‚Р±РёСЂР°РµРј РІ РѕС‚РґРµР»СЊРЅС‹Р№ РјР°СЃСЃРёРІ С‚РѕР»СЊРєРѕ С‚Рµ, РєРѕС‚РѕСЂС‹Рµ СЃРѕРґР°СЂР¶Р°С‚ РІ РЅР°Р·РІР°РЅРёРё РёСЃРєРѕРјСѓСЋ С„СЂР°Р·Сѓ
+// - РІ $maxi Р·Р°РїРёСЃС‹РІР°РµРј РєРѕР»-РІРѕ С‚РµРј
+// - РІ $msglines[$i] Р·Р°РїРёСЃС‹РІР°РµРј РґР°РЅРЅС‹Рµ
+setlocale(LC_ALL,'ru_RU.CP1251'); // ! Р РђР—Р Р•РЁРђР•Рњ Р РђР‘РћРўРЈ Р¤РЈРќРљР¦РР™, СЂР°Р±РѕС‚Р°СЋС‰РёС… СЃ СЂРµРіРёСЃС‚РѕСЂРѕРј Рё СЃ Р РЈРЎРЎРљРРњР Р‘РЈРљР’РђРњР
 if (isset($_POST['findme'])) $findme=replacer($_POST['findme']);
 if (isset($_GET['findme'])) { $findme=replacer($_GET['findme']); $findme=urldecode($findme);}
-$stroka=strlen($findme); if($stroka<4 or $stroka>30) exit("разрешается поиск в количестве от 4-х до 30-и символов!");
+$stroka=strlen($findme); if($stroka<4 or $stroka>30) exit("СЂР°Р·СЂРµС€Р°РµС‚СЃСЏ РїРѕРёСЃРє РІ РєРѕР»РёС‡РµСЃС‚РІРµ РѕС‚ 4-С… РґРѕ 30-Рё СЃРёРјРІРѕР»РѕРІ!");
 $tmplines=$msglines; $msglines=null; $i=0;
 foreach($tmplines as $v) {$dt=explode("|", $v); if (stristr($dt[3],$findme)) {$msglines[$i]=$v; $i++;}}
 $maxi=$i-1;} else $findme="";
 
-$frname=str_replace(' »','',$frname); //вырезаем лишние символы
+$frname=str_replace(' В»','',$frname); //РІС‹СЂРµР·Р°РµРј Р»РёС€РЅРёРµ СЃРёРјРІРѕР»С‹
 print"
-<table width=100% border=0 cellSpacing=0 cellPadding=3 height=45><tr><td class=catHead colspan=2><span class=cattitle><h2 style='padding: 5px; margin: 1px'>$frname »</h2></span></td></tr></table>";
+<table width=100% border=0 cellSpacing=0 cellPadding=3 height=45><tr><td class=catHead colspan=2><span class=cattitle><h2 style='padding: 5px; margin: 1px'>$frname В»</h2></span></td></tr></table>";
 
 print"<table border=0 width=100% cellpadding=2 cellspacing=2 class=forumline>
 <tr><td colspan=2 align=center valign=top>"; $temp=0;
 
-if (is_file("../baner_728x90.php")) include("../baner_728x90.php"); // ВСТАВЛЯЕМ баннер
+if (is_file("../baner_728x90.php")) include("../baner_728x90.php"); // Р’РЎРўРђР’Р›РЇР•Рњ Р±Р°РЅРЅРµСЂ
 
 $addbutton="<table width=100%><tr><td align=left valign=middle>";
 
 if ($maxi>0) {
 
-if ($maxi>$maxtem-1) $addbutton="<table width=100%><TR><TD>Количество допустимых тем в рубрике исчерпано.";
+if ($maxi>$maxtem-1) $addbutton="<table width=100%><TR><TD>РљРѕР»РёС‡РµСЃС‚РІРѕ РґРѕРїСѓСЃС‚РёРјС‹С… С‚РµРј РІ СЂСѓР±СЂРёРєРµ РёСЃС‡РµСЂРїР°РЅРѕ.";
 
 
-// БЛОК СОРТИРОВКИ: последние ответы ВВЕРХУ (по времени создания файла с темой)!
+// Р‘Р›РћРљ РЎРћР РўРР РћР’РљР: РїРѕСЃР»РµРґРЅРёРµ РѕС‚РІРµС‚С‹ Р’Р’Р•Р РҐРЈ (РїРѕ РІСЂРµРјРµРЅРё СЃРѕР·РґР°РЅРёСЏ С„Р°Р№Р»Р° СЃ С‚РµРјРѕР№)!
 do {$i--; $dt=explode("|", $msglines[$i]);
    $filename="$dt[7].dat"; if (is_file("$datadir/$filename")) $ftime=filemtime("$datadir/$filename");  else $ftime="";
    $newlines[$i]="$ftime|$dt[7]|$i|";
 } while($i > 0);
 usort($newlines,"prcmp");
-// $newlines  - массив с данными:  ДАТА | ИМЯ_ФАЙЛА_С_ТЕМОЙ | № п/п |
-// $msglines - массив со всеми темами выбранной рубрики
+// $newlines  - РјР°СЃСЃРёРІ СЃ РґР°РЅРЅС‹РјРё:  Р”РђРўРђ | РРњРЇ_Р¤РђР™Р›Рђ_РЎ_РўР•РњРћР™ | в„– Рї/Рї |
+// $msglines - РјР°СЃСЃРёРІ СЃРѕ РІСЃРµРјРё С‚РµРјР°РјРё РІС‹Р±СЂР°РЅРЅРѕР№ СЂСѓР±СЂРёРєРё
 $i=$maxi;
 do {$i--; $dtn=explode("|", $newlines[$i]);
    $numtp="$dtn[2]"; $lines[$i]="$msglines[$numtp]";
 } while($i > 0);
-// КОНЕЦ блока сортировки
+// РљРћРќР•Р¦ Р±Р»РѕРєР° СЃРѕСЂС‚РёСЂРѕРІРєРё
 
-// Показываем QQ ТЕМ
+// РџРѕРєР°Р·С‹РІР°РµРј QQ РўР•Рњ
 $fm=$maxi-$qq*($page-1);
 if ($fm<"0") $fm=$qq; $lm=$fm-$qq; if ($lm<"0") $lm="0";
 
 do {$fm--; $num=$fm+2;
 $dt=explode("|", $lines[$fm]);
 
-// нужно для определения темы на VIP-статус
+// РЅСѓР¶РЅРѕ РґР»СЏ РѕРїСЂРµРґРµР»РµРЅРёСЏ С‚РµРјС‹ РЅР° VIP-СЃС‚Р°С‚СѓСЃ
 $dtn=explode("|", $newlines[$fm]);
-$timer=time()-$dtn[0]; // узнаем сколько прошло времени (в секундах) 
+$timer=time()-$dtn[0]; // СѓР·РЅР°РµРј СЃРєРѕР»СЊРєРѕ РїСЂРѕС€Р»Рѕ РІСЂРµРјРµРЅРё (РІ СЃРµРєСѓРЅРґР°С…) 
 
 
 $filename=$dt[7]; 
 
-if (is_file("$datadir/$filename.dat")) { // если файл с темой существует - то показать тему в списке!
+if (is_file("$datadir/$filename.dat")) { // РµСЃР»Рё С„Р°Р№Р» СЃ С‚РµРјРѕР№ СЃСѓС‰РµСЃС‚РІСѓРµС‚ - С‚Рѕ РїРѕРєР°Р·Р°С‚СЊ С‚РµРјСѓ РІ СЃРїРёСЃРєРµ!
 $msgsize=sizeof(file("$datadir/$filename.dat"));
 
-if ($temp>0) print"</TD><TD>"; if ($temp==0) print"<TR><TD>"; // открываем главную по отношению к 2-м по 400 таблицу
+if ($temp>0) print"</TD><TD>"; if ($temp==0) print"<TR><TD>"; // РѕС‚РєСЂС‹РІР°РµРј РіР»Р°РІРЅСѓСЋ РїРѕ РѕС‚РЅРѕС€РµРЅРёСЋ Рє 2-Рј РїРѕ 400 С‚Р°Р±Р»РёС†Сѓ
 
 print"
 <table border=0 width=390 cellpadding=2 cellspacing=1 class=forumline>
@@ -1584,27 +1584,27 @@ print"
 
 $dt[3]=replacer($dt[3]);
 
-print"<b><a href=\"index.php?id=$dt[7]\" title='$dt[3]'>$dt[3]</a></b> [$msgsize фото]</span>";
+print"<b><a href=\"index.php?id=$dt[7]\" title='$dt[3]'>$dt[3]</a></b> [$msgsize С„РѕС‚Рѕ]</span>";
 
-if ($msgsize>$qq) { // ВЫВОДИМ СПИСОК ДОСТУПНЫХ СТРАНИЦ ТЕМЫ
+if ($msgsize>$qq) { // Р’Р«Р’РћР”РРњ РЎРџРРЎРћРљ Р”РћРЎРўРЈРџРќР«РҐ РЎРўР РђРќРР¦ РўР•РњР«
 $maxpaget=ceil($msgsize/$qq); $addpage="";
-echo'<small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div style="padding:6px;" class=pgbutt>Страница: ';
+echo'<small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div style="padding:6px;" class=pgbutt>РЎС‚СЂР°РЅРёС†Р°: ';
 if ($maxpaget<=5) $f1=$maxpaget; else $f1=5;
 for($i=1; $i<=$f1; $i++) {if ($i!=1) $addpage="&page=$i"; print"<a href=\"index.php?id=$dt[7]$addpage\">$i</a> &nbsp;";}
 if ($maxpaget>5) print "... <a href=\"index.php?id=$dt[7]&page=$maxpaget\">$maxpaget</a>"; }
 
-print"<br>$dt[4]<br><br><span class=gensmall>Добавил(а) ";
+print"<br>$dt[4]<br><br><span class=gensmall>Р”РѕР±Р°РІРёР»(Р°) ";
 
 $codename=urlencode($dt[0]);
-if ($dt[1]=="да") {
+if ($dt[1]=="РґР°") {
 if (!isset($wrfname)) print "$dt[0]"; else print "<small>($users)</small> <a href='tools.php?event=profile&pname=$codename':$dt[2]>$dt[0]</a>";} else  print"<small> $dt[0]</small>";
 
 print"<br><br><a name='addf' href=\"index.php?add=newfoto&id=$dt[7]\"><img src='$fskin/add_foto.gif' border=0></a>&nbsp;
 </TD></TR></TABLE>";
 
-$temp++; if ($temp==2) {$temp=0; print"</td></tr>";} // Нужно чтобы делить на два столбика
+$temp++; if ($temp==2) {$temp=0; print"</td></tr>";} // РќСѓР¶РЅРѕ С‡С‚РѕР±С‹ РґРµР»РёС‚СЊ РЅР° РґРІР° СЃС‚РѕР»Р±РёРєР°
 
-// защита if (strlen...) только если файл есть и имеет верный формат - выводим
+// Р·Р°С‰РёС‚Р° if (strlen...) С‚РѕР»СЊРєРѕ РµСЃР»Рё С„Р°Р№Р» РµСЃС‚СЊ Рё РёРјРµРµС‚ РІРµСЂРЅС‹Р№ С„РѕСЂРјР°С‚ - РІС‹РІРѕРґРёРј
 if ($msgsize>=2) {$linesdat=file("$datadir/$filename.dat"); $dtdat=explode("|", $linesdat[$msgsize-1]);
 if (strlen($linesdat[$msgsize-1])>10) {$dt[0]=$dtdat[0]; $dt[1]=$dtdat[1]; $dt[2]=$dtdat[2]; $dt[5]=$dtdat[5]; $dt[6]=$dtdat[6];}}
 } //if is_file
@@ -1612,12 +1612,12 @@ if (strlen($linesdat[$msgsize-1])>10) {$dt[0]=$dtdat[0]; $dt[1]=$dtdat[1]; $dt[2
 } while($lm < $fm);
 
 if ($stop!=TRUE) $addbutton.="<br><span class=nav><a name='add' href=\"index.php?add=newrazdel&id=$fid\"><img src='$fskin/add_razdel.gif' border=0></a>&nbsp;";
-else $addbutton.="Извините за неудобство, но администратор временно приостановил добавление разделов и фотографий!";
+else $addbutton.="РР·РІРёРЅРёС‚Рµ Р·Р° РЅРµСѓРґРѕР±СЃС‚РІРѕ, РЅРѕ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂ РІСЂРµРјРµРЅРЅРѕ РїСЂРёРѕСЃС‚Р°РЅРѕРІРёР» РґРѕР±Р°РІР»РµРЅРёРµ СЂР°Р·РґРµР»РѕРІ Рё С„РѕС‚РѕРіСЂР°С„РёР№!";
 
-// формируем переменную $pageinfo - со СПИСКОМ СТРАНИЦ
+// С„РѕСЂРјРёСЂСѓРµРј РїРµСЂРµРјРµРЅРЅСѓСЋ $pageinfo - СЃРѕ РЎРџРРЎРљРћРњ РЎРўР РђРќРР¦
 if (strlen($findme)>1) $findadd="&findme=$findme"; else $findadd="";
 $pageinfo=""; $addpage=""; $maxpage=ceil(($maxi+1)/$qq); if ($page>$maxpage) $page=$maxpage;
-$pageinfo.="<small><div style='padding:6px;' class=pgbutt>Страница: &nbsp;";
+$pageinfo.="<small><div style='padding:6px;' class=pgbutt>РЎС‚СЂР°РЅРёС†Р°: &nbsp;";
 if ($page>3 and $maxpage>5) $pageinfo.="<a href=index.php?id=$fid$findadd>1</a> ... ";
 $f1=$page+2; $f2=abs($page-2); if ($f2=="0") $f2=1; if ($page>=$maxpage-1) $f1=$maxpage;
 if ($maxpage<=5) {$f1=$maxpage; $f2=1;}
@@ -1638,8 +1638,8 @@ echo'</tr></table><BR>';
 
 
 if (isset($_GET['add'])) { 
-if ($cangutema=="0" and !isset($wrfname)) print"<center><h5>Администратор запретил создавать гостям темы! Для регистрации пройдите по ссылке: <B><a href='tools.php?event=reg'>зарегистрироваться</a></B></h5></center><BR><BR>"; else {
-$maxzag=$maxzag-10; // так нужно!!!
+if ($cangutema=="0" and !isset($wrfname)) print"<center><h5>РђРґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂ Р·Р°РїСЂРµС‚РёР» СЃРѕР·РґР°РІР°С‚СЊ РіРѕСЃС‚СЏРј С‚РµРјС‹! Р”Р»СЏ СЂРµРіРёСЃС‚СЂР°С†РёРё РїСЂРѕР№РґРёС‚Рµ РїРѕ СЃСЃС‹Р»РєРµ: <B><a href='tools.php?event=reg'>Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°С‚СЊСЃСЏ</a></B></h5></center><BR><BR>"; else {
+$maxzag=$maxzag-10; // С‚Р°Рє РЅСѓР¶РЅРѕ!!!
 
 
 
@@ -1649,8 +1649,8 @@ print"<form action=\"index.php?event=addtopic&id=$fid\" method=post enctype=\"mu
 
 
 print"<table border=0 width=100% class=forumline>
-<tr><td class=catHead align=center colspan=2 height=28><span class=cattitle>Добавление раздела</span></td></tr>
-<tr><td class=row1 valign=top><span class=genmed><B>Название раздела</B></span></TD><TD class=row2>
+<tr><td class=catHead align=center colspan=2 height=28><span class=cattitle>Р”РѕР±Р°РІР»РµРЅРёРµ СЂР°Р·РґРµР»Р°</span></td></tr>
+<tr><td class=row1 valign=top><span class=genmed><B>РќР°Р·РІР°РЅРёРµ СЂР°Р·РґРµР»Р°</B></span></TD><TD class=row2>
 <input type=hidden name=maxzd value='$maxzd'><input type=text class=post name=zag maxlength=$maxzag size=70></TD></TR>";
 addmsg("");
 } } }
@@ -1667,27 +1667,27 @@ addmsg("");
 
 
 
-// показываем ФОТО выбранной рубрики
+// РїРѕРєР°Р·С‹РІР°РµРј Р¤РћРўРћ РІС‹Р±СЂР°РЅРЅРѕР№ СЂСѓР±СЂРёРєРё
 if (strlen($id)>6) { $fid=substr($id,0,3);
 
-// определяем есть ли информация в файле с данными
-if (!is_file("$datadir/$id.dat")) exit("<BR>$back. Извините, но такой темы на форуме не существует.<BR> Скорее всего её удалил администратор.");
+// РѕРїСЂРµРґРµР»СЏРµРј РµСЃС‚СЊ Р»Рё РёРЅС„РѕСЂРјР°С†РёСЏ РІ С„Р°Р№Р»Рµ СЃ РґР°РЅРЅС‹РјРё
+if (!is_file("$datadir/$id.dat")) exit("<BR>$back. РР·РІРёРЅРёС‚Рµ, РЅРѕ С‚Р°РєРѕР№ С‚РµРјС‹ РЅР° С„РѕСЂСѓРјРµ РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚.<BR> РЎРєРѕСЂРµРµ РІСЃРµРіРѕ РµС‘ СѓРґР°Р»РёР» Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂ.");
 $lines=file("$datadir/$id.dat"); $mitogo=count($lines); $i=$mitogo; $maxi=$i-1;
 
 if ($mitogo>0) { $tblstyle="row1";  $printvote=null;
 
-// Ищем тему в topicХХ.dat - проверяем не закрыта ли тема? и сразу же ищем есть ли в топике
+// РС‰РµРј С‚РµРјСѓ РІ topicРҐРҐ.dat - РїСЂРѕРІРµСЂСЏРµРј РЅРµ Р·Р°РєСЂС‹С‚Р° Р»Рё С‚РµРјР°? Рё СЃСЂР°Р·Сѓ Р¶Рµ РёС‰РµРј РµСЃС‚СЊ Р»Рё РІ С‚РѕРїРёРєРµ
 $ok=FALSE; $closed=FALSE; if (is_file("$datadir/topic$fid.dat")) {
 $msglines=file("$datadir/topic$fid.dat"); $mg=count($msglines);
 do {$mg--; $mt=explode("|",$msglines[$mg]);
 if ($mt[7]==$id and $mt[8]=="closed") $closed=TRUE;
-if ($mt[7]==$id) $ok=1; // тема есть в указанном разделе?
+if ($mt[7]==$id) $ok=1; // С‚РµРјР° РµСЃС‚СЊ РІ СѓРєР°Р·Р°РЅРЅРѕРј СЂР°Р·РґРµР»Рµ?
 } while($mg > "0");}
 
 $realbase="1"; if (is_file("$datadir/wrfoto.dat")) $mainlines=file("$datadir/wrfoto.dat");
 if (!isset($mainlines)) $datasize=0; else $datasize=sizeof($mainlines);
 if ($datasize<=0) {if (is_file("$datadir/copy.dat")) {$realbase="0"; $mainlines=file("$datadir/copy.dat"); $datasize=sizeof($mainlines);}}
-if ($datasize<=0) exit("$back. Проблемы с Базой данных - обратитесь к администратору");
+if ($datasize<=0) exit("$back. РџСЂРѕР±Р»РµРјС‹ СЃ Р‘Р°Р·РѕР№ РґР°РЅРЅС‹С… - РѕР±СЂР°С‚РёС‚РµСЃСЊ Рє Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂСѓ");
 $i=count($mainlines);
 
 
@@ -1697,16 +1697,16 @@ $i=count($mainlines);
 $maxzd=null;
 
 
-// Исключаем ошибку вызова несуществующей страницы
+// РСЃРєР»СЋС‡Р°РµРј РѕС€РёР±РєСѓ РІС‹Р·РѕРІР° РЅРµСЃСѓС‰РµСЃС‚РІСѓСЋС‰РµР№ СЃС‚СЂР°РЅРёС†С‹
 if (!isset($_GET['page'])) $page=1; else {$page=$_GET['page']; if (!ctype_digit($page)) $page=1; if ($page<1) $page=1;}
 
 $fm=$qq*($page-1); if ($fm>$maxi) $fm=$maxi-$qq;
 $lm=$fm+$qq; if ($lm>$maxi) $lm=$maxi+1;
 
 
-// формируем переменную $pageinfo - со СПИСКОМ СТРАНИЦ
+// С„РѕСЂРјРёСЂСѓРµРј РїРµСЂРµРјРµРЅРЅСѓСЋ $pageinfo - СЃРѕ РЎРџРРЎРљРћРњ РЎРўР РђРќРР¦
 $pageinfo=""; $addpage=""; $maxpage=ceil(($maxi+1)/$qq); if ($page>$maxpage) $page=$maxpage;
-$pageinfo.="<div align=center style='padding:6px;' class=pgbutt>Страница: &nbsp;";
+$pageinfo.="<div align=center style='padding:6px;' class=pgbutt>РЎС‚СЂР°РЅРёС†Р°: &nbsp;";
 if ($page>3 and $maxpage>5) $pageinfo.="<a href=index.php?id=$id>1</a> ... ";
 $f1=$page+2; $f2=abs($page-2); if ($f2=="0") $f2=1; if ($page>=$maxpage-1) $f1=$maxpage;
 if ($maxpage<=5) {$f1=$maxpage; $f2=1;}
@@ -1715,7 +1715,7 @@ else {if ($i!=1) $addpage="&page=$i"; $pageinfo.="<a href=index.php?id=$id$addpa
 if ($page<=$maxpage-3 and $maxpage>5) $pageinfo.="... <a href=index.php?id=$id&page=$maxpage>$maxpage</a>";
 $pageinfo.='</div>';
 
-if (is_file("$datadir/rating.dat")) { // СЧИТЫВАЕМ ФАЙЛ С РЕЙТИНГОМ ФОТО В ПАМЯТЬ
+if (is_file("$datadir/rating.dat")) { // РЎР§РРўР«Р’РђР•Рњ Р¤РђР™Р› РЎ Р Р•Р™РўРРќР“РћРњ Р¤РћРўРћ Р’ РџРђРњРЇРўР¬
 $file="$datadir/rating.dat"; $flines=file("$file"); $j=count($flines); $maxflines=$j;}
 
 $qm=null; $flag=0;
@@ -1723,34 +1723,34 @@ do {$dt=explode("|", replacer($lines[$fm]));
 
 $youwr=null; $fm++; $num=$maxi-$fm+2; $status="";
 
-if (strlen($lines[$fm-1])>5) { // Если строчка потерялась в скрипте (пустая строка) - то просто её НЕ выводим
+if (strlen($lines[$fm-1])>5) { // Р•СЃР»Рё СЃС‚СЂРѕС‡РєР° РїРѕС‚РµСЂСЏР»Р°СЃСЊ РІ СЃРєСЂРёРїС‚Рµ (РїСѓСЃС‚Р°СЏ СЃС‚СЂРѕРєР°) - С‚Рѕ РїСЂРѕСЃС‚Рѕ РµС‘ РќР• РІС‹РІРѕРґРёРј
 
-if (isset($_GET['quotemsg'])) {$quotemsg=replacer($_GET['quotemsg']); if(ctype_digit($quotemsg) and $quotemsg==$fm) $qm="[Quote][b]$dt[0] пишет:[/b]\r\n".$dt[4]."[/Quote]";}
+if (isset($_GET['quotemsg'])) {$quotemsg=replacer($_GET['quotemsg']); if(ctype_digit($quotemsg) and $quotemsg==$fm) $qm="[Quote][b]$dt[0] РїРёС€РµС‚:[/b]\r\n".$dt[4]."[/Quote]";}
 
 $msg=str_replace("[b]","<b>",$dt[4]);
 $msg=str_replace("[/b]","</b>", $msg);
 $msg=str_replace("[RB]","<font color=red><B>", $msg);
 $msg=str_replace("[/RB]","</B></font>", $msg);
 $msg=str_replace("&lt;br&gt;","<br>",$msg);
-$msg=preg_replace("#\[Quote\]\s*(.*?)\s*\[/Quote\]#is","<br><B><U>Цитата:</U></B><table width=80% border=0 cellpadding=5 cellspacing=1 style='padding: 5px; margin: 1px'><tr><td class=quote>$1</td></tr></table>",$msg);
-$msg=preg_replace("#\[Code\]\s*(.*?)\s*\[/Code\]#is"," <br><B><U>PHP код:</U></B><table width=80% border=0 cellpadding=5 cellspacing=1 style='padding: 5px; margin: 1px'><tr><td class=code >$1</td></tr></table>",$msg);
+$msg=preg_replace("#\[Quote\]\s*(.*?)\s*\[/Quote\]#is","<br><B><U>Р¦РёС‚Р°С‚Р°:</U></B><table width=80% border=0 cellpadding=5 cellspacing=1 style='padding: 5px; margin: 1px'><tr><td class=quote>$1</td></tr></table>",$msg);
+$msg=preg_replace("#\[Code\]\s*(.*?)\s*\[/Code\]#is"," <br><B><U>PHP РєРѕРґ:</U></B><table width=80% border=0 cellpadding=5 cellspacing=1 style='padding: 5px; margin: 1px'><tr><td class=code >$1</td></tr></table>",$msg);
 
-if ($antimat==TRUE) { // АНТИМАТ
-$pattern="/\w{0,5}[хx]([хx\s\!@#\$%\^&*+-\|\/]{0,6})[уy]([уy\s\!@#\$%\^&*+-\|\/]{0,6})[ёiлeеюийя]\w{0,7}|\w{0,6}[пp]([пp\s\!@#\$%\^&*+-\|\/]{0,6})[iие]([iие\s\!@#\$%\^&*+-\|\/]{0,6})[3зс]([3зс\s\!@#\$%\^&*+-\|\/]{0,6})[дd]\w{0,10}|[сcs][уy]([уy\!@#\$%\^&*+-\|\/]{0,6})[4чkк]\w{1,3}|\w{0,4}[bб]([bб\s\!@#\$%\^&*+-\|\/]{0,6})[lл]([lл\s\!@#\$%\^&*+-\|\/]{0,6})[yя]\w{0,10}|\w{0,8}[её][bб][лске@eыиаa][наи@йвл]\w{0,8}|\w{0,4}[еe]([еe\s\!@#\$%\^&*+-\|\/]{0,6})[бb]([бb\s\!@#\$%\^&*+-\|\/]{0,6})[uу]([uу\s\!@#\$%\^&*+-\|\/]{0,6})[н4ч]\w{0,4}|\w{0,4}[еeё]([еeё\s\!@#\$%\^&*+-\|\/]{0,6})[бb]([бb\s\!@#\$%\^&*+-\|\/]{0,6})[нn]([нn\s\!@#\$%\^&*+-\|\/]{0,6})[уy]\w{0,4}|\w{0,4}[еe]([еe\s\!@#\$%\^&*+-\|\/]{0,6})[бb]([бb\s\!@#\$%\^&*+-\|\/]{0,6})[оoаa@]([оoаa@\s\!@#\$%\^&*+-\|\/]{0,6})[тnнt]\w{0,4}|\w{0,10}[ё]([ё\!@#\$%\^&*+-\|\/]{0,6})[б]\w{0,6}|\w{0,4}[pп]([pп\s\!@#\$%\^&*+-\|\/]{0,6})[иeеi]([иeеi\s\!@#\$%\^&*+-\|\/]{0,6})[дd]([дd\s\!@#\$%\^&*+-\|\/]{0,6})[oоаa@еeиi]([oоаa@еeиi\s\!@#\$%\^&*+-\|\/]{0,6})[рr]\w{0,12}/i";
-$msg=preg_replace("$pattern","<b><font color='red'>Цензура</font></b>",$msg); }
+if ($antimat==TRUE) { // РђРќРўРРњРђРў
+$pattern="/\w{0,5}[С…x]([С…x\s\!@#\$%\^&*+-\|\/]{0,6})[Сѓy]([Сѓy\s\!@#\$%\^&*+-\|\/]{0,6})[С‘iР»eРµСЋРёР№СЏ]\w{0,7}|\w{0,6}[Рїp]([Рїp\s\!@#\$%\^&*+-\|\/]{0,6})[iРёРµ]([iРёРµ\s\!@#\$%\^&*+-\|\/]{0,6})[3Р·СЃ]([3Р·СЃ\s\!@#\$%\^&*+-\|\/]{0,6})[Рґd]\w{0,10}|[СЃcs][Сѓy]([Сѓy\!@#\$%\^&*+-\|\/]{0,6})[4С‡kРє]\w{1,3}|\w{0,4}[bР±]([bР±\s\!@#\$%\^&*+-\|\/]{0,6})[lР»]([lР»\s\!@#\$%\^&*+-\|\/]{0,6})[yСЏ]\w{0,10}|\w{0,8}[РµС‘][bР±][Р»СЃРєРµ@eС‹РёР°a][РЅР°Рё@Р№РІР»]\w{0,8}|\w{0,4}[Рµe]([Рµe\s\!@#\$%\^&*+-\|\/]{0,6})[Р±b]([Р±b\s\!@#\$%\^&*+-\|\/]{0,6})[uСѓ]([uСѓ\s\!@#\$%\^&*+-\|\/]{0,6})[РЅ4С‡]\w{0,4}|\w{0,4}[РµeС‘]([РµeС‘\s\!@#\$%\^&*+-\|\/]{0,6})[Р±b]([Р±b\s\!@#\$%\^&*+-\|\/]{0,6})[РЅn]([РЅn\s\!@#\$%\^&*+-\|\/]{0,6})[Сѓy]\w{0,4}|\w{0,4}[Рµe]([Рµe\s\!@#\$%\^&*+-\|\/]{0,6})[Р±b]([Р±b\s\!@#\$%\^&*+-\|\/]{0,6})[РѕoР°a@]([РѕoР°a@\s\!@#\$%\^&*+-\|\/]{0,6})[С‚nРЅt]\w{0,4}|\w{0,10}[С‘]([С‘\!@#\$%\^&*+-\|\/]{0,6})[Р±]\w{0,6}|\w{0,4}[pРї]([pРї\s\!@#\$%\^&*+-\|\/]{0,6})[РёeРµi]([РёeРµi\s\!@#\$%\^&*+-\|\/]{0,6})[Рґd]([Рґd\s\!@#\$%\^&*+-\|\/]{0,6})[oРѕР°a@РµeРёi]([oРѕР°a@РµeРёi\s\!@#\$%\^&*+-\|\/]{0,6})[СЂr]\w{0,12}/i";
+$msg=preg_replace("$pattern","<b><font color='red'>Р¦РµРЅР·СѓСЂР°</font></b>",$msg); }
 
-if ($smile==TRUE) { // СМАЙЛИКИ
+if ($smile==TRUE) { // РЎРњРђР™Р›РРљР
 $i=count($smiles)-1; for($k=0; $k<$i; $k=$k+2)
 {$j=$k+1; $msg=str_replace("$smiles[$j]","<img src='smile/$smiles[$k].gif' border=0>",$msg);}}
 
-// Если разрешена публикация УРЛов
+// Р•СЃР»Рё СЂР°Р·СЂРµС€РµРЅР° РїСѓР±Р»РёРєР°С†РёСЏ РЈР Р›РѕРІ
 if ($liteurl==TRUE) $msg=preg_replace ("#([^\[img\]])(http|https|ftp|goper):\/\/([a-zA-Z0-9\.\?&=\;\-\/_]+)([\W\s<\[]+)#i", "\\1<a href=\"\\2://\\3\" target=\"_blank\">\\2://\\3</a>\\4", $msg);
 
-// запускать ТОЛЬКО после замены АДРЕСА URL!!!
+// Р·Р°РїСѓСЃРєР°С‚СЊ РўРћР›Р¬РљРћ РїРѕСЃР»Рµ Р·Р°РјРµРЅС‹ РђР”Р Р•РЎРђ URL!!!
 $msg=preg_replace('#\[img\](.+?)\[/img\]#','<img src="$1" border="0">',$msg);
 
-// считываем в память данные по пользователю
-if ($dt[1]=="да")  { $iu=$usercount; $predup="0";
+// СЃС‡РёС‚С‹РІР°РµРј РІ РїР°РјСЏС‚СЊ РґР°РЅРЅС‹Рµ РїРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЋ
+if ($dt[1]=="РґР°")  { $iu=$usercount; $predup="0";
 do {$iu--; $du=explode("|", $userlines[$iu]); if ($du[0]==$dt[0])
 { if (isset($du[12])) {$status=$du[13]; $reiting=$du[2]; $youavatar=$du[12]; $email=$du[3]; $icq=$du[7]; $site=$du[8]; $userpn=$iu;}
 if (isset($_COOKIE['wrfcookies'])) $youwr=preg_replace("#(\[url=([^\]]+)\](.*?)\[/url\])|(http://(www.)?[0-9a-z\.-]+\.[a-z]{2,6}[0-9a-z/\?=&\._-]*)#","<a href=\"$4\" target='_blank'>$4</a> ",$du[11]); else $youwr=$du[11];}
@@ -1759,15 +1759,15 @@ if (isset($_COOKIE['wrfcookies'])) $youwr=preg_replace("#(\[url=([^\]]+)\](.*?)\
 
 if ($tblstyle=="row1") $tblstyle="row2"; else $tblstyle="row1";
 
-if ($flag==FALSE) { // БЛОК ПЕЧАТАЕМ ОДИН РАЗ
-$frname=str_replace(' »','',$frname); $frtname=str_replace(' »','',$frtname); //вырезаем лишние символы
+if ($flag==FALSE) { // Р‘Р›РћРљ РџР•Р§РђРўРђР•Рњ РћР”РРќ Р РђР—
+$frname=str_replace(' В»','',$frname); $frtname=str_replace(' В»','',$frtname); //РІС‹СЂРµР·Р°РµРј Р»РёС€РЅРёРµ СЃРёРјРІРѕР»С‹
 $flag=TRUE; print "
 <table width=100% border=0 cellSpacing=0 cellPadding=3 height=45><tr><td class=catHead colspan=2>
-<span class=cattitle><h2 style='padding: 5px; margin: 1px'><a href=\"index.php?id=$fid\">$frname</a> »
+<span class=cattitle><h2 style='padding: 5px; margin: 1px'><a href=\"index.php?id=$fid\">$frname</a> В»
 $frtname</h2></span>
 </td></tr></table>";
 
-if (is_file("../baner_728x90.php")) include("../baner_728x90.php"); // ВСТАВЛЯЕМ баннер
+if (is_file("../baner_728x90.php")) include("../baner_728x90.php"); // Р’РЎРўРђР’Р›РЇР•Рњ Р±Р°РЅРЅРµСЂ
 
 print"<table border=0 class=forumline width=800 cellspacing=1 cellpadding=3><tr><div id='wrap'>";}
 
@@ -1777,16 +1777,16 @@ print"<td valign=top>
 <table border=0 align=center width=190 cellpadding=1 cellspacing=0 class=maintbl>
 <tr><td valign=top align=center class=row1>
 
-<font size=-1>Фото № $teknum</font><BR>
+<font size=-1>Р¤РѕС‚Рѕ в„– $teknum</font><BR>
 <table width=190 height=180 cellpadding=0 cellspacing=0><tr><td align=center height=120 colspan=2><br>";
 
-// Если ПРИКРЕПЛЁН ФАЙЛ к сообщению - то показываем значёк и ссылку на него или картинку
+// Р•СЃР»Рё РџР РРљР Р•РџР›РЃРќ Р¤РђР™Р› Рє СЃРѕРѕР±С‰РµРЅРёСЋ - С‚Рѕ РїРѕРєР°Р·С‹РІР°РµРј Р·РЅР°С‡С‘Рє Рё СЃСЃС‹Р»РєСѓ РЅР° РЅРµРіРѕ РёР»Рё РєР°СЂС‚РёРЅРєСѓ
 if (isset($dt[12])) { if ($dt[12]!="" and is_file("$filedir/$dt[13]")) {
 $fsize=round($dt[14]/10.24)/100;
 $fotoname=explode(".",$dt[13]);
 
 
-// Если есть файл с рейтингом фото, то ищем все оценки этой фото и печатаем средний бал
+// Р•СЃР»Рё РµСЃС‚СЊ С„Р°Р№Р» СЃ СЂРµР№С‚РёРЅРіРѕРј С„РѕС‚Рѕ, С‚Рѕ РёС‰РµРј РІСЃРµ РѕС†РµРЅРєРё СЌС‚РѕР№ С„РѕС‚Рѕ Рё РїРµС‡Р°С‚Р°РµРј СЃСЂРµРґРЅРёР№ Р±Р°Р»
 $j=$maxflines; $sbal=null; $itogo=null;
 if ($j>0) do {$j--; $fdt=explode("|",$flines[$j]);
 if ($fdt[2]==$fotoname[0]) {$itogo++; $sbal=$sbal+$fdt[1];}
@@ -1799,29 +1799,29 @@ if ($sbal<0) $rating="<font color=red>$sbal</font>";
 
 
 
-// НОВЫЙ вариант
+// РќРћР’Р«Р™ РІР°СЂРёР°РЅС‚
 $dt[20]=round(($dt[20]/1024),2); if ($dt[20]=="0") $dt[20]="0.01";
 print"<a class=\"gallery\" rel=\"group\" title=\"$msg\" href=\"$filedir/$dt[13]\"><img src=\"$filedir/$dt[17]\" alt='$msg'/></a>
 <br><B>$msg</B><br><br>
-Разрешение: $dt[18] x $dt[19]<br>
-Размер: <I>$dt[20] Мб.</I><br>
+Р Р°Р·СЂРµС€РµРЅРёРµ: $dt[18] x $dt[19]<br>
+Р Р°Р·РјРµСЂ: <I>$dt[20] РњР±.</I><br>
 
-<br>Рейтинг: $rating <A href='#m$fm' style='text-decoration:none' onclick=\"window.open('index.php?addrepa&fotoname=$fotoname[0]','repa','width=600,height=600,left=50,top=50,scrollbars=yes')\">&#177;</A><br><br>
+<br>Р РµР№С‚РёРЅРі: $rating <A href='#m$fm' style='text-decoration:none' onclick=\"window.open('index.php?addrepa&fotoname=$fotoname[0]','repa','width=600,height=600,left=50,top=50,scrollbars=yes')\">&#177;</A><br><br>
 ";
 }}
 
-$addpage=""; if ($page>1) $addpage="&page=$page"; // нужно для цитирования
+$addpage=""; if ($page>1) $addpage="&page=$page"; // РЅСѓР¶РЅРѕ РґР»СЏ С†РёС‚РёСЂРѕРІР°РЅРёСЏ
 print"<br>";
 
-/* ПОКА что отключаем БЛОК ГОЛОСОВАНИЯ!!!!!
+/* РџРћРљРђ С‡С‚Рѕ РѕС‚РєР»СЋС‡Р°РµРј Р‘Р›РћРљ Р“РћР›РћРЎРћР’РђРќРРЇ!!!!!
 if (is_file("$datadir/$id.dat"))  {
 $rlines=file("$datadir/$id.dat"); $ri=count($rlines); $bals=0; $all=0;
-print"<TR><TD colspan=2 align=center>Комментарии [<B> $ri </B>]</TD></TR>";
+print"<TR><TD colspan=2 align=center>РљРѕРјРјРµРЅС‚Р°СЂРёРё [<B> $ri </B>]</TD></TR>";
 do {$ri--; $edt=explode("|",$rlines[$ri]); $edt[3]=date("d.m.Y H:i:s",$edt[3]); if ($edt[4]!=0) {$bals=$bals+$edt[4]; $all++;} else {$edt[4]="-";} } while($ri>0);
 if ($bals==0) {$itogobals="+</B>";} else {$itogobals=round($bals*10/$all)/10; $itogobals.="</B>";}
-print "<TR><TD colspan=2 align=center>Оценка [<B><a href='index.php?event=formacoment&id=$id' class=gallery>$itogobals</a>]</TD></TR>";
-} else {print"<TR><TD colspan=2 align=center>Комментарии [ <B><a href='index.php?event=formacoment&id=$id' class=gallery>+</a></B> ]</TD></TR>
-<TR><TD colspan=2 align=center>Оценка [<B><a href='index.php?event=formacoment&id=$id' class=gallery>+</a></B>]</TD></TR>
+print "<TR><TD colspan=2 align=center>РћС†РµРЅРєР° [<B><a href='index.php?event=formacoment&id=$id' class=gallery>$itogobals</a>]</TD></TR>";
+} else {print"<TR><TD colspan=2 align=center>РљРѕРјРјРµРЅС‚Р°СЂРёРё [ <B><a href='index.php?event=formacoment&id=$id' class=gallery>+</a></B> ]</TD></TR>
+<TR><TD colspan=2 align=center>РћС†РµРЅРєР° [<B><a href='index.php?event=formacoment&id=$id' class=gallery>+</a></B>]</TD></TR>
 ";}
 */
 
@@ -1834,17 +1834,17 @@ print"<TR height=30><TD><i>$dt[2]</i></TD><TD align=right>
 </td>";
 
 $colrubperpage=3;
-$cm=1; // ДЕЛИМ ВСЕ РУБРИКИ на столбцы
+$cm=1; // Р”Р•Р›РРњ Р’РЎР• Р РЈР‘Р РРљР РЅР° СЃС‚РѕР»Р±С†С‹
 if ((round($fm/$colrubperpage))==($fm/$colrubperpage)) {$cm++; print "</TR><TR>";}
 
 
-} // если строчка потерялась
+} // РµСЃР»Рё СЃС‚СЂРѕС‡РєР° РїРѕС‚РµСЂСЏР»Р°СЃСЊ
 } while($fm < $lm);
 
 print" </tr></table> $pageinfo";
 
 
-if ($cangumsg==FALSE and !isset($wrfname)) {print"<center>Администратор запретил отвечать гостям на сообщения! Для регистрации пройдите по ссылке: <B><a href='tools.php?event=reg'>зарегистрироваться</a></B></center><BR><BR>"; } else {
+if ($cangumsg==FALSE and !isset($wrfname)) {print"<center>РђРґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂ Р·Р°РїСЂРµС‚РёР» РѕС‚РІРµС‡Р°С‚СЊ РіРѕСЃС‚СЏРј РЅР° СЃРѕРѕР±С‰РµРЅРёСЏ! Р”Р»СЏ СЂРµРіРёСЃС‚СЂР°С†РёРё РїСЂРѕР№РґРёС‚Рµ РїРѕ СЃСЃС‹Р»РєРµ: <B><a href='tools.php?event=reg'>Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°С‚СЊСЃСЏ</a></B></center><BR><BR>"; } else {
 if ($closed==FALSE) {
 
 if (isset($_COOKIE['wrfcookies'])) {$wrfc=$_COOKIE['wrfcookies']; $wrfc=htmlspecialchars($wrfc); $wrfc=stripslashes($wrfc); $wrfc=explode("|", $wrfc);  $wrfpass=replacer($wrfc[1]);} else {unset($wrfpass); $wrfpass="";}
@@ -1858,11 +1858,11 @@ print "
 <input type=hidden name=zag value=\"$dt[3]\">
 <input type=hidden name=maxzd value='$maxzd'>
 <table cellpadding=3 cellspacing=1 width=100% class=forumline>
-<tr><th class=thHead colspan=2 height=25><b>Добавление ФОТО <a href='index.php?loginza'>*</a></b></th></tr>";
+<tr><th class=thHead colspan=2 height=25><b>Р”РѕР±Р°РІР»РµРЅРёРµ Р¤РћРўРћ <a href='index.php?loginza'>*</a></b></th></tr>";
 
 addmsg($qm);
-} else echo'<center>Извините за неудобство, но администратор временно приостановил добавление разделов и фотографий!';
-} else echo'<center><font style="font-size: 16px;font-weight:bold;"><BR>Раздел закрыт для добавления фото!<BR><BR>';
+} else echo'<center>РР·РІРёРЅРёС‚Рµ Р·Р° РЅРµСѓРґРѕР±СЃС‚РІРѕ, РЅРѕ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂ РІСЂРµРјРµРЅРЅРѕ РїСЂРёРѕСЃС‚Р°РЅРѕРІРёР» РґРѕР±Р°РІР»РµРЅРёРµ СЂР°Р·РґРµР»РѕРІ Рё С„РѕС‚РѕРіСЂР°С„РёР№!';
+} else echo'<center><font style="font-size: 16px;font-weight:bold;"><BR>Р Р°Р·РґРµР» Р·Р°РєСЂС‹С‚ РґР»СЏ РґРѕР±Р°РІР»РµРЅРёСЏ С„РѕС‚Рѕ!<BR><BR>';
 }}
 
 }
@@ -1874,10 +1874,10 @@ addmsg($qm);
 
 
 
-if (is_file("$fskin/bottom.html")) include("$fskin/bottom.html");  // подключаем НИЖНИЙ БЛОК ФОТОАЛЬБОМА
+if (is_file("$fskin/bottom.html")) include("$fskin/bottom.html");  // РїРѕРґРєР»СЋС‡Р°РµРј РќРР–РќРР™ Р‘Р›РћРљ Р¤РћРўРћРђР›Р¬Р‘РћРњРђ
 
 print"</td></tr></table>
-<center><font size=-2><small>Powered by WR-Foto &copy; 1.1М.2015<br></small></font></center>";
+<center><font size=-2><small>Powered by WR-Foto &copy; 1.1Рњ.2015<br></small></font></center>";
 
 if (is_file("../bottom.html")) include ("../bottom.html");
 

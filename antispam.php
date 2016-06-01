@@ -1,10 +1,10 @@
-<? // WR-foto v 1.2  //  02.08.15 ã.  //  Miha-ingener@yandex.ru
+<? // WR-foto v 1.2  //  02.08.15 Ð³.  //  Miha-ingener@yandex.ru
 
 include "data/config.php";
 
 if (isset($_GET['image'])) {
-// Ôóíêöèÿ ñ öèôðàìè çàùèòû
-$st="R0lGODlhCgAMAIABAFNTU////yH5BAEAAAEALAAAAAAKAAwAAAI"; // îáùàÿ ÷àñòü äëÿ âñåõ ðèñóíêîâ
+// Ð¤ÑƒÐ½ÐºÑ†Ð¸Ñ Ñ Ñ†Ð¸Ñ„Ñ€Ð°Ð¼Ð¸ Ð·Ð°Ñ‰Ð¸Ñ‚Ñ‹
+$st="R0lGODlhCgAMAIABAFNTU////yH5BAEAAAEALAAAAAAKAAwAAAI"; // Ð¾Ð±Ñ‰Ð°Ñ Ñ‡Ð°ÑÑ‚ÑŒ Ð´Ð»Ñ Ð²ÑÐµÑ… Ñ€Ð¸ÑÑƒÐ½ÐºÐ¾Ð²
 
 function imgwr($st,$num){
  if ($num=="0") {$len="63"; $number=$st."WjIFgi6e+QpMP0jin1bfv2nFaBlJaAQA7";}
@@ -20,9 +20,9 @@ function imgwr($st,$num){
  header("Content-type: image/gif"); 
  header("Content-length: $len");
  echo base64_decode($number); }
-// Âûâîä èçîáðàæåíèé íà ýêðàí (âñå êîäèðîâàíû - ðîáîò íå ïðîéä¸ò)
+// Ð’Ñ‹Ð²Ð¾Ð´ Ð¸Ð·Ð¾Ð±Ñ€Ð°Ð¶ÐµÐ½Ð¸Ð¹ Ð½Ð° ÑÐºÑ€Ð°Ð½ (Ð²ÑÐµ ÐºÐ¾Ð´Ð¸Ñ€Ð¾Ð²Ð°Ð½Ñ‹ - Ñ€Ð¾Ð±Ð¾Ñ‚ Ð½Ðµ Ð¿Ñ€Ð¾Ð¹Ð´Ñ‘Ñ‚)
 if (array_key_exists("image", $_REQUEST)) { $num=$_REQUEST["image"];
-$dopkod=mktime(0,0,0,date("m"),date("d"),date("Y")); // äîï.êîä. Ìåíÿåòñÿ êàæäûå 24 ÷àñà
+$dopkod=mktime(0,0,0,date("m"),date("d"),date("Y")); // Ð´Ð¾Ð¿.ÐºÐ¾Ð´. ÐœÐµÐ½ÑÐµÑ‚ÑÑ ÐºÐ°Ð¶Ð´Ñ‹Ðµ 24 Ñ‡Ð°ÑÐ°
 for ($i=0; $i<10; $i++) {if (md5($i+$rand_key+$dopkod)==$num) {imgwr($st,$i); die();}} }
 exit;}
 

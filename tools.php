@@ -1,81 +1,81 @@
-<? // WR-foto v 1.2  //  02.08.15 г.  //  Miha-ingener@yandex.ru
+<? // WR-foto v 1.2  //  02.08.15 Рі.  //  Miha-ingener@yandex.ru
 
 error_reporting (E_ALL); //error_reporting(0);
-ini_set('register_globals','off');// Все скрипты написаны для этой настройки php
+ini_set('register_globals','off');// Р’СЃРµ СЃРєСЂРёРїС‚С‹ РЅР°РїРёСЃР°РЅС‹ РґР»СЏ СЌС‚РѕР№ РЅР°СЃС‚СЂРѕР№РєРё php
 
 include "data/config.php";
 
-// временно часть переменных из конфига форума. Часть здесь используется.
+// РІСЂРµРјРµРЅРЅРѕ С‡Р°СЃС‚СЊ РїРµСЂРµРјРµРЅРЅС‹С… РёР· РєРѕРЅС„РёРіР° С„РѕСЂСѓРјР°. Р§Р°СЃС‚СЊ Р·РґРµСЃСЊ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ.
 
-$forum_lock="0"; // ОТКЛЮЧИТЬ добавление тем/сообщений
-$random_name="0"; // При загрузке файла генерировать ему имя случайным образом?
-$repaaddmsg="1"; // Сколько очков репутации добавлять за добавление сообщения?
-$repaaddtem="4"; // Сколько очков репутации добавлять за добавлении темы?
-$repaaddfile="7"; // Сколько очков репутации добавлять при загрузке файла?
-$sendmail="1"; // Включить отправку сообщений? 1/0
-$admin_send="0"; // Мылить админу сообщения о вновь зарегистрированных пользователях? 1/0
-$statistika="1"; // Показывать статистику на главной странице? 1/0
-$antimat="0"; // включить АНТИМАТ да/нет - 1/0
-$antispam="0"; // Задействовать АНТИСПАМ
-$antispam2012="0"; // Задействовать АНТИСПАМ 2012
-$antispam2012v="Какой сейчас год?"; // вопрос АНТИСПАМА 2012
-$antispam2012o="2014"; // ответ АНТИСПАМА 2012
-$max_key="4"; // Кол-во символов в коде ЦИФРОЗАЩИТЫ
-$rand_key="6855"; // Случайное число для цифрозащиты
-$newmess="1"; // Создавать файл с новыми сообщениями форума?
-$guest_name="гость"; // Как называем не зарег-ся пользователей
-$user_name="участник WR-форума"; // Как называем зарег-ся
-$g_add_tema="1"; // Разрешить гостям создавать темы? 1/0
-$g_add_msg="1"; // Разрешить гостям оставлять сообщения? 1/0
-$activation="1"; // Требовать активации через емайл при регистрации? 1/0
-$maxname="35"; // Максимальное кол-во символов в имени
-$maxzag="70"; // Масимальный кол-во символов в заголовке темы
-$maxmsg="5000"; // Максимальное количество символов в сообщении
-$tem_onpage="16"; // Кол-во отображаемых тем на страницу (15)
-$msg_onpage="11"; // Кол-во отображаемых сообщений на каждой странице (10)
-$uq="50"; // По сколько человек выводить список участников
-$specblok1="1"; // Включить БЛОК 15-и самых обсуждаемых тем?
-$specblok2="1"; // Включить БЛОК 10 самых активных пользователей?
-$nosssilki="0"; // Запретить гостям добавлять сообщения со ссылками?
-$liteurl="0";// Подсвечивать УРЛ? 1/0
-$max_f_size="102400"; // Максимальный размер аватара в байтах
-$datadir="./data"; // Папка с данными форума
-$showsmiles="1";// Включить/отключить графические смайлы
-$can_up_file="1"; // Разрешить загрузку фото 0 - нет, 1 - только зарегистрированным
-$filedir="./files"; // Каталог куда будет закачан файл
-$max_upfile_size="1048576"; // максимальный размер файла в байтах
-$forum_skin="images-green"; // Текущий скин форума
+$forum_lock="0"; // РћРўРљР›Р®Р§РРўР¬ РґРѕР±Р°РІР»РµРЅРёРµ С‚РµРј/СЃРѕРѕР±С‰РµРЅРёР№
+$random_name="0"; // РџСЂРё Р·Р°РіСЂСѓР·РєРµ С„Р°Р№Р»Р° РіРµРЅРµСЂРёСЂРѕРІР°С‚СЊ РµРјСѓ РёРјСЏ СЃР»СѓС‡Р°Р№РЅС‹Рј РѕР±СЂР°Р·РѕРј?
+$repaaddmsg="1"; // РЎРєРѕР»СЊРєРѕ РѕС‡РєРѕРІ СЂРµРїСѓС‚Р°С†РёРё РґРѕР±Р°РІР»СЏС‚СЊ Р·Р° РґРѕР±Р°РІР»РµРЅРёРµ СЃРѕРѕР±С‰РµРЅРёСЏ?
+$repaaddtem="4"; // РЎРєРѕР»СЊРєРѕ РѕС‡РєРѕРІ СЂРµРїСѓС‚Р°С†РёРё РґРѕР±Р°РІР»СЏС‚СЊ Р·Р° РґРѕР±Р°РІР»РµРЅРёРё С‚РµРјС‹?
+$repaaddfile="7"; // РЎРєРѕР»СЊРєРѕ РѕС‡РєРѕРІ СЂРµРїСѓС‚Р°С†РёРё РґРѕР±Р°РІР»СЏС‚СЊ РїСЂРё Р·Р°РіСЂСѓР·РєРµ С„Р°Р№Р»Р°?
+$sendmail="1"; // Р’РєР»СЋС‡РёС‚СЊ РѕС‚РїСЂР°РІРєСѓ СЃРѕРѕР±С‰РµРЅРёР№? 1/0
+$admin_send="0"; // РњС‹Р»РёС‚СЊ Р°РґРјРёРЅСѓ СЃРѕРѕР±С‰РµРЅРёСЏ Рѕ РІРЅРѕРІСЊ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅРЅС‹С… РїРѕР»СЊР·РѕРІР°С‚РµР»СЏС…? 1/0
+$statistika="1"; // РџРѕРєР°Р·С‹РІР°С‚СЊ СЃС‚Р°С‚РёСЃС‚РёРєСѓ РЅР° РіР»Р°РІРЅРѕР№ СЃС‚СЂР°РЅРёС†Рµ? 1/0
+$antimat="0"; // РІРєР»СЋС‡РёС‚СЊ РђРќРўРРњРђРў РґР°/РЅРµС‚ - 1/0
+$antispam="0"; // Р—Р°РґРµР№СЃС‚РІРѕРІР°С‚СЊ РђРќРўРРЎРџРђРњ
+$antispam2012="0"; // Р—Р°РґРµР№СЃС‚РІРѕРІР°С‚СЊ РђРќРўРРЎРџРђРњ 2012
+$antispam2012v="РљР°РєРѕР№ СЃРµР№С‡Р°СЃ РіРѕРґ?"; // РІРѕРїСЂРѕСЃ РђРќРўРРЎРџРђРњРђ 2012
+$antispam2012o="2014"; // РѕС‚РІРµС‚ РђРќРўРРЎРџРђРњРђ 2012
+$max_key="4"; // РљРѕР»-РІРѕ СЃРёРјРІРѕР»РѕРІ РІ РєРѕРґРµ Р¦РР¤Р РћР—РђР©РРўР«
+$rand_key="6855"; // РЎР»СѓС‡Р°Р№РЅРѕРµ С‡РёСЃР»Рѕ РґР»СЏ С†РёС„СЂРѕР·Р°С‰РёС‚С‹
+$newmess="1"; // РЎРѕР·РґР°РІР°С‚СЊ С„Р°Р№Р» СЃ РЅРѕРІС‹РјРё СЃРѕРѕР±С‰РµРЅРёСЏРјРё С„РѕСЂСѓРјР°?
+$guest_name="РіРѕСЃС‚СЊ"; // РљР°Рє РЅР°Р·С‹РІР°РµРј РЅРµ Р·Р°СЂРµРі-СЃСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№
+$user_name="СѓС‡Р°СЃС‚РЅРёРє WR-С„РѕСЂСѓРјР°"; // РљР°Рє РЅР°Р·С‹РІР°РµРј Р·Р°СЂРµРі-СЃСЏ
+$g_add_tema="1"; // Р Р°Р·СЂРµС€РёС‚СЊ РіРѕСЃС‚СЏРј СЃРѕР·РґР°РІР°С‚СЊ С‚РµРјС‹? 1/0
+$g_add_msg="1"; // Р Р°Р·СЂРµС€РёС‚СЊ РіРѕСЃС‚СЏРј РѕСЃС‚Р°РІР»СЏС‚СЊ СЃРѕРѕР±С‰РµРЅРёСЏ? 1/0
+$activation="1"; // РўСЂРµР±РѕРІР°С‚СЊ Р°РєС‚РёРІР°С†РёРё С‡РµСЂРµР· РµРјР°Р№Р» РїСЂРё СЂРµРіРёСЃС‚СЂР°С†РёРё? 1/0
+$maxname="35"; // РњР°РєСЃРёРјР°Р»СЊРЅРѕРµ РєРѕР»-РІРѕ СЃРёРјРІРѕР»РѕРІ РІ РёРјРµРЅРё
+$maxzag="70"; // РњР°СЃРёРјР°Р»СЊРЅС‹Р№ РєРѕР»-РІРѕ СЃРёРјРІРѕР»РѕРІ РІ Р·Р°РіРѕР»РѕРІРєРµ С‚РµРјС‹
+$maxmsg="5000"; // РњР°РєСЃРёРјР°Р»СЊРЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ СЃРёРјРІРѕР»РѕРІ РІ СЃРѕРѕР±С‰РµРЅРёРё
+$tem_onpage="16"; // РљРѕР»-РІРѕ РѕС‚РѕР±СЂР°Р¶Р°РµРјС‹С… С‚РµРј РЅР° СЃС‚СЂР°РЅРёС†Сѓ (15)
+$msg_onpage="11"; // РљРѕР»-РІРѕ РѕС‚РѕР±СЂР°Р¶Р°РµРјС‹С… СЃРѕРѕР±С‰РµРЅРёР№ РЅР° РєР°Р¶РґРѕР№ СЃС‚СЂР°РЅРёС†Рµ (10)
+$uq="50"; // РџРѕ СЃРєРѕР»СЊРєРѕ С‡РµР»РѕРІРµРє РІС‹РІРѕРґРёС‚СЊ СЃРїРёСЃРѕРє СѓС‡Р°СЃС‚РЅРёРєРѕРІ
+$specblok1="1"; // Р’РєР»СЋС‡РёС‚СЊ Р‘Р›РћРљ 15-Рё СЃР°РјС‹С… РѕР±СЃСѓР¶РґР°РµРјС‹С… С‚РµРј?
+$specblok2="1"; // Р’РєР»СЋС‡РёС‚СЊ Р‘Р›РћРљ 10 СЃР°РјС‹С… Р°РєС‚РёРІРЅС‹С… РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№?
+$nosssilki="0"; // Р—Р°РїСЂРµС‚РёС‚СЊ РіРѕСЃС‚СЏРј РґРѕР±Р°РІР»СЏС‚СЊ СЃРѕРѕР±С‰РµРЅРёСЏ СЃРѕ СЃСЃС‹Р»РєР°РјРё?
+$liteurl="0";// РџРѕРґСЃРІРµС‡РёРІР°С‚СЊ РЈР Р›? 1/0
+$max_f_size="102400"; // РњР°РєСЃРёРјР°Р»СЊРЅС‹Р№ СЂР°Р·РјРµСЂ Р°РІР°С‚Р°СЂР° РІ Р±Р°Р№С‚Р°С…
+$datadir="./data"; // РџР°РїРєР° СЃ РґР°РЅРЅС‹РјРё С„РѕСЂСѓРјР°
+$showsmiles="1";// Р’РєР»СЋС‡РёС‚СЊ/РѕС‚РєР»СЋС‡РёС‚СЊ РіСЂР°С„РёС‡РµСЃРєРёРµ СЃРјР°Р№Р»С‹
+$can_up_file="1"; // Р Р°Р·СЂРµС€РёС‚СЊ Р·Р°РіСЂСѓР·РєСѓ С„РѕС‚Рѕ 0 - РЅРµС‚, 1 - С‚РѕР»СЊРєРѕ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅРЅС‹Рј
+$filedir="./files"; // РљР°С‚Р°Р»РѕРі РєСѓРґР° Р±СѓРґРµС‚ Р·Р°РєР°С‡Р°РЅ С„Р°Р№Р»
+$max_upfile_size="1048576"; // РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ СЂР°Р·РјРµСЂ С„Р°Р№Р»Р° РІ Р±Р°Р№С‚Р°С…
+$forum_skin="images-green"; // РўРµРєСѓС‰РёР№ СЃРєРёРЅ С„РѕСЂСѓРјР°
 
-$avatardir="./avatars"; // Каталог куда загружаются аватары
+$avatardir="./avatars"; // РљР°С‚Р°Р»РѕРі РєСѓРґР° Р·Р°РіСЂСѓР¶Р°СЋС‚СЃСЏ Р°РІР°С‚Р°СЂС‹
 $maxfsize=round($max_file_size/10.24)/100;
-$valid_types=array("gif","jpg","png","jpeg"); // допустимые расширения
+$valid_types=array("gif","jpg","png","jpeg"); // РґРѕРїСѓСЃС‚РёРјС‹Рµ СЂР°СЃС€РёСЂРµРЅРёСЏ
 
-// Определяем URL форума
+// РћРїСЂРµРґРµР»СЏРµРј URL С„РѕСЂСѓРјР°
 $host=$_SERVER["HTTP_HOST"]; $self=$_SERVER["PHP_SELF"]; $forum_url=str_replace('tools.php','',"http://$host$self");
 
-// Функция содержит ПРОДОЛЖЕНИЕ ШАПКИ. Вызывается: addtop();
+// Р¤СѓРЅРєС†РёСЏ СЃРѕРґРµСЂР¶РёС‚ РџР РћР”РћР›Р–Р•РќРР• РЁРђРџРљР. Р’С‹Р·С‹РІР°РµС‚СЃСЏ: addtop();
 function addtop() { global $wrfname,$forum_skin,$date,$time;
 
-// ищем В КУКАХ wrfcookies чтобы вывести ИМЯ
+// РёС‰РµРј Р’ РљРЈРљРђРҐ wrfcookies С‡С‚РѕР±С‹ РІС‹РІРµСЃС‚Рё РРњРЇ
 if (isset($_COOKIE['wrfcookies'])) {$wrfc=$_COOKIE['wrfcookies']; $wrfc=htmlspecialchars($wrfc); $wrfc=stripslashes($wrfc); $wrfc=explode("|", $wrfc); $wrfname=$wrfc[0];} else {$wrfname=null; $wrfpass=null;}
 
 echo'<TD align=right>';
 
 if ($wrfname!=null) {
-$codename=urlencode($wrfname); // Кодируем имя в СПЕЦФОРМАТ, для поддержки корректной передачи имени через GET-запрос.
-print "<a href='tools.php?event=profile&pname=$codename' class=mainmenu><img src=\"$forum_skin/icon_mini_profile.gif\" border=0 hspace=3 />Ваш профиль</a>&nbsp;&nbsp;<a href='index.php?event=clearcooke' class=mainmenu><img src=\"$forum_skin/ico-login.gif\" border=0 hspace=3 />Выход [<B>$wrfname</B>]</a>";}
+$codename=urlencode($wrfname); // РљРѕРґРёСЂСѓРµРј РёРјСЏ РІ РЎРџР•Р¦Р¤РћР РњРђРў, РґР»СЏ РїРѕРґРґРµСЂР¶РєРё РєРѕСЂСЂРµРєС‚РЅРѕР№ РїРµСЂРµРґР°С‡Рё РёРјРµРЅРё С‡РµСЂРµР· GET-Р·Р°РїСЂРѕСЃ.
+print "<a href='tools.php?event=profile&pname=$codename' class=mainmenu><img src=\"$forum_skin/icon_mini_profile.gif\" border=0 hspace=3 />Р’Р°С€ РїСЂРѕС„РёР»СЊ</a>&nbsp;&nbsp;<a href='index.php?event=clearcooke' class=mainmenu><img src=\"$forum_skin/ico-login.gif\" border=0 hspace=3 />Р’С‹С…РѕРґ [<B>$wrfname</B>]</a>";}
 
 else {print "<span class=mainmenu>
-<a href='tools.php?event=reg' class=mainmenu><img src=\"$forum_skin/icon_mini_register.gif\" border=0 hspace=3 />Регистрация</a>&nbsp;&nbsp;
-<a href='tools.php?event=login' class=mainmenu> <img src=\"$forum_skin/buttons_spacer.gif\" border=0 hspace=3>Вход</a></td>";}
+<a href='tools.php?event=reg' class=mainmenu><img src=\"$forum_skin/icon_mini_register.gif\" border=0 hspace=3 />Р РµРіРёСЃС‚СЂР°С†РёСЏ</a>&nbsp;&nbsp;
+<a href='tools.php?event=login' class=mainmenu> <img src=\"$forum_skin/buttons_spacer.gif\" border=0 hspace=3>Р’С…РѕРґ</a></td>";}
 
-if (is_file("$forum_skin/tiptop.html")) include("$forum_skin/tiptop.html"); // подключаем дополнение к ВЕРХУШКе
+if (is_file("$forum_skin/tiptop.html")) include("$forum_skin/tiptop.html"); // РїРѕРґРєР»СЋС‡Р°РµРј РґРѕРїРѕР»РЅРµРЅРёРµ Рє Р’Р•Р РҐРЈРЁРљРµ
 
-print"</span></td></tr></table></td></tr></table><span class=gensmall>Сегодня: $date - $time";
+print"</span></td></tr></table></td></tr></table><span class=gensmall>РЎРµРіРѕРґРЅСЏ: $date - $time";
 return true;}
 
 
-function replacer ($text) { // ФУНКЦИЯ очистки кода
+function replacer ($text) { // Р¤РЈРќРљР¦РРЇ РѕС‡РёСЃС‚РєРё РєРѕРґР°
 $text=str_replace("&#032;",' ',$text);
 $text=str_replace(">",'&gt;',$text);
 $text=str_replace("<",'&lt;',$text);
@@ -85,7 +85,7 @@ $text=preg_replace("/\n/",'<br>',$text);
 $text=preg_replace("/\\\$/",'&#036;',$text);
 $text=preg_replace("/\r/",'',$text);
 $text=preg_replace("/\\\/",'&#092;',$text);
-// если magic_quotes включена - чистим везде СЛЭШи в этих случаях: одиночные (') и двойные кавычки ("), обратный слеш (\)
+// РµСЃР»Рё magic_quotes РІРєР»СЋС‡РµРЅР° - С‡РёСЃС‚РёРј РІРµР·РґРµ РЎР›Р­РЁРё РІ СЌС‚РёС… СЃР»СѓС‡Р°СЏС…: РѕРґРёРЅРѕС‡РЅС‹Рµ (') Рё РґРІРѕР№РЅС‹Рµ РєР°РІС‹С‡РєРё ("), РѕР±СЂР°С‚РЅС‹Р№ СЃР»РµС€ (\)
 if (get_magic_quotes_gpc()) { $text=str_replace("&#092;&quot;",'&quot;',$text); $text=str_replace("&#092;'",'\'',$text); $text=str_replace("&#092;&#092;",'&#092;',$text); }
 $text=str_replace("\r\n","<br> ",$text);
 $text=str_replace("\n\n",'<p> ',$text);
@@ -96,48 +96,48 @@ $text=str_replace('   ',' ',$text);
 return $text; }
 
 
-function unreplacer($text) { // ФУНКЦИЯ замены спецсимволов конца строки на обычные
+function unreplacer($text) { // Р¤РЈРќРљР¦РРЇ Р·Р°РјРµРЅС‹ СЃРїРµС†СЃРёРјРІРѕР»РѕРІ РєРѕРЅС†Р° СЃС‚СЂРѕРєРё РЅР° РѕР±С‹С‡РЅС‹Рµ
 $text=str_replace("&lt;br&gt;","<br>",$text); return $text;}
 
 
-function nospam() { global $max_key,$rand_key,$antispam2012,$antispam2012v; // Функция АНТИСПАМ 2011+2012
+function nospam() { global $max_key,$rand_key,$antispam2012,$antispam2012v; // Р¤СѓРЅРєС†РёСЏ РђРќРўРРЎРџРђРњ 2011+2012
 if (array_key_exists("image", $_REQUEST)) { $num=replacer($_REQUEST["image"]);
 for ($i=0; $i<10; $i++) {if (md5("$i+$rand_key")==$num) {imgwr($st,$i); die();}} }
 $xkey=""; mt_srand(time()+(double)microtime()*1000000);
-$dopkod=mktime(0,0,0,date("m"),date("d"),date("Y")); // доп.код: меняется каждые 24 часа
-$stime=md5("$dopkod+$rand_key");// доп.код
-echo'<table cellspacing=0 cellpadding=0><tr height=30><TD>Защитный код:</TD>';
+$dopkod=mktime(0,0,0,date("m"),date("d"),date("Y")); // РґРѕРї.РєРѕРґ: РјРµРЅСЏРµС‚СЃСЏ РєР°Р¶РґС‹Рµ 24 С‡Р°СЃР°
+$stime=md5("$dopkod+$rand_key");// РґРѕРї.РєРѕРґ
+echo'<table cellspacing=0 cellpadding=0><tr height=30><TD>Р—Р°С‰РёС‚РЅС‹Р№ РєРѕРґ:</TD>';
 $nummax=0; for ($i=0; $i<=$max_key; $i++) {
 $snum[$i]=mt_rand(0,9); $psnum=md5($snum[$i]+$rand_key+$dopkod);
 $secret=mt_rand(0,1); $styles='bgcolor=#FFFF00';
 if ($nummax<3) { if ($secret==1 or $i==0) {$styles='bgcolor=#77C9FF'; $xkey=$xkey.$snum[$i]; $nummax++;}}
 echo "<td width=20 $styles><img src=antispam2013.php?image=$psnum border=0 alt=''>\n<img src=antispam2013.php?image=$psnum height=1 width=1 border=0></td>\r\n";}
-$xkey=md5("$xkey+$rand_key+$dopkod"); //число + ключ из data/config.php + код меняющийся кажые 24 часа
-print"<td><input name='usernum' class=post type='text' maxlength=$nummax size=6> (введите цифры, которые на <font style='font-weight:bold'> голубом фоне</font>)
+$xkey=md5("$xkey+$rand_key+$dopkod"); //С‡РёСЃР»Рѕ + РєР»СЋС‡ РёР· data/config.php + РєРѕРґ РјРµРЅСЏСЋС‰РёР№СЃСЏ РєР°Р¶С‹Рµ 24 С‡Р°СЃР°
+print"<td><input name='usernum' class=post type='text' maxlength=$nummax size=6> (РІРІРµРґРёС‚Рµ С†РёС„СЂС‹, РєРѕС‚РѕСЂС‹Рµ РЅР° <font style='font-weight:bold'> РіРѕР»СѓР±РѕРј С„РѕРЅРµ</font>)
 <input name=xkey type=hidden value='$xkey'>
 <input name=stime type=hidden value='$stime'>
 </td></tr></table>";
-if ($antispam2012==TRUE) print"Ответ на вопрос: <input name='antispam2012o' class=post type='text' maxlength=20 size=10>($antispam2012v)";
+if ($antispam2012==TRUE) print"РћС‚РІРµС‚ РЅР° РІРѕРїСЂРѕСЃ: <input name='antispam2012o' class=post type='text' maxlength=20 size=10>($antispam2012v)";
 return; }
 
 
 
-// функция используется для отображения аватаров
+// С„СѓРЅРєС†РёСЏ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ Р°РІР°С‚Р°СЂРѕРІ
 function get_dir($path = './', $mask = '*.php', $mode = GLOB_NOSORT) {
  if ( version_compare( phpversion(), '4.3.0', '>=' ) ) {if ( chdir($path) ) {$temp = glob($mask,$mode); return $temp;}}
 return false;}
 
 
 
-if (isset($_GET['rss'])) { // ПОКАЗЫВАЕМ ЛЕНТУ RSS
+if (isset($_GET['rss'])) { // РџРћРљРђР—Р«Р’РђР•Рњ Р›Р•РќРўРЈ RSS
 $forum_name=replacer($forum_name); $forum_info=replacer($forum_info);
 $forum_url.="index.php"; $adminemail=replacer($adminemail);
 
-// Формируем RSS-файл 
+// Р¤РѕСЂРјРёСЂСѓРµРј RSS-С„Р°Р№Р» 
 echo "<?xml version=\"1.0\" encoding=\"windows-1251\"?>
 <rss version=\"2.0\">
  <channel>
-   <title>RSS лента новостей: $forum_name</title>
+   <title>RSS Р»РµРЅС‚Р° РЅРѕРІРѕСЃС‚РµР№: $forum_name</title>
    <link>$forum_url</link>
    <description>$forum_info</description>
    <language>Russian</language>
@@ -148,11 +148,11 @@ echo "<?xml version=\"1.0\" encoding=\"windows-1251\"?>
    <lastBuildDate>$date $time</lastBuildDate>
 ";
 
-// Чтение новостей и их вывод на экран
+// Р§С‚РµРЅРёРµ РЅРѕРІРѕСЃС‚РµР№ Рё РёС… РІС‹РІРѕРґ РЅР° СЌРєСЂР°РЅ
 $lines=file("$datadir/news.dat"); $itogo=sizeof($lines); $x=$itogo-1;
 
 do { $dt=explode("|",replacer($lines[$x]));
-$xdate=date("r",$dt[4]); // конвертируем дату в формат ленты RSS
+$xdate=date("r",$dt[4]); // РєРѕРЅРІРµСЂС‚РёСЂСѓРµРј РґР°С‚Сѓ РІ С„РѕСЂРјР°С‚ Р»РµРЅС‚С‹ RSS
 $fid=$dt[2]; $id=$dt[3];
 $zag=$dt[5];
 $name=$dt[8];
@@ -170,7 +170,7 @@ echo "
 <item>
  <title>$zag</title>
   <link>$forum_url?id=$fid$id</link>
-   <description>&lt;b&gt;$name пишет:&lt;/b&gt; &lt;br&gt;&lt;br&gt; $msg &lt;br&gt;&lt;br&gt;</description>
+   <description>&lt;b&gt;$name РїРёС€РµС‚:&lt;/b&gt; &lt;br&gt;&lt;br&gt; $msg &lt;br&gt;&lt;br&gt;</description>
    <author>$name</author>
   <comments>$forum_url?id=$fid$id</comments>
  <pubDate>$xdate</pubDate>
@@ -181,57 +181,57 @@ $x--;
 echo "
  </channel>
 </rss>";
-exit;} // КОНЕЦ БЛОКА RSS
+exit;} // РљРћРќР•Р¦ Р‘Р›РћРљРђ RSS
 
 
 
 
 
-// ВСЁ, что делается при наличии переменной $_GET['event']
+// Р’РЎРЃ, С‡С‚Рѕ РґРµР»Р°РµС‚СЃСЏ РїСЂРё РЅР°Р»РёС‡РёРё РїРµСЂРµРјРµРЅРЅРѕР№ $_GET['event']
 if(isset($_GET['event'])) {
 
 
 
-if ($_GET['event']=="login") { // ВХОД на форум УЧАСТНИКОМ
-$frname="Вход на форум .:. "; $frtname="";
-//include("$forum_skin/top.html"); addtop(); // подключаем ШАПКУ форума
+if ($_GET['event']=="login") { // Р’РҐРћР” РЅР° С„РѕСЂСѓРј РЈР§РђРЎРўРќРРљРћРњ
+$frname="Р’С…РѕРґ РЅР° С„РѕСЂСѓРј .:. "; $frtname="";
+//include("$forum_skin/top.html"); addtop(); // РїРѕРґРєР»СЋС‡Р°РµРј РЁРђРџРљРЈ С„РѕСЂСѓРјР°
 
 echo '<BR><BR><BR><BR><center>
 <table border=1 cellSpacing=1><TR><TD class=row2>
 <TABLE class=bakfon cellPadding=4 cellSpacing=1>
 
 <FORM action="tools.php?event=regenter" method=post>
-<TR class=toptable><TD align=middle colSpan=2><B>Вход на форум</B></TD></TR>
-<TR class=row1><TD>Имя:</TD><TD><INPUT name=name class=post></TD></TR>
-<TR class=row2><TD>Пароль:</TD><TD><INPUT type=password name=pass class=post></TD></TR>
-<TR class=row1><TD colspan=2><center><INPUT type=submit class=button value=Войти></TD></TR></TABLE></FORM> </TD></TR></TABLE>
+<TR class=toptable><TD align=middle colSpan=2><B>Р’С…РѕРґ РЅР° С„РѕСЂСѓРј</B></TD></TR>
+<TR class=row1><TD>РРјСЏ:</TD><TD><INPUT name=name class=post></TD></TR>
+<TR class=row2><TD>РџР°СЂРѕР»СЊ:</TD><TD><INPUT type=password name=pass class=post></TD></TR>
+<TR class=row1><TD colspan=2><center><INPUT type=submit class=button value=Р’РѕР№С‚Рё></TD></TR></TABLE></FORM> </TD></TR></TABLE>
 <BR><BR><BR>
 <table border=1 cellSpacing=1><TR><TD class=row2>
 <TABLE class=bakfon cellPadding=3 cellSpacing=1>
 <FORM action="tools.php?event=givmepassword" method=post>
-<TR class=toptable><TD align=middle colSpan=3><B>Забыли пароль? Введите на выбор:</B></TD></TR>
-<TR class=row1><TD><B>Ваш Емайл:</B> <font color=red>*</font></TD><TD><INPUT name=myemail class=post style="width: 170px"></TD>
-<TR class=row1><TD><B>Имя (Ник):</B></TD><TD><INPUT name=myname class=post style="width: 170px"></TD></TR>
-<TR><TD colspan=2 align=center><INPUT type=submit class=button style="width:150" value="Сделать запрос"></TD></TR>
-<TR><TD colspan=3><small><font color=red>*</font> На Ваш электронный адрес будет выслана<br> информация для восстановления учётной записи.</TD></TR></TABLE>
+<TR class=toptable><TD align=middle colSpan=3><B>Р—Р°Р±С‹Р»Рё РїР°СЂРѕР»СЊ? Р’РІРµРґРёС‚Рµ РЅР° РІС‹Р±РѕСЂ:</B></TD></TR>
+<TR class=row1><TD><B>Р’Р°С€ Р•РјР°Р№Р»:</B> <font color=red>*</font></TD><TD><INPUT name=myemail class=post style="width: 170px"></TD>
+<TR class=row1><TD><B>РРјСЏ (РќРёРє):</B></TD><TD><INPUT name=myname class=post style="width: 170px"></TD></TR>
+<TR><TD colspan=2 align=center><INPUT type=submit class=button style="width:150" value="РЎРґРµР»Р°С‚СЊ Р·Р°РїСЂРѕСЃ"></TD></TR>
+<TR><TD colspan=3><small><font color=red>*</font> РќР° Р’Р°С€ СЌР»РµРєС‚СЂРѕРЅРЅС‹Р№ Р°РґСЂРµСЃ Р±СѓРґРµС‚ РІС‹СЃР»Р°РЅР°<br> РёРЅС„РѕСЂРјР°С†РёСЏ РґР»СЏ РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёСЏ СѓС‡С‘С‚РЅРѕР№ Р·Р°РїРёСЃРё.</TD></TR></TABLE>
 </FORM></TD></TR></TABLE><BR><BR><BR><BR><BR>
 </TD></TR></TABLE>
 </TD></TR></TABLE>'; exit;}
 
 
-// РЕПУТАЦИЯ - окно выбора: шаг 1
+// Р Р•РџРЈРўРђР¦РРЇ - РѕРєРЅРѕ РІС‹Р±РѕСЂР°: С€Р°Рі 1
 if ($_GET['event']=="repa") {
 
-if (!isset($_GET['name'])) exit("Нет данных переменной name."); $name=replacer($_GET['name']);
+if (!isset($_GET['name'])) exit("РќРµС‚ РґР°РЅРЅС‹С… РїРµСЂРµРјРµРЅРЅРѕР№ name."); $name=replacer($_GET['name']);
 
-// Если куков нет - облом, если куки есть и равны имени юзера - облом.
-if (!isset($_COOKIE['wrfcookies'])) exit("<html><head><title>Изменение РЕПУТАЦИИ</title></head><body><center><br><br><br>Просмотр и изменение РЕПУТАЦИИ может производить только участник форума!");
+// Р•СЃР»Рё РєСѓРєРѕРІ РЅРµС‚ - РѕР±Р»РѕРј, РµСЃР»Рё РєСѓРєРё РµСЃС‚СЊ Рё СЂР°РІРЅС‹ РёРјРµРЅРё СЋР·РµСЂР° - РѕР±Р»РѕРј.
+if (!isset($_COOKIE['wrfcookies'])) exit("<html><head><title>РР·РјРµРЅРµРЅРёРµ Р Р•РџРЈРўРђР¦РР</title></head><body><center><br><br><br>РџСЂРѕСЃРјРѕС‚СЂ Рё РёР·РјРµРЅРµРЅРёРµ Р Р•РџРЈРўРђР¦РР РјРѕР¶РµС‚ РїСЂРѕРёР·РІРѕРґРёС‚СЊ С‚РѕР»СЊРєРѕ СѓС‡Р°СЃС‚РЅРёРє С„РѕСЂСѓРјР°!");
 else { $wrfc=$_COOKIE['wrfcookies']; $wrfc=htmlspecialchars($wrfc); $wrfc=stripslashes($wrfc); $wrfc=explode("|", $wrfc); $wrfname=$wrfc[0];
-if ($wrfname===$name) print"<B>$back. По правилам форума<br> <font color=red>поднимать репутацию себе ЗАПРЕЩЕНО!</font><br>";
+if ($wrfname===$name) print"<B>$back. РџРѕ РїСЂР°РІРёР»Р°Рј С„РѕСЂСѓРјР°<br> <font color=red>РїРѕРґРЅРёРјР°С‚СЊ СЂРµРїСѓС‚Р°С†РёСЋ СЃРµР±Рµ Р—РђРџР Р•Р©Р•РќРћ!</font><br>";
 
-else { print "<html><head><title>Изменение РЕПУТАЦИИ участника: $name</title></head><body leftMargin=0 topMargin=0 rightMargin=0>
+else { print "<html><head><title>РР·РјРµРЅРµРЅРёРµ Р Р•РџРЈРўРђР¦РР СѓС‡Р°СЃС‚РЅРёРєР°: $name</title></head><body leftMargin=0 topMargin=0 rightMargin=0>
 <center><table cellpadding=0 cellspacing=8><TR><FORM action='tools.php?event=repasave' method=post>
-<TD colspan=7 align=center><B>Изменение РЕПУТАЦИИ участника $name</B></TD></TR><TR height=40>
+<TD colspan=7 align=center><B>РР·РјРµРЅРµРЅРёРµ Р Р•РџРЈРўРђР¦РР СѓС‡Р°СЃС‚РЅРёРєР° $name</B></TD></TR><TR height=40>
 <TD bgcolor=#880003><font size=+2 color=white>-5<INPUT name=repa type=radio value='-5'></TD>
 <TD bgcolor=#FF2025><font size=+2 color=white>-2<INPUT name=repa type=radio value='-2'></TD>
 <TD bgcolor=#FFB7B9><font size=+2 color=white>-1<INPUT name=repa type=radio value='-1'></TD>
@@ -240,49 +240,49 @@ else { print "<html><head><title>Изменение РЕПУТАЦИИ участника: $name</title></h
 <TD bgcolor=#00C10F><font size=+2 color=white>+2<INPUT name=repa type=radio value='+2'></TD>
 <TD bgcolor=#00880B><font size=+2 color=white>+5<INPUT name=repa type=radio value='+5'></TD></TR>
 <INPUT type=hidden name=name value=$name>
-<TR><TD colspan=7><B>Причина:</B> <INPUT type=text name=pochemu size=45 value=''><INPUT type=submit value=Отправить></td></TR>
+<TR><TD colspan=7><B>РџСЂРёС‡РёРЅР°:</B> <INPUT type=text name=pochemu size=45 value=''><INPUT type=submit value=РћС‚РїСЂР°РІРёС‚СЊ></td></TR>
 </TABLE></FORM>";}
 
-if (is_file("$datadir/repa.dat")) { // Ищем в файле repa.dat инфу об этом юзере и выводим, если есть
+if (is_file("$datadir/repa.dat")) { // РС‰РµРј РІ С„Р°Р№Р»Рµ repa.dat РёРЅС„Сѓ РѕР± СЌС‚РѕРј СЋР·РµСЂРµ Рё РІС‹РІРѕРґРёРј, РµСЃР»Рё РµСЃС‚СЊ
 $file="$datadir/repa.dat"; $lines=file("$file"); $i=count($lines);
-print"<table border=1 cellpadding=2 cellspacing=0 width=100%><TR><TD colspan=5 align=center><B>Изменение репутации участника $name</B></td></tr>
-<TR align=center><TD>Когда</TD><TD>Кто</TD><TD>Балл</TD><TD width=55%>Причина</TD></TR>";
+print"<table border=1 cellpadding=2 cellspacing=0 width=100%><TR><TD colspan=5 align=center><B>РР·РјРµРЅРµРЅРёРµ СЂРµРїСѓС‚Р°С†РёРё СѓС‡Р°СЃС‚РЅРёРєР° $name</B></td></tr>
+<TR align=center><TD>РљРѕРіРґР°</TD><TD>РљС‚Рѕ</TD><TD>Р‘Р°Р»Р»</TD><TD width=55%>РџСЂРёС‡РёРЅР°</TD></TR>";
 do {$i--; $dt=explode("|",$lines[$i]);
-if (strlen($dt[3])>1) $dt[3]="<a href='tools.php?event=profile&pname=$dt[3]' target=_blank>$dt[3]</a>"; else $dt[3]="Робот форума";
+if (strlen($dt[3])>1) $dt[3]="<a href='tools.php?event=profile&pname=$dt[3]' target=_blank>$dt[3]</a>"; else $dt[3]="Р РѕР±РѕС‚ С„РѕСЂСѓРјР°";
 if ($dt[1]>0) $dt[1]="<TD align=center bgcolor=#B7FFB7><B>$dt[1]"; else $dt[1]="<TD align=center bgcolor=#FF9F9F><B>$dt[1]";
-if ($dt[2]==$name) {$dt[0]=date("d.m.y в H:i",$dt[0]); print"<TR><TD align=center><small>$dt[0]</small></TD><TD align=center><B>$dt[3]</B></TD>$dt[1]</B></TD><TD><small>$dt[4]</small></TD></TR>";}
+if ($dt[2]==$name) {$dt[0]=date("d.m.y РІ H:i",$dt[0]); print"<TR><TD align=center><small>$dt[0]</small></TD><TD align=center><B>$dt[3]</B></TD>$dt[1]</B></TD><TD><small>$dt[4]</small></TD></TR>";}
 } while($i>0);
-echo'</table>'; } // есть есть файл repa.dat
+echo'</table>'; } // РµСЃС‚СЊ РµСЃС‚СЊ С„Р°Р№Р» repa.dat
 exit; }}
 
 
-// РЕПУТАЦИЯ - сохранение: шаг 2
+// Р Р•РџРЈРўРђР¦РРЇ - СЃРѕС…СЂР°РЅРµРЅРёРµ: С€Р°Рі 2
 if ($_GET['event']=="repasave") {
 
-if (isset($_COOKIE['wrfcookies'])) {$wrfc=$_COOKIE['wrfcookies']; $wrfc=htmlspecialchars($wrfc); $wrfc=stripslashes($wrfc); $wrfc=explode("|", $wrfc); $wrfname=$wrfc[0];} else exit('Только участники форума могут изменять репутацию!');
-if (!isset($_POST['name'])) exit("Нет данных переменной name."); $name=replacer($_POST['name']);
-if (isset($_POST['repa'])) $repa=$_POST['repa']; else exit("Нет данных переменной repa");
-if (isset($_POST['pochemu'])) $pochemu=$_POST['pochemu']; else exit("Укажите причину смены репутации");
+if (isset($_COOKIE['wrfcookies'])) {$wrfc=$_COOKIE['wrfcookies']; $wrfc=htmlspecialchars($wrfc); $wrfc=stripslashes($wrfc); $wrfc=explode("|", $wrfc); $wrfname=$wrfc[0];} else exit('РўРѕР»СЊРєРѕ СѓС‡Р°СЃС‚РЅРёРєРё С„РѕСЂСѓРјР° РјРѕРіСѓС‚ РёР·РјРµРЅСЏС‚СЊ СЂРµРїСѓС‚Р°С†РёСЋ!');
+if (!isset($_POST['name'])) exit("РќРµС‚ РґР°РЅРЅС‹С… РїРµСЂРµРјРµРЅРЅРѕР№ name."); $name=replacer($_POST['name']);
+if (isset($_POST['repa'])) $repa=$_POST['repa']; else exit("РќРµС‚ РґР°РЅРЅС‹С… РїРµСЂРµРјРµРЅРЅРѕР№ repa");
+if (isset($_POST['pochemu'])) $pochemu=$_POST['pochemu']; else exit("РЈРєР°Р¶РёС‚Рµ РїСЂРёС‡РёРЅСѓ СЃРјРµРЅС‹ СЂРµРїСѓС‚Р°С†РёРё");
 
-if (!is_numeric($repa)) exit("<B>$back. Попытка взлома. Не хулигань, друг!");
-if ($repa>5 or $repa<-5) exit("<B>$back. Попытка взлома. Репу можно менять только на +-5 пунктов. Не хулигань, друг!");
-if (strlen($pochemu)<1 or strlen($pochemu)>150) exit("<B>$back. Текст причины должен быть указан! И быть не более 150 символов!");
+if (!is_numeric($repa)) exit("<B>$back. РџРѕРїС‹С‚РєР° РІР·Р»РѕРјР°. РќРµ С…СѓР»РёРіР°РЅСЊ, РґСЂСѓРі!");
+if ($repa>5 or $repa<-5) exit("<B>$back. РџРѕРїС‹С‚РєР° РІР·Р»РѕРјР°. Р РµРїСѓ РјРѕР¶РЅРѕ РјРµРЅСЏС‚СЊ С‚РѕР»СЊРєРѕ РЅР° +-5 РїСѓРЅРєС‚РѕРІ. РќРµ С…СѓР»РёРіР°РЅСЊ, РґСЂСѓРі!");
+if (strlen($pochemu)<1 or strlen($pochemu)>150) exit("<B>$back. РўРµРєСЃС‚ РїСЂРёС‡РёРЅС‹ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ СѓРєР°Р·Р°РЅ! Р Р±С‹С‚СЊ РЅРµ Р±РѕР»РµРµ 150 СЃРёРјРІРѕР»РѕРІ!");
 
 $today=time();
-// БЛОК добавляет + к репутации ЮЗЕРА
-//ИМЯ_ЮЗЕРА|Тем|Сообщений|Репутация|Предупреждения Х/5|Когда последний раз меняли рейтинг в UNIX формате|||
+// Р‘Р›РћРљ РґРѕР±Р°РІР»СЏРµС‚ + Рє СЂРµРїСѓС‚Р°С†РёРё Р®Р—Р•Р Рђ
+//РРњРЇ_Р®Р—Р•Р Рђ|РўРµРј|РЎРѕРѕР±С‰РµРЅРёР№|Р РµРїСѓС‚Р°С†РёСЏ|РџСЂРµРґСѓРїСЂРµР¶РґРµРЅРёСЏ РҐ/5|РљРѕРіРґР° РїРѕСЃР»РµРґРЅРёР№ СЂР°Р· РјРµРЅСЏР»Рё СЂРµР№С‚РёРЅРі РІ UNIX С„РѕСЂРјР°С‚Рµ|||
 $ufile="$datadir/userstat.dat"; $ulines=file("$ufile"); $ui=count($ulines)-1; $ulinenew=""; $username="";
-$ip=$_SERVER['REMOTE_ADDR']; // определяем IP юзера
-// Ищем юзера по имени в файле userstat.dat, если недавно голосовали за него, запрещаем
+$ip=$_SERVER['REMOTE_ADDR']; // РѕРїСЂРµРґРµР»СЏРµРј IP СЋР·РµСЂР°
+// РС‰РµРј СЋР·РµСЂР° РїРѕ РёРјРµРЅРё РІ С„Р°Р№Р»Рµ userstat.dat, РµСЃР»Рё РЅРµРґР°РІРЅРѕ РіРѕР»РѕСЃРѕРІР°Р»Рё Р·Р° РЅРµРіРѕ, Р·Р°РїСЂРµС‰Р°РµРј
 for ($i=0;$i<=$ui;$i++) {$udt=explode("|",$ulines[$i]);
 if ($udt[2]==$name) {$udt[7]=$udt[7]+$repa; if (strlen($udt[1])>5) {$next=$today-$udt[1]; sleep(1); 
-if ($ip==$udt[10]) exit("C вашего IP-адреса уже были голосования за репутацию этого участника. Изменять репутацию этому участнику Вам нельзя до тех пор, пока кто-нибудь с другог IP не проголосует за него!");
-if ($next<180) {$last=180-$next; exit("<B>$back. Рейтинг этого участника<br> уже был изменён только что.<br> <font color=red>Ожидайте $last секунд.</font> </B>");}}
+if ($ip==$udt[10]) exit("C РІР°С€РµРіРѕ IP-Р°РґСЂРµСЃР° СѓР¶Рµ Р±С‹Р»Рё РіРѕР»РѕСЃРѕРІР°РЅРёСЏ Р·Р° СЂРµРїСѓС‚Р°С†РёСЋ СЌС‚РѕРіРѕ СѓС‡Р°СЃС‚РЅРёРєР°. РР·РјРµРЅСЏС‚СЊ СЂРµРїСѓС‚Р°С†РёСЋ СЌС‚РѕРјСѓ СѓС‡Р°СЃС‚РЅРёРєСѓ Р’Р°Рј РЅРµР»СЊР·СЏ РґРѕ С‚РµС… РїРѕСЂ, РїРѕРєР° РєС‚Рѕ-РЅРёР±СѓРґСЊ СЃ РґСЂСѓРіРѕРі IP РЅРµ РїСЂРѕРіРѕР»РѕСЃСѓРµС‚ Р·Р° РЅРµРіРѕ!");
+if ($next<180) {$last=180-$next; exit("<B>$back. Р РµР№С‚РёРЅРі СЌС‚РѕРіРѕ СѓС‡Р°СЃС‚РЅРёРєР°<br> СѓР¶Рµ Р±С‹Р» РёР·РјРµРЅС‘РЅ С‚РѕР»СЊРєРѕ С‡С‚Рѕ.<br> <font color=red>РћР¶РёРґР°Р№С‚Рµ $last СЃРµРєСѓРЅРґ.</font> </B>");}}
 $ulines[$i]="$udt[0]|$today|$udt[2]|$udt[3]|$udt[4]|$udt[5]|$udt[6]|$udt[7]|$udt[8]|$udt[9]|$ip|$udt[11]|\r\n";
 }
 $ulinenew.="$ulines[$i]";}
 
-// Записываем данные в файл
+// Р—Р°РїРёСЃС‹РІР°РµРј РґР°РЅРЅС‹Рµ РІ С„Р°Р№Р»
 $fp=fopen("$ufile","w");
 flock ($fp,LOCK_EX);
 fputs($fp,"$ulinenew");
@@ -290,8 +290,8 @@ fflush ($fp);
 flock ($fp,LOCK_UN);
 fclose($fp);
 
-// Записываем данные в файл REPA.DAT
-//дата в UNIX-формате|сколько баллов|имя_кому_меняли|кто_менял|причина||||
+// Р—Р°РїРёСЃС‹РІР°РµРј РґР°РЅРЅС‹Рµ РІ С„Р°Р№Р» REPA.DAT
+//РґР°С‚Р° РІ UNIX-С„РѕСЂРјР°С‚Рµ|СЃРєРѕР»СЊРєРѕ Р±Р°Р»Р»РѕРІ|РёРјСЏ_РєРѕРјСѓ_РјРµРЅСЏР»Рё|РєС‚Рѕ_РјРµРЅСЏР»|РїСЂРёС‡РёРЅР°||||
 $fp=fopen("$datadir/repa.dat","a+");
 flock ($fp,LOCK_EX);
 fputs($fp,"$today|$repa|$name|$wrfname|$pochemu||||\r\n");
@@ -299,48 +299,48 @@ fflush ($fp);
 flock ($fp,LOCK_UN);
 fclose($fp);
 
-exit("<div align=center><BR><BR><BR>Рейтинг <B>успешно</B> пересчитан.<BR><BR><BR><a href='' onClick='self.close()'><b>Закрыть окно</b></a></div>");
+exit("<div align=center><BR><BR><BR>Р РµР№С‚РёРЅРі <B>СѓСЃРїРµС€РЅРѕ</B> РїРµСЂРµСЃС‡РёС‚Р°РЅ.<BR><BR><BR><a href='' onClick='self.close()'><b>Р—Р°РєСЂС‹С‚СЊ РѕРєРЅРѕ</b></a></div>");
 }
 
 
 
 
 
-// ОТПРАВКА СООБЩЕНИЯ юзеру
+// РћРўРџР РђР’РљРђ РЎРћРћР‘Р©Р•РќРРЇ СЋР·РµСЂСѓ
 if ($_GET['event']=="mailto") {
 
-if ($sendmail!=TRUE) exit("$back. <center><B>Извините, но функция отправки писем ЗАБЛОКИРОВАНА администратором!<BR><BR><BR><a href='' onClick='self.close()'>Закрыть окно</b></a></center>");
+if ($sendmail!=TRUE) exit("$back. <center><B>РР·РІРёРЅРёС‚Рµ, РЅРѕ С„СѓРЅРєС†РёСЏ РѕС‚РїСЂР°РІРєРё РїРёСЃРµРј Р—РђР‘Р›РћРљРР РћР’РђРќРђ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂРѕРј!<BR><BR><BR><a href='' onClick='self.close()'>Р—Р°РєСЂС‹С‚СЊ РѕРєРЅРѕ</b></a></center>");
 
-if (!isset($_POST['email'])) exit("Нет данных переменной email.");
-if (!isset($_POST['name'])) exit("Нет данных переменной name.");
+if (!isset($_POST['email'])) exit("РќРµС‚ РґР°РЅРЅС‹С… РїРµСЂРµРјРµРЅРЅРѕР№ email.");
+if (!isset($_POST['name'])) exit("РќРµС‚ РґР°РЅРЅС‹С… РїРµСЂРµРјРµРЅРЅРѕР№ name.");
 $uemail=replacer($_POST['email']); $uname=replacer($_POST['name']);
 $id=""; $fid=""; if (isset($_POST['id'])) {$id=replacer($_POST['id']); if (strlen($id)>0) $fid=substr($id,0,3);}
 
 print "<html><head><meta http-equiv='Content-Type' content='text/html; charset=windows-1251'><meta http-equiv='Content-Language' content='ru'>
 <meta name=\"Robots\" content=\"noindex,nofollow\">
-<title>Отправление сообщения автору объявления</title></head><body topMargin=5>
+<title>РћС‚РїСЂР°РІР»РµРЅРёРµ СЃРѕРѕР±С‰РµРЅРёСЏ Р°РІС‚РѕСЂСѓ РѕР±СЉСЏРІР»РµРЅРёСЏ</title></head><body topMargin=5>
 <center><TABLE bgColor=#aaaaaa cellPadding=2 cellSpacing=1 width=502>
 <FORM action='tools.php?event=mailtogo' method=post>
-<TBODY><TR><TD align=middle bgColor=#cccccc colSpan=2>Получатель сообщения: <B>$uname</B></TD></TR>
+<TBODY><TR><TD align=middle bgColor=#cccccc colSpan=2>РџРѕР»СѓС‡Р°С‚РµР»СЊ СЃРѕРѕР±С‰РµРЅРёСЏ: <B>$uname</B></TD></TR>
 
-<TR bgColor=#ffffff><TD>&nbsp; Ваше Имя:<FONT color=#ff0000>*</FONT> <INPUT name=name style='FONT-SIZE: 14px; WIDTH: 150px'>
+<TR bgColor=#ffffff><TD>&nbsp; Р’Р°С€Рµ РРјСЏ:<FONT color=#ff0000>*</FONT> <INPUT name=name style='FONT-SIZE: 14px; WIDTH: 150px'>
 
-и E-mail:<FONT color=#ff0000>*</FONT> <INPUT name=email style='FONT-SIZE: 14px; WIDTH: 180px'></TD></TR>
+Рё E-mail:<FONT color=#ff0000>*</FONT> <INPUT name=email style='FONT-SIZE: 14px; WIDTH: 180px'></TD></TR>
 
-<TR bgColor=#ffffff><TD>&nbsp; Сообщение:<FONT color=#ff0000>*</FONT><br>
+<TR bgColor=#ffffff><TD>&nbsp; РЎРѕРѕР±С‰РµРЅРёРµ:<FONT color=#ff0000>*</FONT><br>
 <TEXTAREA name=msg style='FONT-SIZE: 14px; HEIGHT: 150px; WIDTH: 494px'></TEXTAREA></TD></TR>
 <INPUT type=hidden name=uemail value=$uemail><INPUT type=hidden name=uname value=$uname>
 <TR bgColor=#ffffff><TD>";
 
-if ($antispam==TRUE and !isset($wrfname)) nospam(); // АНТИСПАМ !
+if ($antispam==TRUE and !isset($wrfname)) nospam(); // РђРќРўРРЎРџРђРњ !
 
 if ($id!="") print"<INPUT type=hidden name=id value=$id><INPUT type=hidden name=fid value=$fid>";
 
-echo'<TR><TD bgColor=#FFFFFF colspan=2><center><INPUT type=submit value=Отправить></TD></TR></TBODY></TABLE></FORM>'; 
+echo'<TR><TD bgColor=#FFFFFF colspan=2><center><INPUT type=submit value=РћС‚РїСЂР°РІРёС‚СЊ></TD></TR></TBODY></TABLE></FORM>'; 
 exit; }
 
 
-// ШАГ 2 отправки сообщения пользователю
+// РЁРђР“ 2 РѕС‚РїСЂР°РІРєРё СЃРѕРѕР±С‰РµРЅРёСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЋ
 if ($_GET['event']=="mailtogo") {
 $name=replacer($_POST['name']);
 $email=replacer($_POST['email']);
@@ -350,73 +350,73 @@ if (isset($_POST['id'])) $id=replacer($_POST['id']);
 $uname=replacer($_POST['uname']);
 $uemail=replacer($_POST['uemail']);
 
-//--А-Н-Т-И-С-П-А-М--проверка кода--
+//--Рђ-Рќ-Рў-Р-РЎ-Рџ-Рђ-Рњ--РїСЂРѕРІРµСЂРєР° РєРѕРґР°--
 if ($antispam==TRUE) {
-if (!isset($_POST['usernum']) or !isset($_POST['xkey']) or !isset($_POST['stime']) ) exit("данные из формы не поступили!");
+if (!isset($_POST['usernum']) or !isset($_POST['xkey']) or !isset($_POST['stime']) ) exit("РґР°РЅРЅС‹Рµ РёР· С„РѕСЂРјС‹ РЅРµ РїРѕСЃС‚СѓРїРёР»Рё!");
 $usernum=replacer($_POST['usernum']); $xkey=replacer($_POST['xkey']); $stime=replacer($_POST['stime']);
-$dopkod=mktime(0,0,0,date("m"),date("d"),date("Y")); // доп.код. Меняется каждые 24 часа
-$usertime=md5("$dopkod+$rand_key");// доп.код
+$dopkod=mktime(0,0,0,date("m"),date("d"),date("Y")); // РґРѕРї.РєРѕРґ. РњРµРЅСЏРµС‚СЃСЏ РєР°Р¶РґС‹Рµ 24 С‡Р°СЃР°
+$usertime=md5("$dopkod+$rand_key");// РґРѕРї.РєРѕРґ
 $userkey=md5("$usernum+$rand_key+$dopkod");
-if (($usertime!=$stime) or ($userkey!=$xkey)) exit("введён ОШИБОЧНЫЙ код!");}
+if (($usertime!=$stime) or ($userkey!=$xkey)) exit("РІРІРµРґС‘РЅ РћРЁРР‘РћР§РќР«Р™ РєРѕРґ!");}
 
-if (!preg_match('/^([0-9a-zA-Z]([-.w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-w]*[0-9a-zA-Z].)+[a-zA-Z]{2,9})$/si',$email) and strlen($email)>30 and $email!="") exit("$back и введите корректный E-mail адрес!</B></center>");
-if (!preg_match('/^([0-9a-zA-Z]([-.w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-w]*[0-9a-zA-Z].)+[a-zA-Z]{2,9})$/si',$uemail) and strlen($uemail)>30 and $uemail!="") exit("$back у пользователя задан несуществующий адрес!</B></center>");
-if ($name=="") exit("$back Вы не ввели своё имя!</B></center>");
-if ($msg=="") exit("$back Вы не ввели сообщение!</B></center>");
+if (!preg_match('/^([0-9a-zA-Z]([-.w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-w]*[0-9a-zA-Z].)+[a-zA-Z]{2,9})$/si',$email) and strlen($email)>30 and $email!="") exit("$back Рё РІРІРµРґРёС‚Рµ РєРѕСЂСЂРµРєС‚РЅС‹Р№ E-mail Р°РґСЂРµСЃ!</B></center>");
+if (!preg_match('/^([0-9a-zA-Z]([-.w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-w]*[0-9a-zA-Z].)+[a-zA-Z]{2,9})$/si',$uemail) and strlen($uemail)>30 and $uemail!="") exit("$back Сѓ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ Р·Р°РґР°РЅ РЅРµСЃСѓС‰РµСЃС‚РІСѓСЋС‰РёР№ Р°РґСЂРµСЃ!</B></center>");
+if ($name=="") exit("$back Р’С‹ РЅРµ РІРІРµР»Рё СЃРІРѕС‘ РёРјСЏ!</B></center>");
+if ($msg=="") exit("$back Р’С‹ РЅРµ РІРІРµР»Рё СЃРѕРѕР±С‰РµРЅРёРµ!</B></center>");
 
 $text="$name|$msg|$uname|$email|";
 $text=str_replace("\r\n","<br>",$text);
 $exd=explode("|",$text); $name=$exd[0]; $msg=$exd[1]; $uname=$exd[2]; $email=$exd[3];
 
-$headers=null; // Настройки для отправки писем
+$headers=null; // РќР°СЃС‚СЂРѕР№РєРё РґР»СЏ РѕС‚РїСЂР°РІРєРё РїРёСЃРµРј
 $headers.="From: $name $email\n";
 $headers.="X-Mailer: PHP/".phpversion()."\n";
 $headers.="Content-Type: text/html; charset=windows-1251";
 
-// Собираем всю информацию в теле письма
+// РЎРѕР±РёСЂР°РµРј РІСЃСЋ РёРЅС„РѕСЂРјР°С†РёСЋ РІ С‚РµР»Рµ РїРёСЃСЊРјР°
 
 $allmsg="<html><head>
 <meta http-equiv='Content-Type' content='text/html; charset=windows-1251'><meta http-equiv='Content-Language' content='ru'>
 </head><body>
-<BR><BR><center>$uname, это сообщение отправлено вам от посетителя форума <BR><B>$forum_name</B><BR><BR>
+<BR><BR><center>$uname, СЌС‚Рѕ СЃРѕРѕР±С‰РµРЅРёРµ РѕС‚РїСЂР°РІР»РµРЅРѕ РІР°Рј РѕС‚ РїРѕСЃРµС‚РёС‚РµР»СЏ С„РѕСЂСѓРјР° <BR><B>$forum_name</B><BR><BR>
 <table cellspacing=0 width=700 bgcolor=navy><tr><td><table cellpadding=6 cellspacing=1 width='100%'>
-<tr bgcolor=#F7F7F7><td width=130 height=24>Имя</td><td>$name</td></tr>
+<tr bgcolor=#F7F7F7><td width=130 height=24>РРјСЏ</td><td>$name</td></tr>
 <tr bgcolor=#F7F7F7><td>E-mail:</td><td><font size='-1'>$email</td></tr>
-<tr bgcolor=#F7F7F7><td> Сообщение:</td><td><BR>$msg<BR></td></tr>
-<tr bgcolor=#F7F7F7><td>Дата отправки сообщения:</td><td>$time - <B>$date г.</B></td></tr>
-<tr bgcolor=#F7F7F7><td>Перейти на главную страницу:</td><td><a href='$forum_url'>$forum_url</a></td></tr>
-</table></td></tr></table></center><BR><BR>* Данное письмо сгенерировано и отправлено роботом, отвечать на него не нужно.
+<tr bgcolor=#F7F7F7><td> РЎРѕРѕР±С‰РµРЅРёРµ:</td><td><BR>$msg<BR></td></tr>
+<tr bgcolor=#F7F7F7><td>Р”Р°С‚Р° РѕС‚РїСЂР°РІРєРё СЃРѕРѕР±С‰РµРЅРёСЏ:</td><td>$time - <B>$date Рі.</B></td></tr>
+<tr bgcolor=#F7F7F7><td>РџРµСЂРµР№С‚Рё РЅР° РіР»Р°РІРЅСѓСЋ СЃС‚СЂР°РЅРёС†Сѓ:</td><td><a href='$forum_url'>$forum_url</a></td></tr>
+</table></td></tr></table></center><BR><BR>* Р”Р°РЅРЅРѕРµ РїРёСЃСЊРјРѕ СЃРіРµРЅРµСЂРёСЂРѕРІР°РЅРѕ Рё РѕС‚РїСЂР°РІР»РµРЅРѕ СЂРѕР±РѕС‚РѕРј, РѕС‚РІРµС‡Р°С‚СЊ РЅР° РЅРµРіРѕ РЅРµ РЅСѓР¶РЅРѕ.
 </body></html>";
 
-mail("$uemail", "Сообщение от посетителя форума ($forum_name) от $name ", $allmsg, $headers);
-exit('<div align=center><BR><BR><BR>Ваше сообщение <B>успешно</B> отправлено.<BR><BR><BR><a href="#" onClick="self.close()"><b>Закрыть окно</b></a></div>'); }
+mail("$uemail", "РЎРѕРѕР±С‰РµРЅРёРµ РѕС‚ РїРѕСЃРµС‚РёС‚РµР»СЏ С„РѕСЂСѓРјР° ($forum_name) РѕС‚ $name ", $allmsg, $headers);
+exit('<div align=center><BR><BR><BR>Р’Р°С€Рµ СЃРѕРѕР±С‰РµРЅРёРµ <B>СѓСЃРїРµС€РЅРѕ</B> РѕС‚РїСЂР°РІР»РµРЅРѕ.<BR><BR><BR><a href="#" onClick="self.close()"><b>Р—Р°РєСЂС‹С‚СЊ РѕРєРЅРѕ</b></a></div>'); }
 
 
 
 
-// проверка имени/пароля и вход на форум
+// РїСЂРѕРІРµСЂРєР° РёРјРµРЅРё/РїР°СЂРѕР»СЏ Рё РІС…РѕРґ РЅР° С„РѕСЂСѓРј
 if ($_GET['event']=="regenter") {
-if (!isset($_POST['name']) & !isset($_POST['pass'])) exit("$back введите имя и пароль!");
+if (!isset($_POST['name']) & !isset($_POST['pass'])) exit("$back РІРІРµРґРёС‚Рµ РёРјСЏ Рё РїР°СЂРѕР»СЊ!");
 $name=str_replace("|","I",$_POST['name']); $pass=replacer($_POST['pass']);
 $name=replacer($name); $name=strtolower($name);
-if (strlen($name)<1 or strlen($pass)<1) exit("$back Вы не ввели имя или пароль!");
+if (strlen($name)<1 or strlen($pass)<1) exit("$back Р’С‹ РЅРµ РІРІРµР»Рё РёРјСЏ РёР»Рё РїР°СЂРѕР»СЊ!");
 
-// проходим по всем пользователям и сверяем данные
+// РїСЂРѕС…РѕРґРёРј РїРѕ РІСЃРµРј РїРѕР»СЊР·РѕРІР°С‚РµР»СЏРј Рё СЃРІРµСЂСЏРµРј РґР°РЅРЅС‹Рµ
 $lines=file("$datadir/user.php"); $i=count($lines); $regenter=FALSE;
 $pass=md5("$pass");
 do {$i--; $rdt=explode("|",$lines[$i]);
-if (isset($rdt[1])) { // Если строчка НЕ ПУСТА
+if (isset($rdt[1])) { // Р•СЃР»Рё СЃС‚СЂРѕС‡РєР° РќР• РџРЈРЎРўРђ
 if ($name===strtolower($rdt[2]) & $pass===$rdt[3]) {
-if ($rdt[16]==FALSE) exit("$back. Ваша учётная запись не <a href='tools.php?event=reg3'>активирована</a>. Для активации Вам необходимо перейти по ссылке, которая должна прийти Вам на емайл.");
+if ($rdt[16]==FALSE) exit("$back. Р’Р°С€Р° СѓС‡С‘С‚РЅР°СЏ Р·Р°РїРёСЃСЊ РЅРµ <a href='tools.php?event=reg3'>Р°РєС‚РёРІРёСЂРѕРІР°РЅР°</a>. Р”Р»СЏ Р°РєС‚РёРІР°С†РёРё Р’Р°Рј РЅРµРѕР±С…РѕРґРёРјРѕ РїРµСЂРµР№С‚Рё РїРѕ СЃСЃС‹Р»РєРµ, РєРѕС‚РѕСЂР°СЏ РґРѕР»Р¶РЅР° РїСЂРёР№С‚Рё Р’Р°Рј РЅР° РµРјР°Р№Р».");
 $regenter=TRUE;
 $tektime=time();
 $wrfcookies="$rdt[2]|$rdt[3]|$tektime|$tektime|";
 setcookie("wrfcookies", $wrfcookies, time()+1728000);
-}} // if-ы
+}} // if-С‹
 
 } while($i > "1");
 
-if ($regenter==FALSE) exit("$back Ваш данные <B>НЕ верны</B>!</center>");
+if ($regenter==FALSE) exit("$back Р’Р°С€ РґР°РЅРЅС‹Рµ <B>РќР• РІРµСЂРЅС‹</B>!</center>");
 Header("Location: index.php");
 }
 
@@ -427,96 +427,96 @@ Header("Location: index.php");
 
 
 
-// Регистрация НОВЫЙ ШАГ 2!! отправка на мыл подтверждения и сохранение в БД
+// Р РµРіРёСЃС‚СЂР°С†РёСЏ РќРћР’Р«Р™ РЁРђР“ 2!! РѕС‚РїСЂР°РІРєР° РЅР° РјС‹Р» РїРѕРґС‚РІРµСЂР¶РґРµРЅРёСЏ Рё СЃРѕС…СЂР°РЅРµРЅРёРµ РІ Р‘Р”
 if ($_GET['event']=="regnxt") {
 
-if (!isset($_POST['name']) & !isset($_POST['pass'])) exit("$back введите имя и пароль!");
+if (!isset($_POST['name']) & !isset($_POST['pass'])) exit("$back РІРІРµРґРёС‚Рµ РёРјСЏ Рё РїР°СЂРѕР»СЊ!");
 $name=str_replace("|","I",$_POST['name']); $pass=str_replace("|","I",$_POST['pass']); $dayreg=$date;
-$name=trim($name); // Вырезает ПРОБЕЛьные символы 
+$name=trim($name); // Р’С‹СЂРµР·Р°РµС‚ РџР РћР‘Р•Р›СЊРЅС‹Рµ СЃРёРјРІРѕР»С‹ 
 
 if (isset($_POST['email'])) $email=$_POST['email']; else $email="";
 $email=strtolower($email);
 
-//--А-Н-Т-И-С-П-А-М--проверка кода--
+//--Рђ-Рќ-Рў-Р-РЎ-Рџ-Рђ-Рњ--РїСЂРѕРІРµСЂРєР° РєРѕРґР°--
 if ($antispam==TRUE) {
-if (!isset($_POST['usernum']) or !isset($_POST['xkey']) or !isset($_POST['stime']) ) exit("данные из формы не поступили!");
+if (!isset($_POST['usernum']) or !isset($_POST['xkey']) or !isset($_POST['stime']) ) exit("РґР°РЅРЅС‹Рµ РёР· С„РѕСЂРјС‹ РЅРµ РїРѕСЃС‚СѓРїРёР»Рё!");
 $usernum=replacer($_POST['usernum']); $xkey=replacer($_POST['xkey']); $stime=replacer($_POST['stime']);
-$dopkod=mktime(0,0,0,date("m"),date("d"),date("Y")); // доп.код. Меняется каждые 24 часа
-$usertime=md5("$dopkod+$rand_key");// доп.код
+$dopkod=mktime(0,0,0,date("m"),date("d"),date("Y")); // РґРѕРї.РєРѕРґ. РњРµРЅСЏРµС‚СЃСЏ РєР°Р¶РґС‹Рµ 24 С‡Р°СЃР°
+$usertime=md5("$dopkod+$rand_key");// РґРѕРї.РєРѕРґ
 $userkey=md5("$usernum+$rand_key+$dopkod");
-if (($usertime!=$stime) or ($userkey!=$xkey)) exit("введён ОШИБОЧНЫЙ код!");
+if (($usertime!=$stime) or ($userkey!=$xkey)) exit("РІРІРµРґС‘РЅ РћРЁРР‘РћР§РќР«Р™ РєРѕРґ!");
 
-// АНТИСПАМ 2012!
+// РђРќРўРРЎРџРђРњ 2012!
 if ($antispam2012==TRUE) { $ao=replacer($_POST['antispam2012o']);
-if (strtolower($antispam2012o)!=strtolower($ao) or strlen($ao)<1) exit("введён ошибочный ответ на вопрос!");}
+if (strtolower($antispam2012o)!=strtolower($ao) or strlen($ao)<1) exit("РІРІРµРґС‘РЅ РѕС€РёР±РѕС‡РЅС‹Р№ РѕС‚РІРµС‚ РЅР° РІРѕРїСЂРѕСЃ!");}
 }
 
-if (preg_match("/[^(\\w)|(\\x7F-\\xFF)|(\\-)]/",$name)) exit("$back Ваше имя содержит запрещённые символы. Разрешены русские и английские буквы, цифры и подчёркивание!!.");
-if ($name=="" or strlen($name)>$maxname) exit("$back ваше имя пустое, или превышает $maxname символов!</B></center>");
-if ($pass=="" or strlen($pass)<1 or strlen($pass)>$maxname) exit("$back Вы не ввели пароль. Пароль не должен быть пустым.</B></center>");
-if(!preg_match("/^[a-z0-9\.\-_]+@[a-z0-9\-_]+\.([a-z0-9\-_]+\.)*?[a-z]+$/is", $email) or $email=="" or strlen($email)>40) exit("$back и введите корректный E-mail адрес!</B></center>");
+if (preg_match("/[^(\\w)|(\\x7F-\\xFF)|(\\-)]/",$name)) exit("$back Р’Р°С€Рµ РёРјСЏ СЃРѕРґРµСЂР¶РёС‚ Р·Р°РїСЂРµС‰С‘РЅРЅС‹Рµ СЃРёРјРІРѕР»С‹. Р Р°Р·СЂРµС€РµРЅС‹ СЂСѓСЃСЃРєРёРµ Рё Р°РЅРіР»РёР№СЃРєРёРµ Р±СѓРєРІС‹, С†РёС„СЂС‹ Рё РїРѕРґС‡С‘СЂРєРёРІР°РЅРёРµ!!.");
+if ($name=="" or strlen($name)>$maxname) exit("$back РІР°С€Рµ РёРјСЏ РїСѓСЃС‚РѕРµ, РёР»Рё РїСЂРµРІС‹С€Р°РµС‚ $maxname СЃРёРјРІРѕР»РѕРІ!</B></center>");
+if ($pass=="" or strlen($pass)<1 or strlen($pass)>$maxname) exit("$back Р’С‹ РЅРµ РІРІРµР»Рё РїР°СЂРѕР»СЊ. РџР°СЂРѕР»СЊ РЅРµ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ РїСѓСЃС‚С‹Рј.</B></center>");
+if(!preg_match("/^[a-z0-9\.\-_]+@[a-z0-9\-_]+\.([a-z0-9\-_]+\.)*?[a-z]+$/is", $email) or $email=="" or strlen($email)>40) exit("$back Рё РІРІРµРґРёС‚Рµ РєРѕСЂСЂРµРєС‚РЅС‹Р№ E-mail Р°РґСЂРµСЃ!</B></center>");
 if (isset($_POST['pol'])) $pol=$_POST['pol']; else $pol=""; if ($pol!="1") $pol="0";
 
 $email=str_replace("|","I",$email);
 
-$key=mt_rand(100000,999999); if ($activation==FALSE) $key=""; // КОЛДУЕМ рандомный КОД активации? если не требуется - обнуляем
+$key=mt_rand(100000,999999); if ($activation==FALSE) $key=""; // РљРћР›Р”РЈР•Рњ СЂР°РЅРґРѕРјРЅС‹Р№ РљРћР” Р°РєС‚РёРІР°С†РёРё? РµСЃР»Рё РЅРµ С‚СЂРµР±СѓРµС‚СЃСЏ - РѕР±РЅСѓР»СЏРµРј
 
 $rn=mt_rand(10000,99999); $tektime=time();
 $pass=replacer($pass); $ps=md5("$pass");
 $text="$rn|$tektime|$name|$ps|0|$email|$pol||0|||||||$key|0|";
 $text=replacer($text); $exd=explode("|",$text); $name=$exd[2]; $email=$exd[5];
-$ip=$_SERVER['REMOTE_ADDR']; // определяем IP юзера
+$ip=$_SERVER['REMOTE_ADDR']; // РѕРїСЂРµРґРµР»СЏРµРј IP СЋР·РµСЂР°
 
-if ($name===$pass) exit("$back. В целях Вашей безопасности, <B>запрещено равенство имени и пароля!</B>");
+if ($name===$pass) exit("$back. Р’ С†РµР»СЏС… Р’Р°С€РµР№ Р±РµР·РѕРїР°СЃРЅРѕСЃС‚Рё, <B>Р·Р°РїСЂРµС‰РµРЅРѕ СЂР°РІРµРЅСЃС‚РІРѕ РёРјРµРЅРё Рё РїР°СЂРѕР»СЏ!</B>");
 
-// Ищем юзера с таким логином или емайлом
+// РС‰РµРј СЋР·РµСЂР° СЃ С‚Р°РєРёРј Р»РѕРіРёРЅРѕРј РёР»Рё РµРјР°Р№Р»РѕРј
 $loginsm=strtolower($name);
 $lines=file("$datadir/user.php"); $i=count($lines);
 if ($i>"1") { do {$i--; $rdt=explode("|",$lines[$i]); 
 $rdt[2]=strtolower($rdt[2]);
-if ($rdt[2]===$loginsm) {$bad="1"; $er="логином";}
-if ($rdt[5]===$email) {$bad="1"; $er="емайлом";}
+if ($rdt[2]===$loginsm) {$bad="1"; $er="Р»РѕРіРёРЅРѕРј";}
+if ($rdt[5]===$email) {$bad="1"; $er="РµРјР°Р№Р»РѕРј";}
 } while($i > 1);
-if (isset($bad)) exit("$back. Участник с таким <B>$er уже зарегистрирован на форуме</B>!"); }
+if (isset($bad)) exit("$back. РЈС‡Р°СЃС‚РЅРёРє СЃ С‚Р°РєРёРј <B>$er СѓР¶Рµ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅ РЅР° С„РѕСЂСѓРјРµ</B>!"); }
 
-// отправка пользователю КОДА АКТИВАЦИИ
-$headers=null; // Настройки для отправки писем
+// РѕС‚РїСЂР°РІРєР° РїРѕР»СЊР·РѕРІР°С‚РµР»СЋ РљРћР”Рђ РђРљРўРР’РђР¦РР
+$headers=null; // РќР°СЃС‚СЂРѕР№РєРё РґР»СЏ РѕС‚РїСЂР°РІРєРё РїРёСЃРµРј
 $headers.="From: $name <$email>\n";
 $headers.="X-Mailer: PHP/".phpversion()."\n";
 $headers.="Content-type: text/plain; charset=windows-1251";
 
-// Собираем всю информацию в теле письма
+// РЎРѕР±РёСЂР°РµРј РІСЃСЋ РёРЅС„РѕСЂРјР°С†РёСЋ РІ С‚РµР»Рµ РїРёСЃСЊРјР°
 if ($activation==TRUE) {
-$allmsg=$forum_name.' (подтверждение регистрации)'.chr(13).chr(10).
- 'Подтвердите регистрациию на форуме, для этого перейдите по ссылке: '.$forum_url.'tools.php?event=reg3&email='.$email.'&key='.$key.chr(13).chr(10).
- 'Ваше Имя: '.$name.chr(13).chr(10).
- 'Ваш пароль: '.$pass.chr(13).chr(10).
- 'Ваш E-mail: '.$email.chr(13).chr(10).
- 'Активационный ключ: '.$key.chr(13).chr(10).chr(13).chr(10).
- 'Сохраните письмо с паролем или запомните его.'.chr(13).chr(10).
- 'Пароли на форуме хранятся в зашифрованном виде, увидеть пароль невозможно.'.chr(13).chr(10).
- 'Для восстановления доступа к форуму Вам придётся воспользоваться системой восстановления пароля.'.chr(13).chr(10);
+$allmsg=$forum_name.' (РїРѕРґС‚РІРµСЂР¶РґРµРЅРёРµ СЂРµРіРёСЃС‚СЂР°С†РёРё)'.chr(13).chr(10).
+ 'РџРѕРґС‚РІРµСЂРґРёС‚Рµ СЂРµРіРёСЃС‚СЂР°С†РёРёСЋ РЅР° С„РѕСЂСѓРјРµ, РґР»СЏ СЌС‚РѕРіРѕ РїРµСЂРµР№РґРёС‚Рµ РїРѕ СЃСЃС‹Р»РєРµ: '.$forum_url.'tools.php?event=reg3&email='.$email.'&key='.$key.chr(13).chr(10).
+ 'Р’Р°С€Рµ РРјСЏ: '.$name.chr(13).chr(10).
+ 'Р’Р°С€ РїР°СЂРѕР»СЊ: '.$pass.chr(13).chr(10).
+ 'Р’Р°С€ E-mail: '.$email.chr(13).chr(10).
+ 'РђРєС‚РёРІР°С†РёРѕРЅРЅС‹Р№ РєР»СЋС‡: '.$key.chr(13).chr(10).chr(13).chr(10).
+ 'РЎРѕС…СЂР°РЅРёС‚Рµ РїРёСЃСЊРјРѕ СЃ РїР°СЂРѕР»РµРј РёР»Рё Р·Р°РїРѕРјРЅРёС‚Рµ РµРіРѕ.'.chr(13).chr(10).
+ 'РџР°СЂРѕР»Рё РЅР° С„РѕСЂСѓРјРµ С…СЂР°РЅСЏС‚СЃСЏ РІ Р·Р°С€РёС„СЂРѕРІР°РЅРЅРѕРј РІРёРґРµ, СѓРІРёРґРµС‚СЊ РїР°СЂРѕР»СЊ РЅРµРІРѕР·РјРѕР¶РЅРѕ.'.chr(13).chr(10).
+ 'Р”Р»СЏ РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёСЏ РґРѕСЃС‚СѓРїР° Рє С„РѕСЂСѓРјСѓ Р’Р°Рј РїСЂРёРґС‘С‚СЃСЏ РІРѕСЃРїРѕР»СЊР·РѕРІР°С‚СЊСЃСЏ СЃРёСЃС‚РµРјРѕР№ РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёСЏ РїР°СЂРѕР»СЏ.'.chr(13).chr(10);
  
-} else { $allmsg=$forum_name.' (данные регистрации)'.chr(13).chr(10). 'Вы успешно зарегистрированы на форуме: '.$forum_url.chr(13).chr(10). 'Ваше Имя: '.$name.chr(13).chr(10). 'Ваш пароль: '.$pass.chr(13).chr(10). 'Ваш E-mail: '.$email.chr(13).chr(10); }
+} else { $allmsg=$forum_name.' (РґР°РЅРЅС‹Рµ СЂРµРіРёСЃС‚СЂР°С†РёРё)'.chr(13).chr(10). 'Р’С‹ СѓСЃРїРµС€РЅРѕ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅС‹ РЅР° С„РѕСЂСѓРјРµ: '.$forum_url.chr(13).chr(10). 'Р’Р°С€Рµ РРјСЏ: '.$name.chr(13).chr(10). 'Р’Р°С€ РїР°СЂРѕР»СЊ: '.$pass.chr(13).chr(10). 'Р’Р°С€ E-mail: '.$email.chr(13).chr(10); }
 
-// Отправляем письмо майлеру на съедение ;-)
-mail("$email", "=?windows-1251?B?" . base64_encode("$forum_name (подтверждение регистрации)") . "?=", $allmsg, $headers);
-if ($admin_send==TRUE) {mail("$adminemail", "=?windows-1251?B?" . base64_encode("$forum_name (Новый участник)") . "?=", $allmsg, $headers);}
+// РћС‚РїСЂР°РІР»СЏРµРј РїРёСЃСЊРјРѕ РјР°Р№Р»РµСЂСѓ РЅР° СЃСЉРµРґРµРЅРёРµ ;-)
+mail("$email", "=?windows-1251?B?" . base64_encode("$forum_name (РїРѕРґС‚РІРµСЂР¶РґРµРЅРёРµ СЂРµРіРёСЃС‚СЂР°С†РёРё)") . "?=", $allmsg, $headers);
+if ($admin_send==TRUE) {mail("$adminemail", "=?windows-1251?B?" . base64_encode("$forum_name (РќРѕРІС‹Р№ СѓС‡Р°СЃС‚РЅРёРє)") . "?=", $allmsg, $headers);}
 
 $file=file("$datadir/user.php");
 $fp=fopen("$datadir/user.php","a+");
 flock ($fp,LOCK_EX);
 fputs($fp,"$text\r\n");
-fflush ($fp);//очищение файлового буфера
+fflush ($fp);//РѕС‡РёС‰РµРЅРёРµ С„Р°Р№Р»РѕРІРѕРіРѕ Р±СѓС„РµСЂР°
 flock ($fp,LOCK_UN);
 fclose($fp);
 
-// Записываем строчку с именем в файл со статистикой
+// Р—Р°РїРёСЃС‹РІР°РµРј СЃС‚СЂРѕС‡РєСѓ СЃ РёРјРµРЅРµРј РІ С„Р°Р№Р» СЃРѕ СЃС‚Р°С‚РёСЃС‚РёРєРѕР№
 $file=file("$datadir/userstat.dat");
 $fp=fopen("$datadir/userstat.dat","a+");
 flock ($fp,LOCK_EX);
 fputs($fp,"$rn||$name|0||0|0|0|0||$ip||\r\n");
-fflush ($fp);//очищение файлового буфера
+fflush ($fp);//РѕС‡РёС‰РµРЅРёРµ С„Р°Р№Р»РѕРІРѕРіРѕ Р±СѓС„РµСЂР°
 flock ($fp,LOCK_UN);
 fclose($fp);
 
@@ -524,15 +524,15 @@ if ($activation!=TRUE) { $tektime=time(); $wrfcookies="$name|$pass|$tektime|0|";
 print"<html><head><link rel='stylesheet' href='$forum_skin/style.css' type='text/css'></head><body>
 <script language='Javascript'>function reload() {location = \"index.php\"}; setTimeout('reload()', 2500);</script>
 <table width=100% height=80%><tr><td><table border=1 cellpadding=10 cellspacing=0 bordercolor=#224488 align=center valign=center width=60%><tr><td><center>
-<B>$name, Вы успешно зарегистрированы</B>.<BR><BR>Через несколько секунд Вы будете автоматически перемещены на главную страницу форума.<BR><BR>
-<B><a href='index.php'>ДАЛЬШЕ >>></a></B></td></tr></table></td></tr></table></center></body></html>"; exit;}
+<B>$name, Р’С‹ СѓСЃРїРµС€РЅРѕ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅС‹</B>.<BR><BR>Р§РµСЂРµР· РЅРµСЃРєРѕР»СЊРєРѕ СЃРµРєСѓРЅРґ Р’С‹ Р±СѓРґРµС‚Рµ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё РїРµСЂРµРјРµС‰РµРЅС‹ РЅР° РіР»Р°РІРЅСѓСЋ СЃС‚СЂР°РЅРёС†Сѓ С„РѕСЂСѓРјР°.<BR><BR>
+<B><a href='index.php'>Р”РђР›Р¬РЁР• >>></a></B></td></tr></table></td></tr></table></center></body></html>"; exit;}
 
 print"<html><head><link rel='stylesheet' href='$forum_skin/style.css' type='text/css'></head><body>
 <script language='Javascript'>function reload() {location = \"tools.php?event=reg3\"}; setTimeout('reload()', 2500);</script>
 <table width=100% height=80%><tr><td><table border=1 cellpadding=10 cellspacing=0 bordercolor=#224488 align=center valign=center width=60%><tr><td><center>
-<B>$name, на указанный Вами емайл был выслан код подтверждения.
-Для того чтобы зарегистрироваться - введите его на странице, либо перейдите по ссылке - указанной в письме</B>.<BR><BR>Через несколько секунд Вы будете автоматически перемещены на страницу подтверждения регистрации.<BR><BR>
-<B><a href='tools.php?event=reg3'>ДАЛЬШЕ >>></a></B></td></tr></table></td></tr></table></center></body></html>";
+<B>$name, РЅР° СѓРєР°Р·Р°РЅРЅС‹Р№ Р’Р°РјРё РµРјР°Р№Р» Р±С‹Р» РІС‹СЃР»Р°РЅ РєРѕРґ РїРѕРґС‚РІРµСЂР¶РґРµРЅРёСЏ.
+Р”Р»СЏ С‚РѕРіРѕ С‡С‚РѕР±С‹ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°С‚СЊСЃСЏ - РІРІРµРґРёС‚Рµ РµРіРѕ РЅР° СЃС‚СЂР°РЅРёС†Рµ, Р»РёР±Рѕ РїРµСЂРµР№РґРёС‚Рµ РїРѕ СЃСЃС‹Р»РєРµ - СѓРєР°Р·Р°РЅРЅРѕР№ РІ РїРёСЃСЊРјРµ</B>.<BR><BR>Р§РµСЂРµР· РЅРµСЃРєРѕР»СЊРєРѕ СЃРµРєСѓРЅРґ Р’С‹ Р±СѓРґРµС‚Рµ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё РїРµСЂРµРјРµС‰РµРЅС‹ РЅР° СЃС‚СЂР°РЅРёС†Сѓ РїРѕРґС‚РІРµСЂР¶РґРµРЅРёСЏ СЂРµРіРёСЃС‚СЂР°С†РёРё.<BR><BR>
+<B><a href='tools.php?event=reg3'>Р”РђР›Р¬РЁР• >>></a></B></td></tr></table></td></tr></table></center></body></html>";
 exit;
 }
 
@@ -541,29 +541,29 @@ exit;
 
 
 
-// Регистрация ШАГ 3 - ввод ключа либо подтверждение по емайлу
+// Р РµРіРёСЃС‚СЂР°С†РёСЏ РЁРђР“ 3 - РІРІРѕРґ РєР»СЋС‡Р° Р»РёР±Рѕ РїРѕРґС‚РІРµСЂР¶РґРµРЅРёРµ РїРѕ РµРјР°Р№Р»Сѓ
 if ($_GET['event']=="reg3") {
 
 if (isset($_GET['email']) and isset($_GET['key'])) {$key=$_GET['key']; $email=$_GET['email'];} else {
-$frname=""; $frtname=""; include("$forum_skin/top.html"); addtop(); // подключаем ШАПКУ форума
-exit('<center><span class=maintitle>Подтверждение регистрации*</span><br>
+$frname=""; $frtname=""; include("$forum_skin/top.html"); addtop(); // РїРѕРґРєР»СЋС‡Р°РµРј РЁРђРџРљРЈ С„РѕСЂСѓРјР°
+exit('<center><span class=maintitle>РџРѕРґС‚РІРµСЂР¶РґРµРЅРёРµ СЂРµРіРёСЃС‚СЂР°С†РёРё*</span><br>
 <br><form action="tools.php" method=GET>
 <input type=hidden name=event value="reg3">
 <table cellpadding=3 cellspacing=1 width=100% class=forumline><tr>
-<th class=thHead colspan=2 height=25 valign=middle>Ввод емайла и активационного ключа</th>
-</tr><tr><td class=row1><span class=gen>Адрес e-mail:</span><br><span class=gensmall></span></td><td class=row2><input type=text class=post style="width: 200px" name=email size=25 maxlength=50></td>
-</tr><tr><td class=row1><span class=gen>Активационный ключ:</span><br><span class=gensmall></span></td><td class=row2><input type=text class=post style="width: 200px" name=key size=25 maxlength=6></td></tr><tr>
-<td class=catBottom colspan=2 align=center height=28><input type=submit value="Подтвердить регистрацию" class=mainoption></td>
+<th class=thHead colspan=2 height=25 valign=middle>Р’РІРѕРґ РµРјР°Р№Р»Р° Рё Р°РєС‚РёРІР°С†РёРѕРЅРЅРѕРіРѕ РєР»СЋС‡Р°</th>
+</tr><tr><td class=row1><span class=gen>РђРґСЂРµСЃ e-mail:</span><br><span class=gensmall></span></td><td class=row2><input type=text class=post style="width: 200px" name=email size=25 maxlength=50></td>
+</tr><tr><td class=row1><span class=gen>РђРєС‚РёРІР°С†РёРѕРЅРЅС‹Р№ РєР»СЋС‡:</span><br><span class=gensmall></span></td><td class=row2><input type=text class=post style="width: 200px" name=key size=25 maxlength=6></td></tr><tr>
+<td class=catBottom colspan=2 align=center height=28><input type=submit value="РџРѕРґС‚РІРµСЂРґРёС‚СЊ СЂРµРіРёСЃС‚СЂР°С†РёСЋ" class=mainoption></td>
 </tr></table>
-* Вы можете либо ввести емайл и ключ, который пришёл по почте, либо перейти по активационной ссылке в письме.
+* Р’С‹ РјРѕР¶РµС‚Рµ Р»РёР±Рѕ РІРІРµСЃС‚Рё РµРјР°Р№Р» Рё РєР»СЋС‡, РєРѕС‚РѕСЂС‹Р№ РїСЂРёС€С‘Р» РїРѕ РїРѕС‡С‚Рµ, Р»РёР±Рѕ РїРµСЂРµР№С‚Рё РїРѕ Р°РєС‚РёРІР°С†РёРѕРЅРЅРѕР№ СЃСЃС‹Р»РєРµ РІ РїРёСЃСЊРјРµ.
 </form>');}
 
-// защиты от взлома по ключу и емайлу
-if (strlen($key)<6 or strlen($key)>6 or !ctype_digit($key)) exit("$back. Вы ошиблись при вводе ключа. Ключ может содержать только 6 цифр.");
+// Р·Р°С‰РёС‚С‹ РѕС‚ РІР·Р»РѕРјР° РїРѕ РєР»СЋС‡Сѓ Рё РµРјР°Р№Р»Сѓ
+if (strlen($key)<6 or strlen($key)>6 or !ctype_digit($key)) exit("$back. Р’С‹ РѕС€РёР±Р»РёСЃСЊ РїСЂРё РІРІРѕРґРµ РєР»СЋС‡Р°. РљР»СЋС‡ РјРѕР¶РµС‚ СЃРѕРґРµСЂР¶Р°С‚СЊ С‚РѕР»СЊРєРѕ 6 С†РёС„СЂ.");
 $email=replacer($email); $email=str_replace("|","I",$email); $email=str_replace("\r\n","<br>",$email);
-if (strlen($email)>35) exit("Ошибка при вводе емайла");
+if (strlen($email)>35) exit("РћС€РёР±РєР° РїСЂРё РІРІРѕРґРµ РµРјР°Р№Р»Р°");
 
-// Ищем юзера с таким емайлом и ключом. Если есть - меняем статус на пустое поле.
+// РС‰РµРј СЋР·РµСЂР° СЃ С‚Р°РєРёРј РµРјР°Р№Р»РѕРј Рё РєР»СЋС‡РѕРј. Р•СЃР»Рё РµСЃС‚СЊ - РјРµРЅСЏРµРј СЃС‚Р°С‚СѓСЃ РЅР° РїСѓСЃС‚РѕРµ РїРѕР»Рµ.
 $fnomer=null; $email=strtolower($email); unset($fnomer); unset($ok);
 $lines=file("$datadir/user.php"); $ui=count($lines); $i=$ui;
 do {$i--; $rdt=explode("|",$lines[$i]); 
@@ -573,28 +573,28 @@ if ($rdt[5]===$email and $rdt[16]==TRUE) $ok="1";
 } while($i > 1);
 
 if (isset($fnomer)) {
-// обновление строки юзера в БД
+// РѕР±РЅРѕРІР»РµРЅРёРµ СЃС‚СЂРѕРєРё СЋР·РµСЂР° РІ Р‘Р”
 $i=$ui; $dt=explode("|", $lines[$fnomer]);
 $txtdat="$dt[0]|$dt[1]|$dt[2]|$dt[3]|$dt[4]|$dt[5]|$dt[6]|$dt[7]|$dt[8]|$dt[9]|$dt[10]|$dt[11]|$dt[12]|$dt[13]|$dt[14]|noavatar.gif|1|";
 $fp=fopen("$datadir/user.php","a+");
 flock ($fp,LOCK_EX); 
-ftruncate ($fp,0);//УДАЛЯЕМ СОДЕРЖИМОЕ ФАЙЛА
+ftruncate ($fp,0);//РЈР”РђР›РЇР•Рњ РЎРћР”Р•Р Р–РРњРћР• Р¤РђР™Р›Рђ
 for ($i=0;$i<=(sizeof($lines)-1);$i++) { if ($i==$fnomer) fputs($fp,"$txtdat\r\n"); else fputs($fp,$lines[$i]); }
 fflush ($fp);
 flock ($fp,LOCK_UN);
 fclose($fp);
-// устанавливаем КУКИ
+// СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј РљРЈРљР
 $tektime=time(); $wrfcookies="$name|$pass|$tektime|0|";
 setcookie("wrfcookies", $wrfcookies, time()+1728000);
 }
-if (!isset($fnomer) and !isset($ok)) exit("$back. Вы ошиблись в воде активационного ключа или емайла.</center>");
-if (isset($ok)) $add="Ваша запись уже активирована"; else $add="$name, Вы успешно зарегистрированы";
+if (!isset($fnomer) and !isset($ok)) exit("$back. Р’С‹ РѕС€РёР±Р»РёСЃСЊ РІ РІРѕРґРµ Р°РєС‚РёРІР°С†РёРѕРЅРЅРѕРіРѕ РєР»СЋС‡Р° РёР»Рё РµРјР°Р№Р»Р°.</center>");
+if (isset($ok)) $add="Р’Р°С€Р° Р·Р°РїРёСЃСЊ СѓР¶Рµ Р°РєС‚РёРІРёСЂРѕРІР°РЅР°"; else $add="$name, Р’С‹ СѓСЃРїРµС€РЅРѕ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅС‹";
 
 print"<html><head><link rel='stylesheet' href='$forum_skin/style.css' type='text/css'></head><body>
 <script language='Javascript'>function reload() {location = \"index.php\"}; setTimeout('reload()', 2500);</script>
 <table width=100% height=80%><tr><td><table border=1 cellpadding=10 cellspacing=0 bordercolor=#224488 align=center valign=center width=60%><tr><td><center>
-Спасибо, <B>$add</B>.<BR><BR>Через несколько секунд Вы будете автоматически перемещены на главную страницу форума.<BR><BR>
-<B><a href='index.php'>ДАЛЬШЕ >>></a></B></td></tr></table></td></tr></table></center></body></html>";
+РЎРїР°СЃРёР±Рѕ, <B>$add</B>.<BR><BR>Р§РµСЂРµР· РЅРµСЃРєРѕР»СЊРєРѕ СЃРµРєСѓРЅРґ Р’С‹ Р±СѓРґРµС‚Рµ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё РїРµСЂРµРјРµС‰РµРЅС‹ РЅР° РіР»Р°РІРЅСѓСЋ СЃС‚СЂР°РЅРёС†Сѓ С„РѕСЂСѓРјР°.<BR><BR>
+<B><a href='index.php'>Р”РђР›Р¬РЁР• >>></a></B></td></tr></table></td></tr></table></center></body></html>";
 exit; }
 
 
@@ -602,26 +602,26 @@ exit; }
 
 
 
-// Изменение данных регистрации - сохранение данных
+// РР·РјРµРЅРµРЅРёРµ РґР°РЅРЅС‹С… СЂРµРіРёСЃС‚СЂР°С†РёРё - СЃРѕС…СЂР°РЅРµРЅРёРµ РґР°РЅРЅС‹С…
 if ($_GET['event']=="reregist") { // if ($event =="reregist")
 
-if (!isset($_POST['name'])) exit("$back введите Ваше имя!");
+if (!isset($_POST['name'])) exit("$back РІРІРµРґРёС‚Рµ Р’Р°С€Рµ РёРјСЏ!");
 $name=str_replace("|","I",$_POST['name']);
-if ($name=="" or strlen($name)>$maxname) exit("$back ваше имя пустое, или превышает $maxname символов!</B></center>");
-$name=trim($name); // Вырезает ПРОБЕЛьные символы 
-if (preg_match("/[^(\\w)|(\\x7F-\\xFF)|(\\-)]/",$name)) exit("$back Ваше имя содержит запрещённые символы. Разрешены русские и английские буквы, цифры и подчёркивание!!.");
+if ($name=="" or strlen($name)>$maxname) exit("$back РІР°С€Рµ РёРјСЏ РїСѓСЃС‚РѕРµ, РёР»Рё РїСЂРµРІС‹С€Р°РµС‚ $maxname СЃРёРјРІРѕР»РѕРІ!</B></center>");
+$name=trim($name); // Р’С‹СЂРµР·Р°РµС‚ РџР РћР‘Р•Р›СЊРЅС‹Рµ СЃРёРјРІРѕР»С‹ 
+if (preg_match("/[^(\\w)|(\\x7F-\\xFF)|(\\-)]/",$name)) exit("$back Р’Р°С€Рµ РёРјСЏ СЃРѕРґРµСЂР¶РёС‚ Р·Р°РїСЂРµС‰С‘РЅРЅС‹Рµ СЃРёРјРІРѕР»С‹. Р Р°Р·СЂРµС€РµРЅС‹ СЂСѓСЃСЃРєРёРµ Рё Р°РЅРіР»РёР№СЃРєРёРµ Р±СѓРєРІС‹, С†РёС„СЂС‹ Рё РїРѕРґС‡С‘СЂРєРёРІР°РЅРёРµ!!.");
 
-if (!isset($_POST['pass'])) exit("$back Вы не ввели пароль!");
-$oldpass=$_POST['oldpass']; // Старый пароль
+if (!isset($_POST['pass'])) exit("$back Р’С‹ РЅРµ РІРІРµР»Рё РїР°СЂРѕР»СЊ!");
+$oldpass=$_POST['oldpass']; // РЎС‚Р°СЂС‹Р№ РїР°СЂРѕР»СЊ
 $pass=trim($_POST['pass']);
-if (strlen($_POST['newpassword'])<1 ) exit("$back разрешается длина пароля МИНИМУМ 1 символ!");
-if ($_POST['newpassword']!="скрыт") {$pass=trim($_POST['newpassword']); 
-if (strlen($pass)<1 or strlen($pass)>20) exit("$back Вы не ввели пароль. Пароль должен быть длиной от 1 до 20 символов!</B></center>");
+if (strlen($_POST['newpassword'])<1 ) exit("$back СЂР°Р·СЂРµС€Р°РµС‚СЃСЏ РґР»РёРЅР° РїР°СЂРѕР»СЏ РњРРќРРњРЈРњ 1 СЃРёРјРІРѕР»!");
+if ($_POST['newpassword']!="СЃРєСЂС‹С‚") {$pass=trim($_POST['newpassword']); 
+if (strlen($pass)<1 or strlen($pass)>20) exit("$back Р’С‹ РЅРµ РІРІРµР»Рё РїР°СЂРѕР»СЊ. РџР°СЂРѕР»СЊ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ РґР»РёРЅРѕР№ РѕС‚ 1 РґРѕ 20 СЃРёРјРІРѕР»РѕРІ!</B></center>");
 $pass=md5("$pass");}
 $pass=replacer($pass); $pass=str_replace("|","I",$pass);
 
 if (isset($_POST['email'])) $email=$_POST['email']; else $email=""; $email=strtolower($email);
-if(!preg_match("/^[a-z0-9\.\-_]+@[a-z0-9\-_]+\.([a-z0-9\-_]+\.)*?[a-z]+$/is", $email) or $email=="" or strlen($email)>40) exit("$back и введите корректный E-mail адрес!</B></center>");
+if(!preg_match("/^[a-z0-9\.\-_]+@[a-z0-9\-_]+\.([a-z0-9\-_]+\.)*?[a-z]+$/is", $email) or $email=="" or strlen($email)>40) exit("$back Рё РІРІРµРґРёС‚Рµ РєРѕСЂСЂРµРєС‚РЅС‹Р№ E-mail Р°РґСЂРµСЃ!</B></center>");
 
 if (isset($_POST['dayx'])) $dayx=replacer($_POST['dayx']); else $dayx="";
 if (isset($_POST['pol'])) $pol=replacer($_POST['pol']); else $pol=""; if ($pol!="1") $pol="0";
@@ -632,17 +632,17 @@ if (isset($_POST['work'])) $work=replacer($_POST['work']); else $work="";
 if (isset($_POST['write'])) $write=replacer($_POST['write']); else $write="";
 if (isset($_POST['avatar'])) $avatar=replacer($_POST['avatar']); else $avatar="";
 
-if ($_FILES['file']['name']!="") { // считываем имя и размер прикреплённого файла
-$fotoname=replacer($_FILES['file']['name']); $fotosize=$_FILES['file']['size']; // Имя и размер файла
+if ($_FILES['file']['name']!="") { // СЃС‡РёС‚С‹РІР°РµРј РёРјСЏ Рё СЂР°Р·РјРµСЂ РїСЂРёРєСЂРµРїР»С‘РЅРЅРѕРіРѕ С„Р°Р№Р»Р°
+$fotoname=replacer($_FILES['file']['name']); $fotosize=$_FILES['file']['size']; // РРјСЏ Рё СЂР°Р·РјРµСЂ С„Р°Р№Р»Р°
 } else {$fotoname=$avatar; $fotosize="";}
 
-$notgood="$back слишком длинное значение переменной ";
-if (strlen($dayx)>20) {$notgood.="день рождения!"; exit("$notgood");}
+$notgood="$back СЃР»РёС€РєРѕРј РґР»РёРЅРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ РїРµСЂРµРјРµРЅРЅРѕР№ ";
+if (strlen($dayx)>20) {$notgood.="РґРµРЅСЊ СЂРѕР¶РґРµРЅРёСЏ!"; exit("$notgood");}
 if (strlen($icq)>10) {$notgood.="ICQ!"; exit("$notgood");}
-if (strlen($www)>75) {$notgood.="URL сайта!"; exit("$notgood");}
-if (strlen($about)>75) {$notgood.="откуда!"; exit("$notgood");}
-if (strlen($work)>75) {$notgood.="интересы!"; exit("$notgood");}
-if (strlen($write)>75) {$notgood.="подпись!"; exit("$notgood");}
+if (strlen($www)>75) {$notgood.="URL СЃР°Р№С‚Р°!"; exit("$notgood");}
+if (strlen($about)>75) {$notgood.="РѕС‚РєСѓРґР°!"; exit("$notgood");}
+if (strlen($work)>75) {$notgood.="РёРЅС‚РµСЂРµСЃС‹!"; exit("$notgood");}
+if (strlen($write)>75) {$notgood.="РїРѕРґРїРёСЃСЊ!"; exit("$notgood");}
 
 $email=str_replace("|","I",$email);
 $dayx=str_replace("|","I",$dayx);
@@ -653,123 +653,123 @@ $work=str_replace("|","I",$work);
 $write=str_replace("|","I",$write);
 $avatar=str_replace("|","I",$avatar);
 
-// проверка Логина/Старого пароля
+// РїСЂРѕРІРµСЂРєР° Р›РѕРіРёРЅР°/РЎС‚Р°СЂРѕРіРѕ РїР°СЂРѕР»СЏ
 $ok=null; $lines=file("$datadir/user.php"); $i=count($lines); unset($ok);
 do {$i--; $rdt=explode("|", $lines[$i]);
-   if (strtolower($name)===strtolower($rdt[2]) & $oldpass===$rdt[3]) $ok="$i"; // Ищем юзера логин/пароль
-   else { if ($email===$rdt[5]) $bademail="1"; } // Вдруг у когото уже есть такой емайл?
+   if (strtolower($name)===strtolower($rdt[2]) & $oldpass===$rdt[3]) $ok="$i"; // РС‰РµРј СЋР·РµСЂР° Р»РѕРіРёРЅ/РїР°СЂРѕР»СЊ
+   else { if ($email===$rdt[5]) $bademail="1"; } // Р’РґСЂСѓРі Сѓ РєРѕРіРѕС‚Рѕ СѓР¶Рµ РµСЃС‚СЊ С‚Р°РєРѕР№ РµРјР°Р№Р»?
 } while($i > "1");
-if (isset($bademail)) exit("$back. Участник с емайлом <B>$email уже зарегистрирован</B> на форуме!</center>");
+if (isset($bademail)) exit("$back. РЈС‡Р°СЃС‚РЅРёРє СЃ РµРјР°Р№Р»РѕРј <B>$email СѓР¶Рµ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅ</B> РЅР° С„РѕСЂСѓРјРµ!</center>");
 if (!isset($ok)) {setcookie("wrfcookies","",time());
-exit("$back Ваш новый логин /пароль / Емайл не совпадает НИ с одним из БД. <BR><BR>
-Смена электронного адреса <font color=red><B>Запрещена</B></font><BR><BR>
-<font color=red><B>Ошибка скрипта или попытка взлома - обратитесь к администратору!</B></font>");}
+exit("$back Р’Р°С€ РЅРѕРІС‹Р№ Р»РѕРіРёРЅ /РїР°СЂРѕР»СЊ / Р•РјР°Р№Р» РЅРµ СЃРѕРІРїР°РґР°РµС‚ РќР СЃ РѕРґРЅРёРј РёР· Р‘Р”. <BR><BR>
+РЎРјРµРЅР° СЌР»РµРєС‚СЂРѕРЅРЅРѕРіРѕ Р°РґСЂРµСЃР° <font color=red><B>Р—Р°РїСЂРµС‰РµРЅР°</B></font><BR><BR>
+<font color=red><B>РћС€РёР±РєР° СЃРєСЂРёРїС‚Р° РёР»Рё РїРѕРїС‹С‚РєР° РІР·Р»РѕРјР° - РѕР±СЂР°С‚РёС‚РµСЃСЊ Рє Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂСѓ!</B></font>");}
 $udt=explode("|",$lines[$ok]); $dayreg=$udt[1]; $kolvomsg=$udt[4]; $status=$udt[16]; $rn=$udt[0];
 
-// старый формат $text="$name|$pass|$kolvomsg|$email|$dayreg|$dayx|$pol|$icq|$www|$about|$work|$write|$fotoname|$status|";
+// СЃС‚Р°СЂС‹Р№ С„РѕСЂРјР°С‚ $text="$name|$pass|$kolvomsg|$email|$dayreg|$dayx|$pol|$icq|$www|$about|$work|$write|$fotoname|$status|";
 $text="$rn|$dayreg|$name|$pass|$kolvomsg|$email|$pol|$dayx|0||$icq|$www|$about|$work|$write|$fotoname|$status|";
 $text=replacer($text); $exd=explode("|",$text); $name=$exd[2]; $pass=$exd[3]; $email=$exd[5];
 
-// Ставим куку юзеру
+// РЎС‚Р°РІРёРј РєСѓРєСѓ СЋР·РµСЂСѓ
 //$tektime=time(); $wrfcookies="$name|$pass|$tektime|$tektime|";
 //setcookie("wrfcookies", $wrfcookies, time()+1728000);
 
-if ($fotoname!=$avatar and $fotoname!="") { // блок загрузки АВАТАРА
+if ($fotoname!=$avatar and $fotoname!="") { // Р±Р»РѕРє Р·Р°РіСЂСѓР·РєРё РђР’РђРўРђР Рђ
 
-// ЗАЩИТЫ от ВЗЛОМА
+// Р—РђР©РРўР« РѕС‚ Р’Р—Р›РћРњРђ
 
-// 1. Проверяем РАСШИРЕНИЕ
+// 1. РџСЂРѕРІРµСЂСЏРµРј Р РђРЎРЁРР Р•РќРР•
 $ext = strtolower(substr($fotoname, 1 + strrpos($fotoname, ".")));
-if (!in_array($ext, $valid_types)) {echo "<B>ФАЙЛ НЕ загружен.</B> Возможные причины:<BR>
-- разрешена загрузка только файлов с такими расширениями: <B>";
+if (!in_array($ext, $valid_types)) {echo "<B>Р¤РђР™Р› РќР• Р·Р°РіСЂСѓР¶РµРЅ.</B> Р’РѕР·РјРѕР¶РЅС‹Рµ РїСЂРёС‡РёРЅС‹:<BR>
+- СЂР°Р·СЂРµС€РµРЅР° Р·Р°РіСЂСѓР·РєР° С‚РѕР»СЊРєРѕ С„Р°Р№Р»РѕРІ СЃ С‚Р°РєРёРјРё СЂР°СЃС€РёСЂРµРЅРёСЏРјРё: <B>";
 $patern=""; foreach($valid_types as $v) print"$v, ";
 print"</B><BR>
-- Вы пытаетесь загрузить файл с двойным расширением;<BR>
-- неверно введён адрес или выбран испорченный файл;</B><BR>"; exit;}
+- Р’С‹ РїС‹С‚Р°РµС‚РµСЃСЊ Р·Р°РіСЂСѓР·РёС‚СЊ С„Р°Р№Р» СЃ РґРІРѕР№РЅС‹Рј СЂР°СЃС€РёСЂРµРЅРёРµРј;<BR>
+- РЅРµРІРµСЂРЅРѕ РІРІРµРґС‘РЅ Р°РґСЂРµСЃ РёР»Рё РІС‹Р±СЂР°РЅ РёСЃРїРѕСЂС‡РµРЅРЅС‹Р№ С„Р°Р№Р»;</B><BR>"; exit;}
 
-// 1. считаем кол-во точек в выражении - если большей одной - СВОБОДЕН!
-$findtchka=substr_count($fotoname, "."); if ($findtchka>1) exit("ТОЧКА встречается в имени файла $findtchka раз(а). Это ЗАПРЕЩЕНО! <BR>\r\n");
+// 1. СЃС‡РёС‚Р°РµРј РєРѕР»-РІРѕ С‚РѕС‡РµРє РІ РІС‹СЂР°Р¶РµРЅРёРё - РµСЃР»Рё Р±РѕР»СЊС€РµР№ РѕРґРЅРѕР№ - РЎР’РћР‘РћР”Р•Рќ!
+$findtchka=substr_count($fotoname, "."); if ($findtchka>1) exit("РўРћР§РљРђ РІСЃС‚СЂРµС‡Р°РµС‚СЃСЏ РІ РёРјРµРЅРё С„Р°Р№Р»Р° $findtchka СЂР°Р·(Р°). Р­С‚Рѕ Р—РђРџР Р•Р©Р•РќРћ! <BR>\r\n");
 
-// 2. если в имени есть .php, .html, .htm - свободен! 
-$bag="Извините, но в имени ФАйла <B>запрещено</B> использовать .php, .html, .htm";
-if (preg_match("/\.php/i",$fotoname)) exit("Вхождение <B>.php</B> найдено. $bag");
-if (preg_match("/\.html/i",$fotoname)) exit("Вхождение <B>.html</B> найдено. $bag");
-if (preg_match("/\.htm/i",$fotoname)) exit("Вхождение <B>.htm</B> найдено. $bag");
+// 2. РµСЃР»Рё РІ РёРјРµРЅРё РµСЃС‚СЊ .php, .html, .htm - СЃРІРѕР±РѕРґРµРЅ! 
+$bag="РР·РІРёРЅРёС‚Рµ, РЅРѕ РІ РёРјРµРЅРё Р¤РђР№Р»Р° <B>Р·Р°РїСЂРµС‰РµРЅРѕ</B> РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ .php, .html, .htm";
+if (preg_match("/\.php/i",$fotoname)) exit("Р’С…РѕР¶РґРµРЅРёРµ <B>.php</B> РЅР°Р№РґРµРЅРѕ. $bag");
+if (preg_match("/\.html/i",$fotoname)) exit("Р’С…РѕР¶РґРµРЅРёРµ <B>.html</B> РЅР°Р№РґРµРЅРѕ. $bag");
+if (preg_match("/\.htm/i",$fotoname)) exit("Р’С…РѕР¶РґРµРЅРёРµ <B>.htm</B> РЅР°Р№РґРµРЅРѕ. $bag");
 
-// 3. защищаем от РУССКИХ букв в имени файла и проверка РАСШИРЕНИЯ файла 
+// 3. Р·Р°С‰РёС‰Р°РµРј РѕС‚ Р РЈРЎРЎРљРРҐ Р±СѓРєРІ РІ РёРјРµРЅРё С„Р°Р№Р»Р° Рё РїСЂРѕРІРµСЂРєР° Р РђРЎРЁРР Р•РќРРЇ С„Р°Р№Р»Р° 
 $patern=""; foreach($valid_types as $v) $patern.="$v|";
-if (!preg_match("/^[a-z0-9\.\-_]+\.(".$patern.")+$/is",$fotoname)) exit("$fotoname - <br>Запрещено использовать РУССКИЕ буквы в имени файла, а также запрещено загружать файлы с расширением отличным от заданных!!");
+if (!preg_match("/^[a-z0-9\.\-_]+\.(".$patern.")+$/is",$fotoname)) exit("$fotoname - <br>Р—Р°РїСЂРµС‰РµРЅРѕ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ Р РЈРЎРЎРљРР• Р±СѓРєРІС‹ РІ РёРјРµРЅРё С„Р°Р№Р»Р°, Р° С‚Р°РєР¶Рµ Р·Р°РїСЂРµС‰РµРЅРѕ Р·Р°РіСЂСѓР¶Р°С‚СЊ С„Р°Р№Р»С‹ СЃ СЂР°СЃС€РёСЂРµРЅРёРµРј РѕС‚Р»РёС‡РЅС‹Рј РѕС‚ Р·Р°РґР°РЅРЅС‹С…!!");
 
-// 4. Проверяем, может быть файл с таким именем уже есть на сервере
-if (file_exists("$filedir/$fotoname")) exit("<br><br>$back. Файл с таким именем уже существует на сервере! Либо измените имя на другое, <br>либо обновите страницу - возможно Вы пытаетесь добавить сообщение и файл повторно!!");
+// 4. РџСЂРѕРІРµСЂСЏРµРј, РјРѕР¶РµС‚ Р±С‹С‚СЊ С„Р°Р№Р» СЃ С‚Р°РєРёРј РёРјРµРЅРµРј СѓР¶Рµ РµСЃС‚СЊ РЅР° СЃРµСЂРІРµСЂРµ
+if (file_exists("$filedir/$fotoname")) exit("<br><br>$back. Р¤Р°Р№Р» СЃ С‚Р°РєРёРј РёРјРµРЅРµРј СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚ РЅР° СЃРµСЂРІРµСЂРµ! Р›РёР±Рѕ РёР·РјРµРЅРёС‚Рµ РёРјСЏ РЅР° РґСЂСѓРіРѕРµ, <br>Р»РёР±Рѕ РѕР±РЅРѕРІРёС‚Рµ СЃС‚СЂР°РЅРёС†Сѓ - РІРѕР·РјРѕР¶РЅРѕ Р’С‹ РїС‹С‚Р°РµС‚РµСЃСЊ РґРѕР±Р°РІРёС‚СЊ СЃРѕРѕР±С‰РµРЅРёРµ Рё С„Р°Р№Р» РїРѕРІС‚РѕСЂРЅРѕ!!");
 
-// 5. Размер в Кб. < допустимого
-$fotoksize=round($fotosize/10.24)/100; // размер ЗАГРУЖАЕМОГО ФОТО в Кб.
-$fotomax=round($max_f_size/10.24)/100; // максимальный размер фото в Кб.
-if ($fotoksize>$fotomax) exit("Вы превысили допустимый размер фото! <BR><B>Максимально допустимый</B> размер фото: <B>$fotomax </B>Кб.<BR> <B>Вы пытаетесь</B> загрузить изображение: <B>$fotoksize</B> Кб!");
+// 5. Р Р°Р·РјРµСЂ РІ РљР±. < РґРѕРїСѓСЃС‚РёРјРѕРіРѕ
+$fotoksize=round($fotosize/10.24)/100; // СЂР°Р·РјРµСЂ Р—РђР“Р РЈР–РђР•РњРћР“Рћ Р¤РћРўРћ РІ РљР±.
+$fotomax=round($max_f_size/10.24)/100; // РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ СЂР°Р·РјРµСЂ С„РѕС‚Рѕ РІ РљР±.
+if ($fotoksize>$fotomax) exit("Р’С‹ РїСЂРµРІС‹СЃРёР»Рё РґРѕРїСѓСЃС‚РёРјС‹Р№ СЂР°Р·РјРµСЂ С„РѕС‚Рѕ! <BR><B>РњР°РєСЃРёРјР°Р»СЊРЅРѕ РґРѕРїСѓСЃС‚РёРјС‹Р№</B> СЂР°Р·РјРµСЂ С„РѕС‚Рѕ: <B>$fotomax </B>РљР±.<BR> <B>Р’С‹ РїС‹С‚Р°РµС‚РµСЃСЊ</B> Р·Р°РіСЂСѓР·РёС‚СЊ РёР·РѕР±СЂР°Р¶РµРЅРёРµ: <B>$fotoksize</B> РљР±!");
 
-// 6. "Габариты" аватара > 150 х 150 - ДО свиданья! :-)
+// 6. "Р“Р°Р±Р°СЂРёС‚С‹" Р°РІР°С‚Р°СЂР° > 150 С… 150 - Р”Рћ СЃРІРёРґР°РЅСЊСЏ! :-)
 $size=getimagesize($_FILES['file']['tmp_name']);
-if ($size[0]>150 or $size[1]>150) exit("Не допустимые габариты аватара. Допустимо лишь 150 х 150 px!");
+if ($size[0]>150 or $size[1]>150) exit("РќРµ РґРѕРїСѓСЃС‚РёРјС‹Рµ РіР°Р±Р°СЂРёС‚С‹ Р°РІР°С‚Р°СЂР°. Р”РѕРїСѓСЃС‚РёРјРѕ Р»РёС€СЊ 150 С… 150 px!");
 
 if ($fotosize>"0" and $fotosize<$max_f_size) {
    copy($_FILES['file']['tmp_name'], $avatardir."/".$fotoname);
-   print "<br><br>Фото УСПЕШНО загружено: $fotoname (Размер: $fotosize байт)";}
-else exit("<B>Файл НЕ ЗАГРУЖЕН - ошибка СЕРВЕРА!
-если вы видите сообщение - [function.getimagesize]: Filename cannot be empty, значит у Вас библиотека GD отсутствует, либо старой версии<br>
-Иначе, доступ на папку для загрузки выставлен ошибочно, или по условиям хостинга загрузка файлов через http Вам запрещена!
-Обратитесь к администратору!<B>");
-} // КОНЕЦ блока загрузки аватара
+   print "<br><br>Р¤РѕС‚Рѕ РЈРЎРџР•РЁРќРћ Р·Р°РіСЂСѓР¶РµРЅРѕ: $fotoname (Р Р°Р·РјРµСЂ: $fotosize Р±Р°Р№С‚)";}
+else exit("<B>Р¤Р°Р№Р» РќР• Р—РђР“Р РЈР–Р•Рќ - РѕС€РёР±РєР° РЎР•Р Р’Р•Р Рђ!
+РµСЃР»Рё РІС‹ РІРёРґРёС‚Рµ СЃРѕРѕР±С‰РµРЅРёРµ - [function.getimagesize]: Filename cannot be empty, Р·РЅР°С‡РёС‚ Сѓ Р’Р°СЃ Р±РёР±Р»РёРѕС‚РµРєР° GD РѕС‚СЃСѓС‚СЃС‚РІСѓРµС‚, Р»РёР±Рѕ СЃС‚Р°СЂРѕР№ РІРµСЂСЃРёРё<br>
+РРЅР°С‡Рµ, РґРѕСЃС‚СѓРї РЅР° РїР°РїРєСѓ РґР»СЏ Р·Р°РіСЂСѓР·РєРё РІС‹СЃС‚Р°РІР»РµРЅ РѕС€РёР±РѕС‡РЅРѕ, РёР»Рё РїРѕ СѓСЃР»РѕРІРёСЏРј С…РѕСЃС‚РёРЅРіР° Р·Р°РіСЂСѓР·РєР° С„Р°Р№Р»РѕРІ С‡РµСЂРµР· http Р’Р°Рј Р·Р°РїСЂРµС‰РµРЅР°!
+РћР±СЂР°С‚РёС‚РµСЃСЊ Рє Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂСѓ!<B>");
+} // РљРћРќР•Р¦ Р±Р»РѕРєР° Р·Р°РіСЂСѓР·РєРё Р°РІР°С‚Р°СЂР°
 
 
 $file=file("$datadir/user.php");
 $fp=fopen("$datadir/user.php","a+");
 flock ($fp,LOCK_EX);
-ftruncate ($fp,0);//УДАЛЯЕМ СОДЕРЖИМОЕ ФАЙЛА 
+ftruncate ($fp,0);//РЈР”РђР›РЇР•Рњ РЎРћР”Р•Р Р–РРњРћР• Р¤РђР™Р›Рђ 
 for ($i=0;$i< sizeof($file);$i++) { if ($ok!=$i) fputs($fp,$file[$i]); else fputs($fp,"$text\r\n"); }
-fflush ($fp);//очищение файлового буфера
+fflush ($fp);//РѕС‡РёС‰РµРЅРёРµ С„Р°Р№Р»РѕРІРѕРіРѕ Р±СѓС„РµСЂР°
 flock ($fp,LOCK_UN);
 fclose($fp);
 
 print"<html><head><link rel='stylesheet' href='$forum_skin/style.css' type='text/css'></head><body>
 <script language='Javascript'>function reload() {location = \"index.php\"}; setTimeout('reload()', 1500);</script>
 <table width=100% height=80%><tr><td><table border=1 cellpadding=10 cellspacing=0 bordercolor=#224488 align=center valign=center width=60%><tr><td><center>
-Спасибо, <B>$name, Ваши данные успешно изменены</B>.<BR><BR>Через несколько секунд Вы будете автоматически перемещены на главную страницу форума.<BR><BR>
-<B><a href='index.php'>ДАЛЬШЕ >>></a></B></td></tr></table></td></tr></table></center></body></html>";
+РЎРїР°СЃРёР±Рѕ, <B>$name, Р’Р°С€Рё РґР°РЅРЅС‹Рµ СѓСЃРїРµС€РЅРѕ РёР·РјРµРЅРµРЅС‹</B>.<BR><BR>Р§РµСЂРµР· РЅРµСЃРєРѕР»СЊРєРѕ СЃРµРєСѓРЅРґ Р’С‹ Р±СѓРґРµС‚Рµ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё РїРµСЂРµРјРµС‰РµРЅС‹ РЅР° РіР»Р°РІРЅСѓСЋ СЃС‚СЂР°РЅРёС†Сѓ С„РѕСЂСѓРјР°.<BR><BR>
+<B><a href='index.php'>Р”РђР›Р¬РЁР• >>></a></B></td></tr></table></td></tr></table></center></body></html>";
 exit; }
 
 
 
 
 
-if ($_GET['event'] =="givmepassword") { // отсылает утеряные данные на мыло
+if ($_GET['event'] =="givmepassword") { // РѕС‚СЃС‹Р»Р°РµС‚ СѓС‚РµСЂСЏРЅС‹Рµ РґР°РЅРЅС‹Рµ РЅР° РјС‹Р»Рѕ
 
-// защита от злостного хакера
-if (!isset($_POST['myemail']) or !isset($_POST['myname'])) exit("Из формы НЕ поступили данные!");
+// Р·Р°С‰РёС‚Р° РѕС‚ Р·Р»РѕСЃС‚РЅРѕРіРѕ С…Р°РєРµСЂР°
+if (!isset($_POST['myemail']) or !isset($_POST['myname'])) exit("РР· С„РѕСЂРјС‹ РќР• РїРѕСЃС‚СѓРїРёР»Рё РґР°РЅРЅС‹Рµ!");
 $myemail=strtolower($_POST['myemail']); $myemail=replacer($myemail);
 $myname =strtolower($_POST['myname']); $myname =replacer($myname);
-if (strlen($myemail)>40 or strlen($myname)>40) exit("Длина имени или емайл должна быть менее 40 символов!");
+if (strlen($myemail)>40 or strlen($myname)>40) exit("Р”Р»РёРЅР° РёРјРµРЅРё РёР»Рё РµРјР°Р№Р» РґРѕР»Р¶РЅР° Р±С‹С‚СЊ РјРµРЅРµРµ 40 СЃРёРјРІРѕР»РѕРІ!");
 
-// ГЕНЕРИРУЕМ новый пароль юзера
-$len=8; // количество символов в новом пароле
+// Р“Р•РќР•Р РР РЈР•Рњ РЅРѕРІС‹Р№ РїР°СЂРѕР»СЊ СЋР·РµСЂР°
+$len=8; // РєРѕР»РёС‡РµСЃС‚РІРѕ СЃРёРјРІРѕР»РѕРІ РІ РЅРѕРІРѕРј РїР°СЂРѕР»Рµ
 $base='ABCDEFGHKLMNPQRSTWXYZabcdefghjkmnpqrstwxyz123456789';
 $max=strlen($base)-1; $pass=''; mt_srand((double)microtime()*1000000);
 while (strlen($pass)<$len) $pass.=$base{mt_rand(0,$max)};
 
 $lines=file("$datadir/user.php"); $record="<?die;?>\r\n"; $itogo=count($lines); $i=1; $regenter=FALSE;
 
-do {$rdt=explode("|",$lines[$i]); // проходим по всем пользователям и сверяем данные
-if (isset($rdt[1])) { // Если строчка потерялась в скрипте (пустая строка) - то просто её НЕ выводим
+do {$rdt=explode("|",$lines[$i]); // РїСЂРѕС…РѕРґРёРј РїРѕ РІСЃРµРј РїРѕР»СЊР·РѕРІР°С‚РµР»СЏРј Рё СЃРІРµСЂСЏРµРј РґР°РЅРЅС‹Рµ
+if (isset($rdt[1])) { // Р•СЃР»Рё СЃС‚СЂРѕС‡РєР° РїРѕС‚РµСЂСЏР»Р°СЃСЊ РІ СЃРєСЂРёРїС‚Рµ (РїСѓСЃС‚Р°СЏ СЃС‚СЂРѕРєР°) - С‚Рѕ РїСЂРѕСЃС‚Рѕ РµС‘ РќР• РІС‹РІРѕРґРёРј
 $rdt[5]=strtolower($rdt[5]); $rdt[2]=strtolower($rdt[2]);
 if ($myemail===$rdt[5] or $myname===$rdt[2]) {$regenter=TRUE; $myemail=$rdt[5]; $myname=$rdt[2]; $passmd5=md5("$pass"); $lines[$i]=str_replace("$rdt[3]","$passmd5",$lines[$i]);}
 } //if isset
 $record.=$lines[$i];
 $i++; } while($i < $itogo);
 
-// узнаём IP-запрашивающего пароль
+// СѓР·РЅР°С‘Рј IP-Р·Р°РїСЂР°С€РёРІР°СЋС‰РµРіРѕ РїР°СЂРѕР»СЊ
 $ip=""; $ip=(isset($_SERVER['REMOTE_ADDR']))?$_SERVER['REMOTE_ADDR']:0;
 
-// переписываем файл участников - вставляем туда новый пароль
+// РїРµСЂРµРїРёСЃС‹РІР°РµРј С„Р°Р№Р» СѓС‡Р°СЃС‚РЅРёРєРѕРІ - РІСЃС‚Р°РІР»СЏРµРј С‚СѓРґР° РЅРѕРІС‹Р№ РїР°СЂРѕР»СЊ
 $fp=fopen("$datadir/user.php","a+");
 flock ($fp,LOCK_EX);
 ftruncate ($fp,0);
@@ -778,32 +778,32 @@ fflush ($fp);
 flock ($fp,LOCK_UN);
 fclose($fp);
 
-// отправка пользователю его имени и пароля на мыло
+// РѕС‚РїСЂР°РІРєР° РїРѕР»СЊР·РѕРІР°С‚РµР»СЋ РµРіРѕ РёРјРµРЅРё Рё РїР°СЂРѕР»СЏ РЅР° РјС‹Р»Рѕ
 if ($regenter==TRUE) {
-$headers=null; // Настройки для отправки писем
-$headers.="From: администратор <$adminemail>\n";
+$headers=null; // РќР°СЃС‚СЂРѕР№РєРё РґР»СЏ РѕС‚РїСЂР°РІРєРё РїРёСЃРµРј
+$headers.="From: Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂ <$adminemail>\n";
 $headers.="X-Mailer: PHP/".phpversion()."\n";
 $headers.="Content-Type: text/plain; charset=windows-1251";
 
-// Собираем всю информацию в теле письма
-$allmsg=$forum_name.' (данные для восстановления доступа к форуму)'.chr(13).chr(10).
-        'Вы, либо кто-то другой с IP-адреса '.$ip.' запросили данные для восстановления доступа к форуму по адресу: '.$forum_url.chr(13).chr(10).chr(13).chr(10).
-        'Ваше Имя: '.$myname.chr(13).chr(10).
-        'Ваш новый пароль: '.$pass.chr(13).chr(10).chr(13).chr(10).
-        'Для входа на форум перейдите по ссылке и введите логин и НОВЫЙ ПАРОЛЬ: '.$forum_url.'?event=login'.chr(13).chr(10).chr(13).chr(10).
-        'Изменить Ваш пароль (только после того как войдёте) всегда можно на странице: '.$forum_url.'?event=profile&pname='.$myname.chr(13).chr(10).chr(13).chr(10).
-        '* Это письмо сгенерировано роботом, отвечать на него не нужно.'.chr(13).chr(10);
-// Отправляем письмо майлеру на съедение ;-)
-mail("$myemail", "=?windows-1251?B?" . base64_encode("$forum_name (Данные для восстановления доступа к форуму)") . "?=", $allmsg, $headers);
-// если есть участник с введённым емайлом
-$msgtoopr="<B>$myname</B>, на Ваш электронный адрес выслано сообщение с именем и паролем доступа к форуму.";
+// РЎРѕР±РёСЂР°РµРј РІСЃСЋ РёРЅС„РѕСЂРјР°С†РёСЋ РІ С‚РµР»Рµ РїРёСЃСЊРјР°
+$allmsg=$forum_name.' (РґР°РЅРЅС‹Рµ РґР»СЏ РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёСЏ РґРѕСЃС‚СѓРїР° Рє С„РѕСЂСѓРјСѓ)'.chr(13).chr(10).
+        'Р’С‹, Р»РёР±Рѕ РєС‚Рѕ-С‚Рѕ РґСЂСѓРіРѕР№ СЃ IP-Р°РґСЂРµСЃР° '.$ip.' Р·Р°РїСЂРѕСЃРёР»Рё РґР°РЅРЅС‹Рµ РґР»СЏ РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёСЏ РґРѕСЃС‚СѓРїР° Рє С„РѕСЂСѓРјСѓ РїРѕ Р°РґСЂРµСЃСѓ: '.$forum_url.chr(13).chr(10).chr(13).chr(10).
+        'Р’Р°С€Рµ РРјСЏ: '.$myname.chr(13).chr(10).
+        'Р’Р°С€ РЅРѕРІС‹Р№ РїР°СЂРѕР»СЊ: '.$pass.chr(13).chr(10).chr(13).chr(10).
+        'Р”Р»СЏ РІС…РѕРґР° РЅР° С„РѕСЂСѓРј РїРµСЂРµР№РґРёС‚Рµ РїРѕ СЃСЃС‹Р»РєРµ Рё РІРІРµРґРёС‚Рµ Р»РѕРіРёРЅ Рё РќРћР’Р«Р™ РџРђР РћР›Р¬: '.$forum_url.'?event=login'.chr(13).chr(10).chr(13).chr(10).
+        'РР·РјРµРЅРёС‚СЊ Р’Р°С€ РїР°СЂРѕР»СЊ (С‚РѕР»СЊРєРѕ РїРѕСЃР»Рµ С‚РѕРіРѕ РєР°Рє РІРѕР№РґС‘С‚Рµ) РІСЃРµРіРґР° РјРѕР¶РЅРѕ РЅР° СЃС‚СЂР°РЅРёС†Рµ: '.$forum_url.'?event=profile&pname='.$myname.chr(13).chr(10).chr(13).chr(10).
+        '* Р­С‚Рѕ РїРёСЃСЊРјРѕ СЃРіРµРЅРµСЂРёСЂРѕРІР°РЅРѕ СЂРѕР±РѕС‚РѕРј, РѕС‚РІРµС‡Р°С‚СЊ РЅР° РЅРµРіРѕ РЅРµ РЅСѓР¶РЅРѕ.'.chr(13).chr(10);
+// РћС‚РїСЂР°РІР»СЏРµРј РїРёСЃСЊРјРѕ РјР°Р№Р»РµСЂСѓ РЅР° СЃСЉРµРґРµРЅРёРµ ;-)
+mail("$myemail", "=?windows-1251?B?" . base64_encode("$forum_name (Р”Р°РЅРЅС‹Рµ РґР»СЏ РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёСЏ РґРѕСЃС‚СѓРїР° Рє С„РѕСЂСѓРјСѓ)") . "?=", $allmsg, $headers);
+// РµСЃР»Рё РµСЃС‚СЊ СѓС‡Р°СЃС‚РЅРёРє СЃ РІРІРµРґС‘РЅРЅС‹Рј РµРјР°Р№Р»РѕРј
+$msgtoopr="<B>$myname</B>, РЅР° Р’Р°С€ СЌР»РµРєС‚СЂРѕРЅРЅС‹Р№ Р°РґСЂРµСЃ РІС‹СЃР»Р°РЅРѕ СЃРѕРѕР±С‰РµРЅРёРµ СЃ РёРјРµРЅРµРј Рё РїР°СЂРѕР»РµРј РґРѕСЃС‚СѓРїР° Рє С„РѕСЂСѓРјСѓ.";
 }
-// Если нет такого емайла в БД
-else $msgtoopr="<B>Участника с таким емайлом или логином</B><BR> на форуме <B>не зарегистрировано!</B>";
+// Р•СЃР»Рё РЅРµС‚ С‚Р°РєРѕРіРѕ РµРјР°Р№Р»Р° РІ Р‘Р”
+else $msgtoopr="<B>РЈС‡Р°СЃС‚РЅРёРєР° СЃ С‚Р°РєРёРј РµРјР°Р№Р»РѕРј РёР»Рё Р»РѕРіРёРЅРѕРј</B><BR> РЅР° С„РѕСЂСѓРјРµ <B>РЅРµ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅРѕ!</B>";
 print "<html><body><script language='Javascript'>function reload() {location = \"index.php\"}; setTimeout('reload()', 2000);</script>
 <BR><BR><BR><center><table border=1 cellpadding=10 cellspacing=0 bordercolor=#224488 width=300><tr><td align=center>
-<font style='font-size: 15px'>$msgtoopr Через несколько секунд Вы будете автоматически перемещены на главную страницу.
-Если этого не происходит, нажмите <B><a href='index.php'>здесь</a></B></font>.</td></tr></table></center><BR><BR><BR></body></html>";
+<font style='font-size: 15px'>$msgtoopr Р§РµСЂРµР· РЅРµСЃРєРѕР»СЊРєРѕ СЃРµРєСѓРЅРґ Р’С‹ Р±СѓРґРµС‚Рµ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё РїРµСЂРµРјРµС‰РµРЅС‹ РЅР° РіР»Р°РІРЅСѓСЋ СЃС‚СЂР°РЅРёС†Сѓ.
+Р•СЃР»Рё СЌС‚РѕРіРѕ РЅРµ РїСЂРѕРёСЃС…РѕРґРёС‚, РЅР°Р¶РјРёС‚Рµ <B><a href='index.php'>Р·РґРµСЃСЊ</a></B></font>.</td></tr></table></center><BR><BR><BR></body></html>";
 exit; }
 
 
@@ -811,30 +811,30 @@ exit; }
 
 
 
-if ($_GET['event']=="moresmiles") { // ДОБАВЛЕНИЕ ВСЕХ смайлов из директории SMILE
+if ($_GET['event']=="moresmiles") { // Р”РћР‘РђР’Р›Р•РќРР• Р’РЎР•РҐ СЃРјР°Р№Р»РѕРІ РёР· РґРёСЂРµРєС‚РѕСЂРёРё SMILE
 
-$lines=null; unset($lines); if (!is_dir("smile/")) exit("папка smile не существует.");
+$lines=null; unset($lines); if (!is_dir("smile/")) exit("РїР°РїРєР° smile РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚.");
 $i=0; if ($handle = opendir("smile/")) {
 while (($file = readdir($handle)) !== false)
 if (!is_dir($file)) {$lines[$i]=$file; $i++;}
 closedir($handle);
 }
-if (!isset($lines)) exit("В папке smile НЕТ смайлов! Обратитесь к админу - пусть скинет.");
+if (!isset($lines)) exit("Р’ РїР°РїРєРµ smile РќР•Рў СЃРјР°Р№Р»РѕРІ! РћР±СЂР°С‚РёС‚РµСЃСЊ Рє Р°РґРјРёРЅСѓ - РїСѓСЃС‚СЊ СЃРєРёРЅРµС‚.");
 $itogo=count($lines); $k=0; $text=null;
 print"<html><head><meta http-equiv='Content-Type' content='text/html; charset=windows-1251'><meta http-equiv='Content-Language' content='ru'></head><body>
 <script language=\"JavaScript\">function setSmile(symbol) { obj = opener.document.REPLIER.msg; obj.value = obj.value + symbol; }</script>
-<center><b>Дополнительные смайлы</b><br>";
+<center><b>Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Рµ СЃРјР°Р№Р»С‹</b><br>";
 do {
 $rdt=explode(".",$lines[$k]);
 if ($rdt[1]=="jpg" or $rdt[1]=="gif") {print"<a href=\"javascript:setSmile('[img]$forum_url/smile/$lines[$k][/img] ')\"><img src='smile/$lines[$k]' border=0></a>&nbsp; ";}
 $k++;
 } while ($k<$itogo);
-exit("<BR><a href='' onClick='self.close()'><b>Закрыть окно</b></a></center><small>P.S. Администратор! Чтобы здесь появились новые смайлы - просто закачай любые смайлы в папку".$forum_url."smile/</small></body></html>");}
+exit("<BR><a href='' onClick='self.close()'><b>Р—Р°РєСЂС‹С‚СЊ РѕРєРЅРѕ</b></a></center><small>P.S. РђРґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂ! Р§С‚РѕР±С‹ Р·РґРµСЃСЊ РїРѕСЏРІРёР»РёСЃСЊ РЅРѕРІС‹Рµ СЃРјР°Р№Р»С‹ - РїСЂРѕСЃС‚Рѕ Р·Р°РєР°С‡Р°Р№ Р»СЋР±С‹Рµ СЃРјР°Р№Р»С‹ РІ РїР°РїРєСѓ".$forum_url."smile/</small></body></html>");}
 
 
 
 
-// ----- Шапка для всех страниц форума
+// ----- РЁР°РїРєР° РґР»СЏ РІСЃРµС… СЃС‚СЂР°РЅРёС† С„РѕСЂСѓРјР°
 
 if (isset($_COOKIE['wrfcookies'])) {
 $wrfc=$_COOKIE['wrfcookies']; $wrfc=htmlspecialchars($wrfc); $wrfc=stripslashes($wrfc);
@@ -845,7 +845,7 @@ if (time()>($wrftime1+50)) {$tektime=time();$wrfcookies="$wrfc[0]|$wrfc[1]|$tekt
 
 // -----
 
-$frname=""; $frtname=""; //include("$forum_skin/top.html"); addtop(); // подключаем ШАПКУ форума
+$frname=""; $frtname=""; //include("$forum_skin/top.html"); addtop(); // РїРѕРґРєР»СЋС‡Р°РµРј РЁРђРџРљРЈ С„РѕСЂСѓРјР°
 
 
 
@@ -855,19 +855,19 @@ $frname=""; $frtname=""; //include("$forum_skin/top.html"); addtop(); // подключ
 
 
 
-if ($_GET['event'] =="deletemsg") { // УДАЛЕНИЕ СВОЕГО СООБЩЕНИЯ = 10.08.2012 г.
+if ($_GET['event'] =="deletemsg") { // РЈР”РђР›Р•РќРР• РЎР’РћР•Р“Рћ РЎРћРћР‘Р©Р•РќРРЇ = 10.08.2012 Рі.
 
-if (!isset($_GET['username']) or !isset($_GET['id'])) exit("В адресе должен прийти ID темы и имя участника! Попытка взлома.");
+if (!isset($_GET['username']) or !isset($_GET['id'])) exit("Р’ Р°РґСЂРµСЃРµ РґРѕР»Р¶РµРЅ РїСЂРёР№С‚Рё ID С‚РµРјС‹ Рё РёРјСЏ СѓС‡Р°СЃС‚РЅРёРєР°! РџРѕРїС‹С‚РєР° РІР·Р»РѕРјР°.");
 
-$username=urldecode($_GET['username']); // РАСКОДИРУЕМ имя пользователя, пришедшее из GET-запроса.
-$id=replacer($_GET['id']); // получаем идентификатор темы
-if ((!ctype_digit($id)) or (strlen($id)!=7)) exit("<B>$back. Попытка взлома! Идентификатор тема должен содержать только 7 цифр!</B>");
+$username=urldecode($_GET['username']); // Р РђРЎРљРћР”РР РЈР•Рњ РёРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ, РїСЂРёС€РµРґС€РµРµ РёР· GET-Р·Р°РїСЂРѕСЃР°.
+$id=replacer($_GET['id']); // РїРѕР»СѓС‡Р°РµРј РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ С‚РµРјС‹
+if ((!ctype_digit($id)) or (strlen($id)!=7)) exit("<B>$back. РџРѕРїС‹С‚РєР° РІР·Р»РѕРјР°! РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ С‚РµРјР° РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ С‚РѕР»СЊРєРѕ 7 С†РёС„СЂ!</B>");
 
 $lines=file("$datadir/user.php"); $i=count($lines); $mlines="0"; $filname=null;
 
-// Сверяем имя и пароль в куках с именем и паролем в user.php
+// РЎРІРµСЂСЏРµРј РёРјСЏ Рё РїР°СЂРѕР»СЊ РІ РєСѓРєР°С… СЃ РёРјРµРЅРµРј Рё РїР°СЂРѕР»РµРј РІ user.php
 do {$i--; $rdt=explode("|",$lines[$i]);
-if (isset($rdt[1])) { // Если строчка потерялась в скрипте (пустая строка) - то просто её НЕ выводим
+if (isset($rdt[1])) { // Р•СЃР»Рё СЃС‚СЂРѕС‡РєР° РїРѕС‚РµСЂСЏР»Р°СЃСЊ РІ СЃРєСЂРёРїС‚Рµ (РїСѓСЃС‚Р°СЏ СЃС‚СЂРѕРєР°) - С‚Рѕ РїСЂРѕСЃС‚Рѕ РµС‘ РќР• РІС‹РІРѕРґРёРј
 if ($username===$rdt[2]) {
 
 if (isset($wrfname) & isset($wrfpass)) { $wrfname=replacer($wrfname); $wrfpass=replacer($wrfpass);
@@ -876,33 +876,33 @@ if ($wrfname===$rdt[2] & $wrfpass===$rdt[3]) {
 $mlines=file("$datadir/$id.dat"); $maxi=count($mlines)-1;
 
 $dt=explode("|",$mlines[$maxi]);
-// Если последнее сообщение в теме написал наш зареганный юзер, то удаляем последнее сообщение
-// иначе обнуляем строку и ничего не удалим далее
+// Р•СЃР»Рё РїРѕСЃР»РµРґРЅРµРµ СЃРѕРѕР±С‰РµРЅРёРµ РІ С‚РµРјРµ РЅР°РїРёСЃР°Р» РЅР°С€ Р·Р°СЂРµРіР°РЅРЅС‹Р№ СЋР·РµСЂ, С‚Рѕ СѓРґР°Р»СЏРµРј РїРѕСЃР»РµРґРЅРµРµ СЃРѕРѕР±С‰РµРЅРёРµ
+// РёРЅР°С‡Рµ РѕР±РЅСѓР»СЏРµРј СЃС‚СЂРѕРєСѓ Рё РЅРёС‡РµРіРѕ РЅРµ СѓРґР°Р»РёРј РґР°Р»РµРµ
 if ($dt[8]==$username and $dt[6]==TRUE and $maxi>0) { $filname=$dt[13]; $zag=$dt[5]; unset($mlines[$maxi]); $maxi--;} else $mlines="0";
 $i=1;
 } } } }
 } while($i > "1");
 
 if ($mlines!="0") {
-if (is_file("$filedir/$filname")) unlink("$filedir/$filname"); // Удаялем прикреплённый файл
+if (is_file("$filedir/$filname")) unlink("$filedir/$filname"); // РЈРґР°СЏР»РµРј РїСЂРёРєСЂРµРїР»С‘РЅРЅС‹Р№ С„Р°Р№Р»
 $fp=fopen("$datadir/$id.dat","a+");
 flock ($fp,LOCK_EX);
-ftruncate ($fp,0);//УДАЛЯЕМ СОДЕРЖИМОЕ ФАЙЛА
+ftruncate ($fp,0);//РЈР”РђР›РЇР•Рњ РЎРћР”Р•Р Р–РРњРћР• Р¤РђР™Р›Рђ
 for ($i=0;$i<=$maxi;$i++) fputs($fp,$mlines[$i]);
 fflush ($fp);
 flock ($fp,LOCK_UN);
 fclose($fp);
 
-// -1 к репе и -1 к сообщению юзера!
+// -1 Рє СЂРµРїРµ Рё -1 Рє СЃРѕРѕР±С‰РµРЅРёСЋ СЋР·РµСЂР°!
 $ufile="$datadir/userstat.dat"; $ulines=file("$ufile"); $ui=count($ulines)-1; $ulinenew=""; $fileadd=0;
-if ($filname!=null) $fileadd=$repaaddfile; // Если юзер удаляет файл, то ему ещё -Х в РЕПУ
-$tektime=time(); $ip=$_SERVER['REMOTE_ADDR']; // определяем IP юзера
+if ($filname!=null) $fileadd=$repaaddfile; // Р•СЃР»Рё СЋР·РµСЂ СѓРґР°Р»СЏРµС‚ С„Р°Р№Р», С‚Рѕ РµРјСѓ РµС‰С‘ -РҐ РІ Р Р•РџРЈ
+$tektime=time(); $ip=$_SERVER['REMOTE_ADDR']; // РѕРїСЂРµРґРµР»СЏРµРј IP СЋР·РµСЂР°
 for ($i=0;$i<=$ui;$i++) {$udt=explode("|",$ulines[$i]);
-if ($udt[2]==$username) { // Ищем юзера по имени в файле userstat.dat
+if ($udt[2]==$username) { // РС‰РµРј СЋР·РµСЂР° РїРѕ РёРјРµРЅРё РІ С„Р°Р№Р»Рµ userstat.dat
 $udt[6]--; $udt[7]=$udt[7]-$fileadd-$repaaddmsg;
 $ulines[$i]="$udt[0]|$tektime|$udt[2]|$udt[3]|$udt[4]|$udt[5]|$udt[6]|$udt[7]|$udt[8]|$udt[9]|$ip|$udt[11]|\r\n";}
 $ulinenew.="$ulines[$i]";}
-// Пишем данные в файл
+// РџРёС€РµРј РґР°РЅРЅС‹Рµ РІ С„Р°Р№Р»
 $fp=fopen("$ufile","w");
 flock ($fp,LOCK_EX);
 fputs($fp,"$ulinenew");
@@ -910,8 +910,8 @@ fflush ($fp);
 flock ($fp,LOCK_UN);
 fclose($fp);
 
-// Записываем данные в файл REPA.DAT
-$repa=-$fileadd; $repa=$repa-$repaaddmsg; $pochemu="За удаление сообщения в теме <a href='index.php?id=$id' target=_blank>$zag</a>";
+// Р—Р°РїРёСЃС‹РІР°РµРј РґР°РЅРЅС‹Рµ РІ С„Р°Р№Р» REPA.DAT
+$repa=-$fileadd; $repa=$repa-$repaaddmsg; $pochemu="Р—Р° СѓРґР°Р»РµРЅРёРµ СЃРѕРѕР±С‰РµРЅРёСЏ РІ С‚РµРјРµ <a href='index.php?id=$id' target=_blank>$zag</a>";
 $fp=fopen("$datadir/repa.dat","a+");
 flock ($fp,LOCK_EX);
 fputs($fp,"$tektime|$repa|$wrfname||$pochemu||||\r\n");
@@ -919,12 +919,12 @@ fflush ($fp);
 flock ($fp,LOCK_UN);
 fclose($fp);
 
-$rezult="было успешно удалено.";} else $rezult="<font color=red><B>НЕ БЫЛО УДАЛЕНО, ТАК КАК ОНО ЕДИНСТВЕННОЕ В ТЕМЕ!</B></font>";
+$rezult="Р±С‹Р»Рѕ СѓСЃРїРµС€РЅРѕ СѓРґР°Р»РµРЅРѕ.";} else $rezult="<font color=red><B>РќР• Р‘Р«Р›Рћ РЈР”РђР›Р•РќРћ, РўРђРљ РљРђРљ РћРќРћ Р•Р”РРќРЎРўР’Р•РќРќРћР• Р’ РўР•РњР•!</B></font>";
 
 print "<script language='Javascript'>function reload() {location = \"index.php?id=$id\"}; setTimeout('reload()', 2500);</script>
 <table width=100% height=80%><tr><td><table border=1 cellpadding=10 cellspacing=0 bordercolor=#224488 align=center valign=center width=60%><tr><td><center>
-Внимание, <B>$username</B>, Ваше сообщение $rezult<BR><BR>Через несколько секунд Вы будете автоматически перемещены в текущую тему.<BR><BR>
-<B><a href='index.php?id=$id'>ДАЛЬШЕ >>></a></B></td></tr></table></td></tr></table></center></body></html>";
+Р’РЅРёРјР°РЅРёРµ, <B>$username</B>, Р’Р°С€Рµ СЃРѕРѕР±С‰РµРЅРёРµ $rezult<BR><BR>Р§РµСЂРµР· РЅРµСЃРєРѕР»СЊРєРѕ СЃРµРєСѓРЅРґ Р’С‹ Р±СѓРґРµС‚Рµ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё РїРµСЂРµРјРµС‰РµРЅС‹ РІ С‚РµРєСѓС‰СѓСЋ С‚РµРјСѓ.<BR><BR>
+<B><a href='index.php?id=$id'>Р”РђР›Р¬РЁР• >>></a></B></td></tr></table></td></tr></table></center></body></html>";
 exit; }
 
 
@@ -934,14 +934,14 @@ exit; }
 
 
 
-if ($_GET['event']=="who") { // ПРОСМОТР УЧАСТНИКОВ
+if ($_GET['event']=="who") { // РџР РћРЎРњРћРўР  РЈР§РђРЎРўРќРРљРћР’
 
-// если незареган - не пускаем
-if (!isset($_COOKIE['wrfcookies'])) exit("$back <center><table class=forumline width=700><tr><th class=thHead colspan=4 height=25>Доступ ограничен</th></tr><tr class=row2><td class=row1><center><BR><BR><B><span style='FONT-SIZE: 14px'>Для просмотра данных пользователей необходимо зарегистрироваться.</B></center></td></table></center>");
+// РµСЃР»Рё РЅРµР·Р°СЂРµРіР°РЅ - РЅРµ РїСѓСЃРєР°РµРј
+if (!isset($_COOKIE['wrfcookies'])) exit("$back <center><table class=forumline width=700><tr><th class=thHead colspan=4 height=25>Р”РѕСЃС‚СѓРї РѕРіСЂР°РЅРёС‡РµРЅ</th></tr><tr class=row2><td class=row1><center><BR><BR><B><span style='FONT-SIZE: 14px'>Р”Р»СЏ РїСЂРѕСЃРјРѕС‚СЂР° РґР°РЅРЅС‹С… РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№ РЅРµРѕР±С…РѕРґРёРјРѕ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°С‚СЊСЃСЏ.</B></center></td></table></center>");
 
 $t1="row1";
 $alllines=file("$datadir/user.php"); $allslines=file("$datadir/userstat.dat");
-unset($alllines[0]); unset($allslines[0]); // Удаляем первую (служебную строку)
+unset($alllines[0]); unset($allslines[0]); // РЈРґР°Р»СЏРµРј РїРµСЂРІСѓСЋ (СЃР»СѓР¶РµР±РЅСѓСЋ СЃС‚СЂРѕРєСѓ)
 $alllines=array_values($alllines); $allslines=array_values($allslines);
 $allmaxi=count($alllines); $i=0; $j=0; $flag=0;
 
@@ -958,17 +958,17 @@ if($pol!="" or $interes!="" or $url!="" or $from!="" or $repa!="" or $dayreg!=""
 
 do {$dt=explode("|",$alllines[$i]); $udt=explode("|",$allslines[$i]);
 
-// Если есть совпадение в строке - присваиваем флагу значение 1
+// Р•СЃР»Рё РµСЃС‚СЊ СЃРѕРІРїР°РґРµРЅРёРµ РІ СЃС‚СЂРѕРєРµ - РїСЂРёСЃРІР°РёРІР°РµРј С„Р»Р°РіСѓ Р·РЅР°С‡РµРЅРёРµ 1
 if (strlen($repa)>0) {if ($udt[7]>$repa) $flag=1;}
 if (strlen($pol)>0) {if ($dt[6]==$pol) $flag=1;}
 //print"$dt[6]=$pol-$flag<br>";
-if ($dayreg>0 and $dayreg<121) {$delta=$dt[1]+2592000*$dayreg; if ($delta<$tektime) $flag=1;} // месяц * dayreg
+if ($dayreg>0 and $dayreg<121) {$delta=$dt[1]+2592000*$dayreg; if ($delta<$tektime) $flag=1;} // РјРµСЃСЏС† * dayreg
 
 if ($dt[13]!="" and $interes!="") {if (stristr($dt[13],$interes)) $flag=1;}
 if ($dt[11]!="" and $url!="") {if (stristr($dt[11],$url)) $flag=1;}
 if ($dt[12]!="" and $from!="") {if (stristr($dt[12],$from)) $flag=1;}
 
-// если было хоть одно соврадение, включаем участника в массив участников
+// РµСЃР»Рё Р±С‹Р»Рѕ С…РѕС‚СЊ РѕРґРЅРѕ СЃРѕРІСЂР°РґРµРЅРёРµ, РІРєР»СЋС‡Р°РµРј СѓС‡Р°СЃС‚РЅРёРєР° РІ РјР°СЃСЃРёРІ СѓС‡Р°СЃС‚РЅРёРєРѕРІ
 if ($flag==1) {$lines[$j]=$alllines[$i]; $slines[$j]=$allslines[$i]; $flag=0; $j++;}
 $i++; 
 } while($i<$allmaxi);
@@ -976,47 +976,47 @@ $i++;
 //print"<PRE>"; print_r($slines); print_r($lines); exit;
 
 $fadd="&pol=$pol&interes=$interes&url=$url&from=$from&repa=$repa&$dayreg=$dayreg";
-} else {$fadd=""; $lines=$alllines; $slines=$allslines;} // если поиск не задан, сразу присваиваем массив
+} else {$fadd=""; $lines=$alllines; $slines=$allslines;} // РµСЃР»Рё РїРѕРёСЃРє РЅРµ Р·Р°РґР°РЅ, СЃСЂР°Р·Сѓ РїСЂРёСЃРІР°РёРІР°РµРј РјР°СЃСЃРёРІ
 
 if (!isset($lines)) $maxi=0; else $maxi=count($lines);
 
-// Исключаем ошибку вызова несуществующей страницы
+// РСЃРєР»СЋС‡Р°РµРј РѕС€РёР±РєСѓ РІС‹Р·РѕРІР° РЅРµСЃСѓС‰РµСЃС‚РІСѓСЋС‰РµР№ СЃС‚СЂР°РЅРёС†С‹
 if (!isset($_GET['page'])) $page=1; else { $page=$_GET['page']; if (!ctype_digit($page)) $page=1; if ($page<1) $page=1; }
 $maxpage=ceil(($maxi)/$uq); if ($page>$maxpage) $page=$maxpage;
 
 print"
 <form action='tools.php?event=who' method=GET><div align=right>
 <input type=hidden name=event value='who'>
-Фильтры: <SELECT name=pol><option value=''>Пол</option><OPTION value='1'>Мужской</OPTION><OPTION value='0'>Женский</OPTION></SELECT>
+Р¤РёР»СЊС‚СЂС‹: <SELECT name=pol><option value=''>РџРѕР»</option><OPTION value='1'>РњСѓР¶СЃРєРѕР№</OPTION><OPTION value='0'>Р–РµРЅСЃРєРёР№</OPTION></SELECT>
 
-<SELECT name=repa><option value=''>Репутация</option><OPTION value='$userrepa[1]'> > $userrepa[1]</OPTION>
+<SELECT name=repa><option value=''>Р РµРїСѓС‚Р°С†РёСЏ</option><OPTION value='$userrepa[1]'> > $userrepa[1]</OPTION>
 <OPTION value='$userrepa[2]'> > $userrepa[2]</OPTION><OPTION value='$userrepa[3]'> > $userrepa[3]</OPTION>
 <OPTION value='$userrepa[4]'> > $userrepa[4]</OPTION><OPTION value='$userrepa[5]'> > $userrepa[5]</OPTION>
 <OPTION value='$userrepa[6]'> > $userrepa[6]</OPTION><OPTION value='$userrepa[7]'> > $userrepa[7]</OPTION></SELECT>
 
-<SELECT name=dayreg><option value=''>Дате регистрации</option>
-<OPTION value='1'> > месяца</OPTION><OPTION value='6'> > полугодия</OPTION><OPTION value='12'> > года</OPTION>
-<OPTION value='36'> > 3 лет</OPTION><OPTION value='60'> > 5 лет</OPTION><OPTION value='120'>ДАЖЕ не выбирайте!</OPTION></SELECT>
+<SELECT name=dayreg><option value=''>Р”Р°С‚Рµ СЂРµРіРёСЃС‚СЂР°С†РёРё</option>
+<OPTION value='1'> > РјРµСЃСЏС†Р°</OPTION><OPTION value='6'> > РїРѕР»СѓРіРѕРґРёСЏ</OPTION><OPTION value='12'> > РіРѕРґР°</OPTION>
+<OPTION value='36'> > 3 Р»РµС‚</OPTION><OPTION value='60'> > 5 Р»РµС‚</OPTION><OPTION value='120'>Р”РђР–Р• РЅРµ РІС‹Р±РёСЂР°Р№С‚Рµ!</OPTION></SELECT>
 
-<B>Интересам:</B> <input type=text name=interes value='$interes' class=post maxlength=50 size=25>
-<B>Сайту:</B> <input type=text name=url value='$url' class=post maxlength=50 size=25>
-<B>Откуда:</B> <input type=text name=from value='$from' class=post maxlength=50 size=25>
+<B>РРЅС‚РµСЂРµСЃР°Рј:</B> <input type=text name=interes value='$interes' class=post maxlength=50 size=25>
+<B>РЎР°Р№С‚Сѓ:</B> <input type=text name=url value='$url' class=post maxlength=50 size=25>
+<B>РћС‚РєСѓРґР°:</B> <input type=text name=from value='$from' class=post maxlength=50 size=25>
 <input type=submit class=mainoption value='OK'></form></div><br>";
 
 print"<table width=100% cellpadding=3 cellspacing=1 class=forumline><tr> 
-<th class=thCornerL height=25 width=20>№</th>
-<th class=thCornerL><small><a href='tools.php?event=who&page=$page&pol=1' style='text-decoration:none'>Ф</a> Пол / Имя</small></th>
-<th class=thTop><small>Статус</small></th>
-<th class=thTop><small>Репа</small></th>
-<th class=thTop><small>ЛС на Е-майл</small></th>
-<th class=thTop><small>ПС на фруме</small></th>
-<th class=thTop><small>Регистрация</small></th>
-<th class=thTop><small>День рождения</small></th>
-<th class=thTop><small>Интересы</small></th>
-<th class=thTop><small>Сайт</small></th>
-<th class=thCornerR><small>Откуда</small></th>
+<th class=thCornerL height=25 width=20>в„–</th>
+<th class=thCornerL><small><a href='tools.php?event=who&page=$page&pol=1' style='text-decoration:none'>Р¤</a> РџРѕР» / РРјСЏ</small></th>
+<th class=thTop><small>РЎС‚Р°С‚СѓСЃ</small></th>
+<th class=thTop><small>Р РµРїР°</small></th>
+<th class=thTop><small>Р›РЎ РЅР° Р•-РјР°Р№Р»</small></th>
+<th class=thTop><small>РџРЎ РЅР° С„СЂСѓРјРµ</small></th>
+<th class=thTop><small>Р РµРіРёСЃС‚СЂР°С†РёСЏ</small></th>
+<th class=thTop><small>Р”РµРЅСЊ СЂРѕР¶РґРµРЅРёСЏ</small></th>
+<th class=thTop><small>РРЅС‚РµСЂРµСЃС‹</small></th>
+<th class=thTop><small>РЎР°Р№С‚</small></th>
+<th class=thCornerR><small>РћС‚РєСѓРґР°</small></th>
 </tr>";
-if ($allmaxi=="0") {print"<TR><TD class=$t1 colspan=8 align=center>Участников не зарегистрировано</TD></TR>";
+if ($allmaxi=="0") {print"<TR><TD class=$t1 colspan=8 align=center>РЈС‡Р°СЃС‚РЅРёРєРѕРІ РЅРµ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅРѕ</TD></TR>";
 } else {
 
 $fm=$uq*($page-1); if ($fm>$maxi) $fm=$maxi-$uq; //if ($fm<0) $fm=0;
@@ -1027,20 +1027,20 @@ if (isset($lines)) {
 do { $dt=explode("|",$lines[$fm]); $udt=explode("|",$slines[$fm]);
 $fm++; $num=$fm;
 
-if (isset($dt[1])) { // Если строчка ПУСТА, то просто её НЕ выводим
+if (isset($dt[1])) { // Р•СЃР»Рё СЃС‚СЂРѕС‡РєР° РџРЈРЎРўРђ, С‚Рѕ РїСЂРѕСЃС‚Рѕ РµС‘ РќР• РІС‹РІРѕРґРёРј
 
-$codename=urlencode($dt[2]); // Кодируем имя в СПЕЦФОРМАТ, для поддержки корректной передачи имени через GET-запрос.
+$codename=urlencode($dt[2]); // РљРѕРґРёСЂСѓРµРј РёРјСЏ РІ РЎРџР•Р¦Р¤РћР РњРђРў, РґР»СЏ РїРѕРґРґРµСЂР¶РєРё РєРѕСЂСЂРµРєС‚РЅРѕР№ РїРµСЂРµРґР°С‡Рё РёРјРµРЅРё С‡РµСЂРµР· GET-Р·Р°РїСЂРѕСЃ.
 if (isset($wrfname)) {$wfn="<a href=\"tools.php?event=profile&pname=$codename\">$dt[2]</a>";
 $mls="<form method='post' action='tools.php?event=mailto' target='email' onclick=\"window.open('tools.php?event=mailto','email','width=600,height=350,left=100,top=100');return true;\">
 <input type=hidden name='email' value='$dt[5]'><input type=hidden name='name' value='$dt[2]'><input type=hidden name='id' value=''>
-<input type=image src='$forum_skin/ico_pm.gif' alt='личное сообщение'></form>";} else {$wfn="$dt[2]"; $mls="заблокировано";}
+<input type=image src='$forum_skin/ico_pm.gif' alt='Р»РёС‡РЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ'></form>";} else {$wfn="$dt[2]"; $mls="Р·Р°Р±Р»РѕРєРёСЂРѕРІР°РЅРѕ";}
 
-if (strlen($dt[16])!=TRUE) $dt[16]="<B><font color=red>ожидание активации</font></B>";
+if (strlen($dt[16])!=TRUE) $dt[16]="<B><font color=red>РѕР¶РёРґР°РЅРёРµ Р°РєС‚РёРІР°С†РёРё</font></B>";
 if ($dt[6]==TRUE) $add="polm.gif"; else $add="polg.gif";
 $dt[1]=date("d.m.y",$dt[1]);
 $codename=urlencode($dt[2]);
 
-// СТАТУС здесь в userstat.dat или, в зависимости от репы, в $userstatus[$i]
+// РЎРўРђРўРЈРЎ Р·РґРµСЃСЊ РІ userstat.dat РёР»Рё, РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ СЂРµРїС‹, РІ $userstatus[$i]
 if (strlen($udt[9])>1) $status=$udt[9]; else { $si=0;
 for ($si=0;$si<8;$si++) if ($udt[7]>=$userrepa[$si]) $stp=$si;
 $status=$userstatus[$stp];}
@@ -1051,7 +1051,7 @@ print"<tr>
 <td class=$t1 align=center>$status</td>
 <td class=$t1 nowrap><B>$udt[7]</B> <A href='#m1' onclick=\"window.open('tools.php?event=repa&name=$dt[2]&who=1','repa','width=600,height=600,left=50,top=50,scrollbars=yes')\">&#177;</A></td>
 <td class=$t1 align=center>$mls</td>
-<td class=$t1 align=center><form action='pm.php?id=$codename' method=POST name=citata><input type=image border=0 src='data-pm/pm.gif' alt='Отправить ПЕРСОНАЛЬНОЕ СООБЩЕНИЕ'></form></td>
+<td class=$t1 align=center><form action='pm.php?id=$codename' method=POST name=citata><input type=image border=0 src='data-pm/pm.gif' alt='РћС‚РїСЂР°РІРёС‚СЊ РџР•Р РЎРћРќРђР›Р¬РќРћР• РЎРћРћР‘Р©Р•РќРР•'></form></td>
 <td class=$t1 align=center>$dt[1]</td>
 <td class=$t1 align=center>$dt[7]</td>
 <td class=$t1>$dt[13]</td>
@@ -1059,18 +1059,18 @@ print"<tr>
 <td class=$t1>$dt[12]</td></tr>";
 if ($t1=="row1") $t1="row2"; else $t1="row1";
 
-} // если строчка потерялась
+} // РµСЃР»Рё СЃС‚СЂРѕС‡РєР° РїРѕС‚РµСЂСЏР»Р°СЃСЊ
 
 } while($fm <= $lm);
 } // if isset($lines)
-} // конец Если файл userdat.php пуст
+} // РєРѕРЅРµС† Р•СЃР»Рё С„Р°Р№Р» userdat.php РїСѓСЃС‚
 
 echo'</table><BR>';
 
 $maxi--;
-// формируем переменную $pageinfo - со СПИСКОМ СТРАНИЦ
+// С„РѕСЂРјРёСЂСѓРµРј РїРµСЂРµРјРµРЅРЅСѓСЋ $pageinfo - СЃРѕ РЎРџРРЎРљРћРњ РЎРўР РђРќРР¦
 $pageinfo=""; $addpage=""; $maxpage=ceil(($maxi+1)/$uq); if ($page>$maxpage) $page=$maxpage;
-$pageinfo.="<div style='padding:6px;' class=pgbutt>Страницы: &nbsp;";
+$pageinfo.="<div style='padding:6px;' class=pgbutt>РЎС‚СЂР°РЅРёС†С‹: &nbsp;";
 if ($page>3 and $maxpage>5) $pageinfo.="<a href=tools.php?event=who$fadd>1</a> ... ";
 $f1=$page+2; $f2=abs($page-2); if ($f2=="0") $f2=1; if ($page>=$maxpage-1) $f1=$maxpage;
 if ($maxpage<=5) {$f1=$maxpage; $f2=1;}
@@ -1080,87 +1080,87 @@ if ($page<=$maxpage-3 and $maxpage>5) $pageinfo.="... <a href=tools.php?event=wh
 $pageinfo.='</div>';
 
 print "$pageinfo
-<div align=right>Всего зарегистрировано участников - <B>$allmaxi</B></div><BR>";}
+<div align=right>Р’СЃРµРіРѕ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅРѕ СѓС‡Р°СЃС‚РЅРёРєРѕРІ - <B>$allmaxi</B></div><BR>";}
 
 
 
 
 
-if ($_GET['event'] =="profile") { // РЕДАКТИРОВАНИЕ ПРОФИЛЯ
+if ($_GET['event'] =="profile") { // Р Р•Р”РђРљРўРР РћР’РђРќРР• РџР РћР¤РР›РЇ
 
-if (!isset($_GET['pname'])) exit("Попытка взлома.");
-$pname=urldecode($_GET['pname']); // РАСКОДИРУЕМ имя пользователif (!ctype_digit($userpn) or strlen($userpn)>4) exit("<B>$back. Попытка взлома. Хакерам здесь не место!");я, пришедшее из GET-запроса.
+if (!isset($_GET['pname'])) exit("РџРѕРїС‹С‚РєР° РІР·Р»РѕРјР°.");
+$pname=urldecode($_GET['pname']); // Р РђРЎРљРћР”РР РЈР•Рњ РёРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»if (!ctype_digit($userpn) or strlen($userpn)>4) exit("<B>$back. РџРѕРїС‹С‚РєР° РІР·Р»РѕРјР°. РҐР°РєРµСЂР°Рј Р·РґРµСЃСЊ РЅРµ РјРµСЃС‚Рѕ!");СЏ, РїСЂРёС€РµРґС€РµРµ РёР· GET-Р·Р°РїСЂРѕСЃР°.
 $lines=file("$datadir/user.php"); $i = count($lines); $use="0"; $userpn="0";
 do {$i--; $rdt=explode("|", $lines[$i]);
 
-if (isset($rdt[1])) { // Если строчка потерялась в скрипте (пустая строка) - то просто её НЕ выводим
+if (isset($rdt[1])) { // Р•СЃР»Рё СЃС‚СЂРѕС‡РєР° РїРѕС‚РµСЂСЏР»Р°СЃСЊ РІ СЃРєСЂРёРїС‚Рµ (РїСѓСЃС‚Р°СЏ СЃС‚СЂРѕРєР°) - С‚Рѕ РїСЂРѕСЃС‚Рѕ РµС‘ РќР• РІС‹РІРѕРґРёРј
 
-if (strlen($rdt[16])=="6" and ctype_digit($rdt[16])) $rdt[16]="<B><font color=red>ожидание активации</font></B>";
+if (strlen($rdt[16])=="6" and ctype_digit($rdt[16])) $rdt[16]="<B><font color=red>РѕР¶РёРґР°РЅРёРµ Р°РєС‚РёРІР°С†РёРё</font></B>";
 
 if ($pname===$rdt[2]) { $userpn=$i;
 
-// Считываем статистику сообщений/репы юзера
+// РЎС‡РёС‚С‹РІР°РµРј СЃС‚Р°С‚РёСЃС‚РёРєСѓ СЃРѕРѕР±С‰РµРЅРёР№/СЂРµРїС‹ СЋР·РµСЂР°
 $jfile="$datadir/userstat.dat"; $jlines=file("$jfile"); $uj=count($jlines)-1; $msjitogo=0;
 for ($j=0;$j<=$uj;$j++) {$udt=explode("|",$jlines[$j]); $msjitogo=$msjitogo+$udt[6]; if ($udt[2]==$rdt[2]) {$msguser=$udt[6]; $temaded=$udt[5]; $repa=$udt[7];}}
 $msgaktiv=round(10000*$msguser/$msjitogo)/100;
 
 $aktiv=$rdt[1]; $tekdt=time(); $aktiv=round(($tekdt-$aktiv)/86400);
 if ($aktiv<=0) $aktiv=1; $aktiv=round(100*$msguser/$aktiv)/100;
-$rdt[1]=date("d.m.Y г.",$rdt[1]);
+$rdt[1]=date("d.m.Y Рі.",$rdt[1]);
 
 if (isset($wrfname) & isset($wrfpass)) { $wrfname=replacer($wrfname); $wrfpass=replacer($wrfpass);
-if ($rdt[6]==TRUE) $pol="мужчина"; else $pol="женщина";
+if ($rdt[6]==TRUE) $pol="РјСѓР¶С‡РёРЅР°"; else $pol="Р¶РµРЅС‰РёРЅР°";
 
 if ($wrfname===$rdt[2] & $wrfpass===$rdt[3]) {
-print "<center><span class=maintitle>Регистрационные данные</span><br>
+print "<center><span class=maintitle>Р РµРіРёСЃС‚СЂР°С†РёРѕРЅРЅС‹Рµ РґР°РЅРЅС‹Рµ</span><br>
 
 <br><form action='tools.php?event=reregist' name=creator method=post enctype=multipart/form-data>
 
 <table border=1 cellpadding=2 cellspacing=0 width=100% class=forumline>
-<tr><th class=thHead colspan=2 height=25 valign=middle>Регистрационная информация</th></tr>
-<tr><td class=row2 colspan=2><span class=gensmall>Поля отмеченные * обязательны к заполнению, если не указано обратное</span></td></tr>
-<tr><td class=row1 width=35%><span class=gen>Имя участника:</span><span class=gensmall><br>Русские ники РАЗРЕШЕНЫ</span></td><td class=row2><span class=nav>$rdt[2]</span></td></tr>
-<tr><td class=row1><span class=gen>Ваш пол:</span><br></td><td class=row2><span class=gen>$pol</span><input type=hidden value='$rdt[6]' name=pol></td></tr>
-<tr><td class=row1><span class=gen>Ваш пароль: *</span></td><td class=row2><input class=inputmenu type=text value='скрыт' maxlength=10 name=newpassword size=15><input type=hidden class=inputmenu value='$rdt[3]' name=pass>
-(если хотите сменить, то введите новый пароль, иначе оставьте как есть!)</td></tr>
+<tr><th class=thHead colspan=2 height=25 valign=middle>Р РµРіРёСЃС‚СЂР°С†РёРѕРЅРЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ</th></tr>
+<tr><td class=row2 colspan=2><span class=gensmall>РџРѕР»СЏ РѕС‚РјРµС‡РµРЅРЅС‹Рµ * РѕР±СЏР·Р°С‚РµР»СЊРЅС‹ Рє Р·Р°РїРѕР»РЅРµРЅРёСЋ, РµСЃР»Рё РЅРµ СѓРєР°Р·Р°РЅРѕ РѕР±СЂР°С‚РЅРѕРµ</span></td></tr>
+<tr><td class=row1 width=35%><span class=gen>РРјСЏ СѓС‡Р°СЃС‚РЅРёРєР°:</span><span class=gensmall><br>Р СѓСЃСЃРєРёРµ РЅРёРєРё Р РђР—Р Р•РЁР•РќР«</span></td><td class=row2><span class=nav>$rdt[2]</span></td></tr>
+<tr><td class=row1><span class=gen>Р’Р°С€ РїРѕР»:</span><br></td><td class=row2><span class=gen>$pol</span><input type=hidden value='$rdt[6]' name=pol></td></tr>
+<tr><td class=row1><span class=gen>Р’Р°С€ РїР°СЂРѕР»СЊ: *</span></td><td class=row2><input class=inputmenu type=text value='СЃРєСЂС‹С‚' maxlength=10 name=newpassword size=15><input type=hidden class=inputmenu value='$rdt[3]' name=pass>
+(РµСЃР»Рё С…РѕС‚РёС‚Рµ СЃРјРµРЅРёС‚СЊ, С‚Рѕ РІРІРµРґРёС‚Рµ РЅРѕРІС‹Р№ РїР°СЂРѕР»СЊ, РёРЅР°С‡Рµ РѕСЃС‚Р°РІСЊС‚Рµ РєР°Рє РµСЃС‚СЊ!)</td></tr>
 
-<tr><td class=row1><span class=gen>Адрес e-mail: *</span><br><span class=gensmall>Введите существующий электронный адрес! Форум защищён от роботов-спамеров.</span></td>
+<tr><td class=row1><span class=gen>РђРґСЂРµСЃ e-mail: *</span><br><span class=gensmall>Р’РІРµРґРёС‚Рµ СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёР№ СЌР»РµРєС‚СЂРѕРЅРЅС‹Р№ Р°РґСЂРµСЃ! Р¤РѕСЂСѓРј Р·Р°С‰РёС‰С‘РЅ РѕС‚ СЂРѕР±РѕС‚РѕРІ-СЃРїР°РјРµСЂРѕРІ.</span></td>
 <td class=row2> <input type=text class=post style='width: 200px' value='$rdt[5]' name=email size=25 maxlength=50></td></tr>
 
-<tr><td class=row1><span class=gen>Дата регистрации:</span></td><td class=row2><span class=gen>$rdt[1]</td></tr>
-<tr><td class=row1><span class=gen>Репутация: </span><br></td><td class=row2><B>$repa</B> [<A href='#1' onclick=\"window.open('tools.php?event=repa&name=$wrfname&who=$userpn','repa','width=600,height=600,left=50,top=50,scrollbars=yes')\">Посмотреть статистику изменения</A>]</td></tr>
-<tr><td class=row1><span class=gen>Активность:</span></td><td class=row2><span class=gen>Тем создано: <B>$temaded</B>, всего сообщений: <B>$msguser</B> [<B>$msgaktiv%</B> от общего числа / <B>$aktiv</B> сообщений в сутки]</span></td></tr>
+<tr><td class=row1><span class=gen>Р”Р°С‚Р° СЂРµРіРёСЃС‚СЂР°С†РёРё:</span></td><td class=row2><span class=gen>$rdt[1]</td></tr>
+<tr><td class=row1><span class=gen>Р РµРїСѓС‚Р°С†РёСЏ: </span><br></td><td class=row2><B>$repa</B> [<A href='#1' onclick=\"window.open('tools.php?event=repa&name=$wrfname&who=$userpn','repa','width=600,height=600,left=50,top=50,scrollbars=yes')\">РџРѕСЃРјРѕС‚СЂРµС‚СЊ СЃС‚Р°С‚РёСЃС‚РёРєСѓ РёР·РјРµРЅРµРЅРёСЏ</A>]</td></tr>
+<tr><td class=row1><span class=gen>РђРєС‚РёРІРЅРѕСЃС‚СЊ:</span></td><td class=row2><span class=gen>РўРµРј СЃРѕР·РґР°РЅРѕ: <B>$temaded</B>, РІСЃРµРіРѕ СЃРѕРѕР±С‰РµРЅРёР№: <B>$msguser</B> [<B>$msgaktiv%</B> РѕС‚ РѕР±С‰РµРіРѕ С‡РёСЃР»Р° / <B>$aktiv</B> СЃРѕРѕР±С‰РµРЅРёР№ РІ СЃСѓС‚РєРё]</span></td></tr>
 
-<td class=row1><span class=gen>Персональные сообщения</span><br><span class=gensmall><td class=row2>";
+<td class=row1><span class=gen>РџРµСЂСЃРѕРЅР°Р»СЊРЅС‹Рµ СЃРѕРѕР±С‰РµРЅРёСЏ</span><br><span class=gensmall><td class=row2>";
 
-if (is_file("data-pm/$wrfname.dat")) {$linespm=file("data-pm/$wrfname.dat"); $pmi=count($linespm); print" <img src=\"$forum_skin/icon_mini_profile.gif\" border=0 hspace=3 />[<a href='pm.php?readpm&id=$wrfname'><font color=red><B>$pmi сообщения в ПМ</b></font></a>]";} else echo'сообщений нет';
+if (is_file("data-pm/$wrfname.dat")) {$linespm=file("data-pm/$wrfname.dat"); $pmi=count($linespm); print" <img src=\"$forum_skin/icon_mini_profile.gif\" border=0 hspace=3 />[<a href='pm.php?readpm&id=$wrfname'><font color=red><B>$pmi СЃРѕРѕР±С‰РµРЅРёСЏ РІ РџРњ</b></font></a>]";} else echo'СЃРѕРѕР±С‰РµРЅРёР№ РЅРµС‚';
 
 
 print"</span></td>
 </tr><tr>
 <td class=catSides colspan=2 height=28>&nbsp;</td>
 </tr><tr>
-<th class=thSides colspan=2 height=25 valign=middle>Немного о себе</th>
+<th class=thSides colspan=2 height=25 valign=middle>РќРµРјРЅРѕРіРѕ Рѕ СЃРµР±Рµ</th>
 </tr><tr>
-<td class=row1><span class=gen>День варенья:</span><br><span class=gensmall>Введите день рождения в формате: ДД.ММ.ГГГГГ, если не секрет.</span></td>
+<td class=row1><span class=gen>Р”РµРЅСЊ РІР°СЂРµРЅСЊСЏ:</span><br><span class=gensmall>Р’РІРµРґРёС‚Рµ РґРµРЅСЊ СЂРѕР¶РґРµРЅРёСЏ РІ С„РѕСЂРјР°С‚Рµ: Р”Р”.РњРњ.Р“Р“Р“Р“Р“, РµСЃР»Рё РЅРµ СЃРµРєСЂРµС‚.</span></td>
 <td class=row2><input type=text name=dayx value='$rdt[7]' class=post style='width: 100px' size=10 maxlength=18></td>
 </tr><tr>
-<td class=row1><span class=gen>Номер в ICQ:</span><br><span class=gensmall>Введите номер ICQ, если он у Вас есть.</span></td>
+<td class=row1><span class=gen>РќРѕРјРµСЂ РІ ICQ:</span><br><span class=gensmall>Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ ICQ, РµСЃР»Рё РѕРЅ Сѓ Р’Р°СЃ РµСЃС‚СЊ.</span></td>
 <td class=row2><input type=text value='$rdt[10]' name=icq class=post style='width: 100px' size=10 maxlength=10></td>
 </tr><tr>
-<td class=row1><span class=gen>Домашняя страничка:</span><br><span class=gensmall>Если у Вас есть домашняя или любимая страничка в Интернете, введите URL этой странички.</span></td>
+<td class=row1><span class=gen>Р”РѕРјР°С€РЅСЏСЏ СЃС‚СЂР°РЅРёС‡РєР°:</span><br><span class=gensmall>Р•СЃР»Рё Сѓ Р’Р°СЃ РµСЃС‚СЊ РґРѕРјР°С€РЅСЏСЏ РёР»Рё Р»СЋР±РёРјР°СЏ СЃС‚СЂР°РЅРёС‡РєР° РІ РРЅС‚РµСЂРЅРµС‚Рµ, РІРІРµРґРёС‚Рµ URL СЌС‚РѕР№ СЃС‚СЂР°РЅРёС‡РєРё.</span></td>
 <td class=row2><input type=text value='$rdt[11]' class=post style='width: 500px' name=www size=25 maxlength=70 value='http://' /></td>
 </tr><tr>
-<td class=row1><span class=gen>Откуда:</span><br><span class=gensmall>Введите место жительства (Страна, Область, Город).</span></td>
+<td class=row1><span class=gen>РћС‚РєСѓРґР°:</span><br><span class=gensmall>Р’РІРµРґРёС‚Рµ РјРµСЃС‚Рѕ Р¶РёС‚РµР»СЊСЃС‚РІР° (РЎС‚СЂР°РЅР°, РћР±Р»Р°СЃС‚СЊ, Р“РѕСЂРѕРґ).</span></td>
 <td class=row2><input type=text class=post style='width: 500px' value='$rdt[12]' name=about size=25 maxlength=70></td>
 </tr><tr>
-<td class=row1><span class=gen>Интересы:</span><br><span class=gensmall>Вы можете написать о ваших интересах</span></td>
+<td class=row1><span class=gen>РРЅС‚РµСЂРµСЃС‹:</span><br><span class=gensmall>Р’С‹ РјРѕР¶РµС‚Рµ РЅР°РїРёСЃР°С‚СЊ Рѕ РІР°С€РёС… РёРЅС‚РµСЂРµСЃР°С…</span></td>
 <td class=row2><input type=text class=post style='width: 500px' value='$rdt[13]' name=work size=35 maxlength=70></td>
 </tr><tr>
-<td class=row1><span class=gen>Подпись:</span><br><span class=gensmall>Введите Вашу подпись, не используйте HTML</span></td>
+<td class=row1><span class=gen>РџРѕРґРїРёСЃСЊ:</span><br><span class=gensmall>Р’РІРµРґРёС‚Рµ Р’Р°С€Сѓ РїРѕРґРїРёСЃСЊ, РЅРµ РёСЃРїРѕР»СЊР·СѓР№С‚Рµ HTML</span></td>
 <td class=row2><input type=text class=post style='width: 500px' value='$rdt[14]' name=write size=35 maxlength=70></td>
 </tr><tr>
-<td class=row1><span class=gen>Аватар:</span><br><span class=gensmall>Выберите автарар (картинку), которая будет отображаться рядом с вашим именем.</span></td>
+<td class=row1><span class=gen>РђРІР°С‚Р°СЂ:</span><br><span class=gensmall>Р’С‹Р±РµСЂРёС‚Рµ Р°РІС‚Р°СЂР°СЂ (РєР°СЂС‚РёРЅРєСѓ), РєРѕС‚РѕСЂР°СЏ Р±СѓРґРµС‚ РѕС‚РѕР±СЂР°Р¶Р°С‚СЊСЃСЏ СЂСЏРґРѕРј СЃ РІР°С€РёРј РёРјРµРЅРµРј.</span></td>
 <td class=row2 height=120>";
 
 $images=null; unset($images);
@@ -1185,39 +1185,39 @@ $selecthtml
 </td></tr>";
 
 print "
-<td class=row1><span class=gen>Загрузить свой АВАТАР:</span><br><span class=gensmall>Введите локальный путь к Вашему аватару. <BR>Разрешается использовать картинки: <BR> - разрешение не более <B>120 х 120</B>, <BR>- расширением только <B>gif, png, jpg или jpeg</B>, <BR> - размером менее <B>$maxfsize Кб</B>. </B></span></td>
+<td class=row1><span class=gen>Р—Р°РіСЂСѓР·РёС‚СЊ СЃРІРѕР№ РђР’РђРўРђР :</span><br><span class=gensmall>Р’РІРµРґРёС‚Рµ Р»РѕРєР°Р»СЊРЅС‹Р№ РїСѓС‚СЊ Рє Р’Р°С€РµРјСѓ Р°РІР°С‚Р°СЂСѓ. <BR>Р Р°Р·СЂРµС€Р°РµС‚СЃСЏ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РєР°СЂС‚РёРЅРєРё: <BR> - СЂР°Р·СЂРµС€РµРЅРёРµ РЅРµ Р±РѕР»РµРµ <B>120 С… 120</B>, <BR>- СЂР°СЃС€РёСЂРµРЅРёРµРј С‚РѕР»СЊРєРѕ <B>gif, png, jpg РёР»Рё jpeg</B>, <BR> - СЂР°Р·РјРµСЂРѕРј РјРµРЅРµРµ <B>$maxfsize РљР±</B>. </B></span></td>
 <td class=row2><input type=file name=file class=post style='width: 400px' size=35 maxlength=150></td>
 </tr><tr><tr><td colspan=2>
 <input type=hidden name=name value='$rdt[2]'>
 <input type=hidden name=oldpass value='$rdt[3]'>
 </td></tr><tr>
-<td class=catBottom colspan=2 align=center height=28><input type=submit name=submit value='Сохранить изменения' class=mainoption /></td>
+<td class=catBottom colspan=2 align=center height=28><input type=submit name=submit value='РЎРѕС…СЂР°РЅРёС‚СЊ РёР·РјРµРЅРµРЅРёСЏ' class=mainoption /></td>
 </tr></table></form>"; $use="1"; }
 
 
 if ($use!="1") {
 
-////////////// Передалать  строки со статусом!!!! и $rdt[1] - дата регистрации!!!!!!!!!
+////////////// РџРµСЂРµРґР°Р»Р°С‚СЊ  СЃС‚СЂРѕРєРё СЃРѕ СЃС‚Р°С‚СѓСЃРѕРј!!!! Рё $rdt[1] - РґР°С‚Р° СЂРµРіРёСЃС‚СЂР°С†РёРё!!!!!!!!!
 //if (strlen($rdt[13])<2) $rdt[13]=$user_name;
 if (is_file("avatars/$rdt[15]")) $avpr="$rdt[15]"; else $avpr="noavatar.gif";
-if ($rdt[6]==TRUE) $pol="мужчина"; else $pol="женщина";
-print "<center><span class=maintitle>Профиль участника</span><br><br><table cellpadding=5 cellspacing=1 width=100% class=forumline>
-<tr><th class=thHead colspan=2 height=25 valign=middle>Регистрационная информация</th></tr>
-<tr><td class=row1 width=30%><span class=gen>Имя участника:</span></td><td class=row2><span class=nav>$rdt[2]</span></td></tr>
-<tr><td class=row1><span class=gen>Репутация: </span><br></td><td class=row2><B>$repa</B> [<A href='#1' onclick=\"window.open('tools.php?event=repa&name=$rdt[2]&who=$userpn','repa','width=600,height=600,left=50,top=50,scrollbars=yes')\">Оценить &#177;</A>]</td></tr>
-<tr><td class=row1><span class=gen>Активность:</span></td><td class=row2><span class=gen>Тем создано: <B>$temaded</B>, всего сообщений: <B>$msguser</B> [<B>$msgaktiv%</B> от общего числа / <B>$aktiv</B> сообщений в сутки]</span></td></tr>
-<tr><td class=row1><span class=gen>Отправить личное сообщение на e-mail: </span><br></td><td class=row2><form method='post' action='tools.php?event=mailto' target='email' onclick=\"window.open('tools.php?event=mailto','email','width=600,height=350,left=100,top=100');return true;\"><input type=hidden name='email' value='$rdt[5]'><input type=hidden name='name' value='$rdt[2]'><input type=hidden name='id' value=''><input type=image src='$forum_skin/ico_pm.gif' alt='личное сообщение'></form></td></tr>
-<tr><td class=row1><span class=gen>Написать персональное сообщение (сюда на форум):</span><br></td><td class=row2><form action='pm.php?id=$rdt[2]' method=POST name=citata><input type=image border=0 src='data-pm/pm.gif' alt='Отправить ПЕРСОНАЛЬНОЕ СООБЩЕНИЕ'></form></span></td></tr>
-<tr><td class=row1><span class=gen>Дата регистрации:</span></td><td class=row2><span class=gen>$rdt[1]</span></td></tr>
-<tr><td class=row1><span class=gen>Статус:</span></td><td class=row2><span class=gen>$rdt[13]</span></td></tr>
-<tr><td class=row1><span class=gen>Пол:</span></td><td class=row2><span class=gen>$pol</span></td></tr>
-<tr><td class=row1><span class=gen>День Варенья:</span><br></td><td class=row2><span class=gen>$rdt[7]</span></td></tr>
-<tr><td class=row1><span class=gen>Номер в ICQ:</span><br></td><td class=row2><span class=gen>$rdt[10]</td></tr>
-<tr><td class=row1><span class=gen>Домашняя страничка:</span></td><td class=row2><span class=gen><a href='$rdt[11]' target='_blank'>$rdt[11]</a></td></tr>
-<tr><td class=row1><span class=gen>Откуда</span> (<span class=gensmall>Место жительства, город, страна.):</span></td><td class=row2><span class=gen>$rdt[12]</td></tr>
-<tr><td class=row1><span class=gen>Интересы:</span></td><td class=row2><span class=gen>$rdt[13]</td></tr>
-<tr><td class=row1><span class=gen>Подпись:</span></td><td class=row2><span class=gen>$rdt[14]</td></tr>
-<tr><td class=row1><span class=gen>Аватар:</span></td><td class=row2 height=120><img src='./avatars/$avpr' border=0 hspace=15></td></tr>
+if ($rdt[6]==TRUE) $pol="РјСѓР¶С‡РёРЅР°"; else $pol="Р¶РµРЅС‰РёРЅР°";
+print "<center><span class=maintitle>РџСЂРѕС„РёР»СЊ СѓС‡Р°СЃС‚РЅРёРєР°</span><br><br><table cellpadding=5 cellspacing=1 width=100% class=forumline>
+<tr><th class=thHead colspan=2 height=25 valign=middle>Р РµРіРёСЃС‚СЂР°С†РёРѕРЅРЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ</th></tr>
+<tr><td class=row1 width=30%><span class=gen>РРјСЏ СѓС‡Р°СЃС‚РЅРёРєР°:</span></td><td class=row2><span class=nav>$rdt[2]</span></td></tr>
+<tr><td class=row1><span class=gen>Р РµРїСѓС‚Р°С†РёСЏ: </span><br></td><td class=row2><B>$repa</B> [<A href='#1' onclick=\"window.open('tools.php?event=repa&name=$rdt[2]&who=$userpn','repa','width=600,height=600,left=50,top=50,scrollbars=yes')\">РћС†РµРЅРёС‚СЊ &#177;</A>]</td></tr>
+<tr><td class=row1><span class=gen>РђРєС‚РёРІРЅРѕСЃС‚СЊ:</span></td><td class=row2><span class=gen>РўРµРј СЃРѕР·РґР°РЅРѕ: <B>$temaded</B>, РІСЃРµРіРѕ СЃРѕРѕР±С‰РµРЅРёР№: <B>$msguser</B> [<B>$msgaktiv%</B> РѕС‚ РѕР±С‰РµРіРѕ С‡РёСЃР»Р° / <B>$aktiv</B> СЃРѕРѕР±С‰РµРЅРёР№ РІ СЃСѓС‚РєРё]</span></td></tr>
+<tr><td class=row1><span class=gen>РћС‚РїСЂР°РІРёС‚СЊ Р»РёС‡РЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ РЅР° e-mail: </span><br></td><td class=row2><form method='post' action='tools.php?event=mailto' target='email' onclick=\"window.open('tools.php?event=mailto','email','width=600,height=350,left=100,top=100');return true;\"><input type=hidden name='email' value='$rdt[5]'><input type=hidden name='name' value='$rdt[2]'><input type=hidden name='id' value=''><input type=image src='$forum_skin/ico_pm.gif' alt='Р»РёС‡РЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ'></form></td></tr>
+<tr><td class=row1><span class=gen>РќР°РїРёСЃР°С‚СЊ РїРµСЂСЃРѕРЅР°Р»СЊРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ (СЃСЋРґР° РЅР° С„РѕСЂСѓРј):</span><br></td><td class=row2><form action='pm.php?id=$rdt[2]' method=POST name=citata><input type=image border=0 src='data-pm/pm.gif' alt='РћС‚РїСЂР°РІРёС‚СЊ РџР•Р РЎРћРќРђР›Р¬РќРћР• РЎРћРћР‘Р©Р•РќРР•'></form></span></td></tr>
+<tr><td class=row1><span class=gen>Р”Р°С‚Р° СЂРµРіРёСЃС‚СЂР°С†РёРё:</span></td><td class=row2><span class=gen>$rdt[1]</span></td></tr>
+<tr><td class=row1><span class=gen>РЎС‚Р°С‚СѓСЃ:</span></td><td class=row2><span class=gen>$rdt[13]</span></td></tr>
+<tr><td class=row1><span class=gen>РџРѕР»:</span></td><td class=row2><span class=gen>$pol</span></td></tr>
+<tr><td class=row1><span class=gen>Р”РµРЅСЊ Р’Р°СЂРµРЅСЊСЏ:</span><br></td><td class=row2><span class=gen>$rdt[7]</span></td></tr>
+<tr><td class=row1><span class=gen>РќРѕРјРµСЂ РІ ICQ:</span><br></td><td class=row2><span class=gen>$rdt[10]</td></tr>
+<tr><td class=row1><span class=gen>Р”РѕРјР°С€РЅСЏСЏ СЃС‚СЂР°РЅРёС‡РєР°:</span></td><td class=row2><span class=gen><a href='$rdt[11]' target='_blank'>$rdt[11]</a></td></tr>
+<tr><td class=row1><span class=gen>РћС‚РєСѓРґР°</span> (<span class=gensmall>РњРµСЃС‚Рѕ Р¶РёС‚РµР»СЊСЃС‚РІР°, РіРѕСЂРѕРґ, СЃС‚СЂР°РЅР°.):</span></td><td class=row2><span class=gen>$rdt[12]</td></tr>
+<tr><td class=row1><span class=gen>РРЅС‚РµСЂРµСЃС‹:</span></td><td class=row2><span class=gen>$rdt[13]</td></tr>
+<tr><td class=row1><span class=gen>РџРѕРґРїРёСЃСЊ:</span></td><td class=row2><span class=gen>$rdt[14]</td></tr>
+<tr><td class=row1><span class=gen>РђРІР°С‚Р°СЂ:</span></td><td class=row2 height=120><img src='./avatars/$avpr' border=0 hspace=15></td></tr>
 </td></tr></table><BR>"; $use="1";}
 
 }
@@ -1225,16 +1225,16 @@ print "<center><span class=maintitle>Профиль участника</span><br><br><table cell
 } // if
 } while($i > "1");
 
-if (!isset($wrfname)) exit("<BR><BR><font size=+1><center>Только зарегистрированные участники форума могут просматривать данные профиля!");
+if (!isset($wrfname)) exit("<BR><BR><font size=+1><center>РўРѕР»СЊРєРѕ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅРЅС‹Рµ СѓС‡Р°СЃС‚РЅРёРєРё С„РѕСЂСѓРјР° РјРѕРіСѓС‚ РїСЂРѕСЃРјР°С‚СЂРёРІР°С‚СЊ РґР°РЅРЅС‹Рµ РїСЂРѕС„РёР»СЏ!");
 
-if ($use!="1") { // в БД такого ЮЗЕРА НЕТ - его админ удалил
+if ($use!="1") { // РІ Р‘Р” С‚Р°РєРѕРіРѕ Р®Р—Р•Р Рђ РќР•Рў - РµРіРѕ Р°РґРјРёРЅ СѓРґР°Р»РёР»
 print"<center><table width=600 height=300 class=forumline>
-<tr><th class=thHead height=25 valign=middle>Пользователь НЕ ЗАРЕГИСТРИРОВАН</th></tr>
-<tr><td class=row1 align=center><B>Уважаемый посетитель!</B><BR><BR> 
-Извините, но участник с таким - <B>логином на форуме не зарегистрирован.</B><BR><BR>
-Скорее всего, <B>его удалил администратор</B>.<BR><BR>
-<B>Посмотреть других участников</B> можно <B><a href='tools.php?event=who'>здесь</a>.</B><br><br>
-<B>Перейти на главную</B> страницу форума можно по <B><a href='$forum_url'>этой ссылке</a></B>
+<tr><th class=thHead height=25 valign=middle>РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РќР• Р—РђР Р•Р“РРЎРўР РР РћР’РђРќ</th></tr>
+<tr><td class=row1 align=center><B>РЈРІР°Р¶Р°РµРјС‹Р№ РїРѕСЃРµС‚РёС‚РµР»СЊ!</B><BR><BR> 
+РР·РІРёРЅРёС‚Рµ, РЅРѕ СѓС‡Р°СЃС‚РЅРёРє СЃ С‚Р°РєРёРј - <B>Р»РѕРіРёРЅРѕРј РЅР° С„РѕСЂСѓРјРµ РЅРµ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅ.</B><BR><BR>
+РЎРєРѕСЂРµРµ РІСЃРµРіРѕ, <B>РµРіРѕ СѓРґР°Р»РёР» Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂ</B>.<BR><BR>
+<B>РџРѕСЃРјРѕС‚СЂРµС‚СЊ РґСЂСѓРіРёС… СѓС‡Р°СЃС‚РЅРёРєРѕРІ</B> РјРѕР¶РЅРѕ <B><a href='tools.php?event=who'>Р·РґРµСЃСЊ</a>.</B><br><br>
+<B>РџРµСЂРµР№С‚Рё РЅР° РіР»Р°РІРЅСѓСЋ</B> СЃС‚СЂР°РЅРёС†Сѓ С„РѕСЂСѓРјР° РјРѕР¶РЅРѕ РїРѕ <B><a href='$forum_url'>СЌС‚РѕР№ СЃСЃС‹Р»РєРµ</a></B>
 </TD></TR></TABLE>"; }
 }
 
@@ -1247,66 +1247,66 @@ if ($_GET['event']=="reg") {
 if (!isset($_POST['rulesplus'])) {
 echo'
 <form action="tools.php?event=reg" method=post>
-<center><span class=maintitle>Правила и условия регистрации</span><br><br>
-<table cellpadding=8 cellspacing=1 width=100% class=forumline><tr><th class=thHead height=25 valign=middle>Правила работы с форумом</th></tr><tr>
+<center><span class=maintitle>РџСЂР°РІРёР»Р° Рё СѓСЃР»РѕРІРёСЏ СЂРµРіРёСЃС‚СЂР°С†РёРё</span><br><br>
+<table cellpadding=8 cellspacing=1 width=100% class=forumline><tr><th class=thHead height=25 valign=middle>РџСЂР°РІРёР»Р° СЂР°Р±РѕС‚С‹ СЃ С„РѕСЂСѓРјРѕРј</th></tr><tr>
 <td class=row1><span class=gen>';
 if (is_file("$datadir/pravila.html")) include"$datadir/pravila.html";
-echo'</td></tr><tr><td class=row2><INPUT type=checkbox name=rulesplus><B>Я ознакомился с правилами и условиями, и принимаю их.</B></td></tr><tr>
-<td class=catBottom align=center height=28><input type=submit value="Продолжить регистрацию" class=mainoption></td>
+echo'</td></tr><tr><td class=row2><INPUT type=checkbox name=rulesplus><B>РЇ РѕР·РЅР°РєРѕРјРёР»СЃСЏ СЃ РїСЂР°РІРёР»Р°РјРё Рё СѓСЃР»РѕРІРёСЏРјРё, Рё РїСЂРёРЅРёРјР°СЋ РёС….</B></td></tr><tr>
+<td class=catBottom align=center height=28><input type=submit value="РџСЂРѕРґРѕР»Р¶РёС‚СЊ СЂРµРіРёСЃС‚СЂР°С†РёСЋ" class=mainoption></td>
 </tr></table>
 </form>'; 
 } else {
 
-print"<center><span class=maintitle>Регистрация на форуме</span><br>
+print"<center><span class=maintitle>Р РµРіРёСЃС‚СЂР°С†РёСЏ РЅР° С„РѕСЂСѓРјРµ</span><br>
 <br><form action='tools.php?event=regnxt' method=post>
 
 <table cellpadding=3 cellspacing=1 width=100% class=forumline><tr>
-<th class=thHead colspan=2 height=25 valign=middle>Регистрационная информация</th>
+<th class=thHead colspan=2 height=25 valign=middle>Р РµРіРёСЃС‚СЂР°С†РёРѕРЅРЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ</th>
 </tr><tr>
-<td class=row1 width=35%><span class=gen>Имя участника:</span><span class=gensmall><br>Разрешено использовать только русские, латинские буквы, цифры и знак подчёркивания</span></td>
+<td class=row1 width=35%><span class=gen>РРјСЏ СѓС‡Р°СЃС‚РЅРёРєР°:</span><span class=gensmall><br>Р Р°Р·СЂРµС€РµРЅРѕ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ С‚РѕР»СЊРєРѕ СЂСѓСЃСЃРєРёРµ, Р»Р°С‚РёРЅСЃРєРёРµ Р±СѓРєРІС‹, С†РёС„СЂС‹ Рё Р·РЅР°Рє РїРѕРґС‡С‘СЂРєРёРІР°РЅРёСЏ</span></td>
 <td class=row2><input type=text class=post style='width:200px' name=name size=25 maxlength=$maxname></td>
 </tr><tr>
-<td class=row1><span class=gen>Ваш пароль:</span></td>
+<td class=row1><span class=gen>Р’Р°С€ РїР°СЂРѕР»СЊ:</span></td>
 <td class=row2><input type=password class=post style='width:200px' name=pass size=25 maxlength=25></td>
 </tr><tr>
-<td class=row1><span class=gen>Адрес e-mail:</span><br><span class=gensmall>Введите существующий электронный адрес! На Ваш емайл будет отправлено сообщение с кодом активации.</span></td>
+<td class=row1><span class=gen>РђРґСЂРµСЃ e-mail:</span><br><span class=gensmall>Р’РІРµРґРёС‚Рµ СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёР№ СЌР»РµРєС‚СЂРѕРЅРЅС‹Р№ Р°РґСЂРµСЃ! РќР° Р’Р°С€ РµРјР°Р№Р» Р±СѓРґРµС‚ РѕС‚РїСЂР°РІР»РµРЅРѕ СЃРѕРѕР±С‰РµРЅРёРµ СЃ РєРѕРґРѕРј Р°РєС‚РёРІР°С†РёРё.</span></td>
 <td class=row2><input type=text class=post style='width: 200px' name=email size=25 maxlength=50></td>
 </tr><tr>
-<td class=row1><span class=gen>Ваш пол:</span><br></td>
-<td class=row2><input type=radio name=pol value='1'checked> мужчина&nbsp;&nbsp; <input type=radio name=pol value='0'> женщина</td>
-</tr><tr><TD class=row2>Защитный код</TD><TD class=row2>";
+<td class=row1><span class=gen>Р’Р°С€ РїРѕР»:</span><br></td>
+<td class=row2><input type=radio name=pol value='1'checked> РјСѓР¶С‡РёРЅР°&nbsp;&nbsp; <input type=radio name=pol value='0'> Р¶РµРЅС‰РёРЅР°</td>
+</tr><tr><TD class=row2>Р—Р°С‰РёС‚РЅС‹Р№ РєРѕРґ</TD><TD class=row2>";
 
-if ($antispam==TRUE) nospam(); // АНТИСПАМ !
+if ($antispam==TRUE) nospam(); // РђРќРўРРЎРџРђРњ !
 
 echo'</td></tr><tr>
-<td class=row2 colspan=2><span class=gensmall>* Все поля обязательны к заполнению<BR>
-** Ваш пароль будет также отправлен на адрес электронной почты, который Вы определите</span></td>
+<td class=row2 colspan=2><span class=gensmall>* Р’СЃРµ РїРѕР»СЏ РѕР±СЏР·Р°С‚РµР»СЊРЅС‹ Рє Р·Р°РїРѕР»РЅРµРЅРёСЋ<BR>
+** Р’Р°С€ РїР°СЂРѕР»СЊ Р±СѓРґРµС‚ С‚Р°РєР¶Рµ РѕС‚РїСЂР°РІР»РµРЅ РЅР° Р°РґСЂРµСЃ СЌР»РµРєС‚СЂРѕРЅРЅРѕР№ РїРѕС‡С‚С‹, РєРѕС‚РѕСЂС‹Р№ Р’С‹ РѕРїСЂРµРґРµР»РёС‚Рµ</span></td>
 </tr><tr>
-<td class=catBottom colspan=2 align=center height=28><input type=submit value="Продолжить" class=mainoption></td>
+<td class=catBottom colspan=2 align=center height=28><input type=submit value="РџСЂРѕРґРѕР»Р¶РёС‚СЊ" class=mainoption></td>
 </tr></table></form>';
 }
 }
 
 
 
-if ($_GET['event']=="find") { // ПОИСК
-$minfindme="3"; //минимальное кол-во символов в слове для поиска
+if ($_GET['event']=="find") { // РџРћРРЎРљ
+$minfindme="3"; //РјРёРЅРёРјР°Р»СЊРЅРѕРµ РєРѕР»-РІРѕ СЃРёРјРІРѕР»РѕРІ РІ СЃР»РѕРІРµ РґР»СЏ РїРѕРёСЃРєР°
 echo'<BR><form action="tools.php?event=go&find" method=POST>
 <center><table class=forumline align=center width=700>
-<tr><th class=thHead colspan=4 height=25>Поиск</th></tr>
+<tr><th class=thHead colspan=4 height=25>РџРѕРёСЃРє</th></tr>
 <tr class=row2>
-<td class=row1>Запрос: <input type="text" style="width: 250px" class=post name=findme size=30></TD>
-<TD class=row1>Тип: <select style="FONT-SIZE: 12px; WIDTH: 120px" name=ftype>
-<option value="0">&quotИ&quot
-<option value="1" selected>&quotИЛИ&quot
-<option value="2">Вся фраза целиком
+<td class=row1>Р—Р°РїСЂРѕСЃ: <input type="text" style="width: 250px" class=post name=findme size=30></TD>
+<TD class=row1>РўРёРї: <select style="FONT-SIZE: 12px; WIDTH: 120px" name=ftype>
+<option value="0">&quotР&quot
+<option value="1" selected>&quotРР›Р&quot
+<option value="2">Р’СЃСЏ С„СЂР°Р·Р° С†РµР»РёРєРѕРј
 </select></td>
-<td class=row1><INPUT type=checkbox name=withregistr><B>С учётом РЕГИСТРА</B></TD>
+<td class=row1><INPUT type=checkbox name=withregistr><B>РЎ СѓС‡С‘С‚РѕРј Р Р•Р“РРЎРўР Рђ</B></TD>
 <input type=hidden name=gdefinder value="1">
 </tr>';
 
-print"<TR><TD class=row1 colspan=4>ИЛИ найти все сообщения зарегистрированного пользователя: 
-<SELECT name=user style='FONT-SIZE: 14px; WIDTH: 250px'><OPTION value='0' selected> - - Выбрать пользователя - -</OPTION>";
+print"<TR><TD class=row1 colspan=4>РР›Р РЅР°Р№С‚Рё РІСЃРµ СЃРѕРѕР±С‰РµРЅРёСЏ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅРЅРѕРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ: 
+<SELECT name=user style='FONT-SIZE: 14px; WIDTH: 250px'><OPTION value='0' selected> - - Р’С‹Р±СЂР°С‚СЊ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ - -</OPTION>";
 $slines = file("data/user.php"); $smax=count($slines); $i="1"; do {
 $slines[$i]=replacer($slines[$i]); $dts=explode("|",$slines[$i]);
 print "<OPTION value=\"$dts[2]\">$dts[2]</OPTION>\r\n"; $i++; } while($i < $smax);
@@ -1315,17 +1315,17 @@ echo'</SELECT></TD>
 
 <tr class=row1>
 <td class=row1 colspan=4 width="100%">
-Язык запросов:<br><UL>
-<LI><B>&quotИ&quot</B> - должны присутствовать оба слова;</LI><br>
-<LI><B>&quotИЛИ&quot</B> - есть ХОТЯ БЫ одно из слов;</LI><br>
-<LI><B>&quotВся фраза целиком&quot</B> - в искомом документе ищите фразу на 100% соответствующую вашему запросу;</LI><BR><BR>
-<LI><B>&quotС учётом РЕГИСТРА&quot</B> - поиск ведётся с учётом введённого ВАМИ РЕГИСТРА;</LI><BR><BR>
-</UL>Скрипт ищет все данные, которые начинаются с введенной вами строки. Например, при запросе &quotфорум&quot будут найдены слова &quotфорум&quot, &quotфорумы&quot, &quotфорумом&quot и многие другие.
+РЇР·С‹Рє Р·Р°РїСЂРѕСЃРѕРІ:<br><UL>
+<LI><B>&quotР&quot</B> - РґРѕР»Р¶РЅС‹ РїСЂРёСЃСѓС‚СЃС‚РІРѕРІР°С‚СЊ РѕР±Р° СЃР»РѕРІР°;</LI><br>
+<LI><B>&quotРР›Р&quot</B> - РµСЃС‚СЊ РҐРћРўРЇ Р‘Р« РѕРґРЅРѕ РёР· СЃР»РѕРІ;</LI><br>
+<LI><B>&quotР’СЃСЏ С„СЂР°Р·Р° С†РµР»РёРєРѕРј&quot</B> - РІ РёСЃРєРѕРјРѕРј РґРѕРєСѓРјРµРЅС‚Рµ РёС‰РёС‚Рµ С„СЂР°Р·Сѓ РЅР° 100% СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰СѓСЋ РІР°С€РµРјСѓ Р·Р°РїСЂРѕСЃСѓ;</LI><BR><BR>
+<LI><B>&quotРЎ СѓС‡С‘С‚РѕРј Р Р•Р“РРЎРўР Рђ&quot</B> - РїРѕРёСЃРє РІРµРґС‘С‚СЃСЏ СЃ СѓС‡С‘С‚РѕРј РІРІРµРґС‘РЅРЅРѕРіРѕ Р’РђРњР Р Р•Р“РРЎРўР Рђ;</LI><BR><BR>
+</UL>РЎРєСЂРёРїС‚ РёС‰РµС‚ РІСЃРµ РґР°РЅРЅС‹Рµ, РєРѕС‚РѕСЂС‹Рµ РЅР°С‡РёРЅР°СЋС‚СЃСЏ СЃ РІРІРµРґРµРЅРЅРѕР№ РІР°РјРё СЃС‚СЂРѕРєРё. РќР°РїСЂРёРјРµСЂ, РїСЂРё Р·Р°РїСЂРѕСЃРµ &quotС„РѕСЂСѓРј&quot Р±СѓРґСѓС‚ РЅР°Р№РґРµРЅС‹ СЃР»РѕРІР° &quotС„РѕСЂСѓРј&quot, &quotС„РѕСЂСѓРјС‹&quot, &quotС„РѕСЂСѓРјРѕРј&quot Рё РјРЅРѕРіРёРµ РґСЂСѓРіРёРµ.
 </td>
-</tr><tr><td class=row1 colspan=4 align=center height=28><input type=submit class=post value="  Поиск  "></td></form>
+</tr><tr><td class=row1 colspan=4 align=center height=28><input type=submit class=post value="  РџРѕРёСЃРє  "></td></form>
 </tr></table><BR><BR>';
 
-print "Ограничение на поиск: <BR> - минимальное кол-во символов: <B>$minfindme</B>";
+print "РћРіСЂР°РЅРёС‡РµРЅРёРµ РЅР° РїРѕРёСЃРє: <BR> - РјРёРЅРёРјР°Р»СЊРЅРѕРµ РєРѕР»-РІРѕ СЃРёРјРІРѕР»РѕРІ: <B>$minfindme</B>";
 }
 
 
@@ -1334,38 +1334,38 @@ print "Ограничение на поиск: <BR> - минимальное кол-во символов: <B>$minfindme</
 
 if (isset($_GET['find'])) {
 
-//exit("Поиск временно не работает!");
-$minfindme="2"; //минимальное кол-во символов в слове для поиска
-$time=explode(' ', microtime()); $start_time=$time[1]+$time[0]; // считываем начальное время запуска поиска
+//exit("РџРѕРёСЃРє РІСЂРµРјРµРЅРЅРѕ РЅРµ СЂР°Р±РѕС‚Р°РµС‚!");
+$minfindme="2"; //РјРёРЅРёРјР°Р»СЊРЅРѕРµ РєРѕР»-РІРѕ СЃРёРјРІРѕР»РѕРІ РІ СЃР»РѕРІРµ РґР»СЏ РїРѕРёСЃРєР°
+$time=explode(' ', microtime()); $start_time=$time[1]+$time[0]; // СЃС‡РёС‚С‹РІР°РµРј РЅР°С‡Р°Р»СЊРЅРѕРµ РІСЂРµРјСЏ Р·Р°РїСѓСЃРєР° РїРѕРёСЃРєР°
 
 $gdefinder="1"; $ftype=$_POST['ftype']; 
-if (!ctype_digit($ftype) or strlen($ftype)>2) exit("<B>$back. Попытка взлома. Хакерам здесь не место.</B>");
+if (!ctype_digit($ftype) or strlen($ftype)>2) exit("<B>$back. РџРѕРїС‹С‚РєР° РІР·Р»РѕРјР°. РҐР°РєРµСЂР°Рј Р·РґРµСЃСЊ РЅРµ РјРµСЃС‚Рѕ.</B>");
 if (!isset($_POST['withregistr'])) $withregistr="0"; else $withregistr="1";
 
-if ($_POST['user']!="0") {$findme=$_POST['user']; $gdefinder="3"; $ftype="2"; $withregistr="1";} //  Если выбран поиск по имени юзера
+if ($_POST['user']!="0") {$findme=$_POST['user']; $gdefinder="3"; $ftype="2"; $withregistr="1";} //  Р•СЃР»Рё РІС‹Р±СЂР°РЅ РїРѕРёСЃРє РїРѕ РёРјРµРЅРё СЋР·РµСЂР°
 else $findme=$_POST['findme']; 
 
-$findme=replacer($findme); // Защита от взлома
-$findmeword=explode(" ",$findme); // Разбиваем $findme на слова
+$findme=replacer($findme); // Р—Р°С‰РёС‚Р° РѕС‚ РІР·Р»РѕРјР°
+$findmeword=explode(" ",$findme); // Р Р°Р·Р±РёРІР°РµРј $findme РЅР° СЃР»РѕРІР°
 $wordsitogo=count($findmeword);
-$findme=trim($findme); // Вырезает ПРОБЕЛьные символы 
-if ($findme == "" || strlen($findme) < $minfindme) exit("$back Ваш запрос пуст, или менее $minfindme символов!</B>");
+$findme=trim($findme); // Р’С‹СЂРµР·Р°РµС‚ РџР РћР‘Р•Р›СЊРЅС‹Рµ СЃРёРјРІРѕР»С‹ 
+if ($findme == "" || strlen($findme) < $minfindme) exit("$back Р’Р°С€ Р·Р°РїСЂРѕСЃ РїСѓСЃС‚, РёР»Рё РјРµРЅРµРµ $minfindme СЃРёРјРІРѕР»РѕРІ!</B>");
 
-// Открываем файл с темами формума и запоминаем имена файлов с сообщениями
+// РћС‚РєСЂС‹РІР°РµРј С„Р°Р№Р» СЃ С‚РµРјР°РјРё С„РѕСЂРјСѓРјР° Рё Р·Р°РїРѕРјРёРЅР°РµРј РёРјРµРЅР° С„Р°Р№Р»РѕРІ СЃ СЃРѕРѕР±С‰РµРЅРёСЏРјРё
 
-setlocale(LC_ALL,'ru_RU.CP1251'); // ! РАЗРЕШАЕМ РАБОТУ ФУНКЦИЙ, работающих с регистором и с РУССКИМИ БУКВАМИ
+setlocale(LC_ALL,'ru_RU.CP1251'); // ! Р РђР—Р Р•РЁРђР•Рњ Р РђР‘РћРўРЈ Р¤РЈРќРљР¦РР™, СЂР°Р±РѕС‚Р°СЋС‰РёС… СЃ СЂРµРіРёСЃС‚РѕСЂРѕРј Рё СЃ Р РЈРЎРЎРљРРњР Р‘РЈРљР’РђРњР
 
 
-// ПЕРВЫЙ цикл - считаем кол-во форумов (записываем в переменную $itogofid)
+// РџР•Р Р’Р«Р™ С†РёРєР» - СЃС‡РёС‚Р°РµРј РєРѕР»-РІРѕ С„РѕСЂСѓРјРѕРІ (Р·Р°РїРёСЃС‹РІР°РµРј РІ РїРµСЂРµРјРµРЅРЅСѓСЋ $itogofid)
 $mainlines=file("$datadir/wrforum.dat");$i=count($mainlines); $itogofid="0";$number="0"; $oldid="0"; $nump="0";
 do {$i--; $dt=explode("|",$mainlines[$i]);
 if ($dt[3]==FALSE) { $maxzd=$dt[9];
-if (!ctype_digit($maxzd)) $maxzd=0;  // считываем ЗВЁЗДы раздела из файла
-if ($maxzd<1) {$itogofid++; $fids[$itogofid]=$dt[2]; }} // $itogofid - общее кол-во форумов
+if (!ctype_digit($maxzd)) $maxzd=0;  // СЃС‡РёС‚С‹РІР°РµРј Р—Р’РЃР—Р”С‹ СЂР°Р·РґРµР»Р° РёР· С„Р°Р№Р»Р°
+if ($maxzd<1) {$itogofid++; $fids[$itogofid]=$dt[2]; }} // $itogofid - РѕР±С‰РµРµ РєРѕР»-РІРѕ С„РѕСЂСѓРјРѕРІ
 } while($i > "0");
 
 
-// ВТОРОЙ цикл - открываем файл с топиком (если он существует) и сохраняем в переменную $topicsid все имена тем
+// Р’РўРћР РћР™ С†РёРєР» - РѕС‚РєСЂС‹РІР°РµРј С„Р°Р№Р» СЃ С‚РѕРїРёРєРѕРј (РµСЃР»Рё РѕРЅ СЃСѓС‰РµСЃС‚РІСѓРµС‚) Рё СЃРѕС…СЂР°РЅСЏРµРј РІ РїРµСЂРµРјРµРЅРЅСѓСЋ $topicsid РІСЃРµ РёРјРµРЅР° С‚РµРј
 do { $fid=$fids[$itogofid];
 if (is_file("$datadir/$fid.dat")) {
 $msglines=file("$datadir/$fid.dat");
@@ -1374,49 +1374,49 @@ unset($topicsid); if (count($msglines)>0) { $lines=file("$datadir/$fid.dat"); $i
 do {$i--; $dt=explode("|",$lines[$i]); $topicsid[$i]="$dt[2]$dt[3]";} while($i > "0"); }
 
 
-// ТРЕТИЙ цикл - последовательно открываем каждую тему
+// РўР Р•РўРР™ С†РёРєР» - РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕ РѕС‚РєСЂС‹РІР°РµРј РєР°Р¶РґСѓСЋ С‚РµРјСѓ
 if (isset($topicsid)) {
 $ii=count($topicsid);
 do {$ii--;
 $id = str_replace("\r\n","",$topicsid[$ii]);
 
-if (is_file("$datadir/$id.dat")) { // Если файл есть? Бывает, что файлы с сообщениями бьются, тогда при пересчёте они удаляются.
+if (is_file("$datadir/$id.dat")) { // Р•СЃР»Рё С„Р°Р№Р» РµСЃС‚СЊ? Р‘С‹РІР°РµС‚, С‡С‚Рѕ С„Р°Р№Р»С‹ СЃ СЃРѕРѕР±С‰РµРЅРёСЏРјРё Р±СЊСЋС‚СЃСЏ, С‚РѕРіРґР° РїСЂРё РїРµСЂРµСЃС‡С‘С‚Рµ РѕРЅРё СѓРґР°Р»СЏСЋС‚СЃСЏ.
 $file=file("$datadir/$id.dat"); $iii=count($file);
 
-// ЧЕТВЁРТЫЙ цикл - последовательно ищем в каждой теме искомое сообщение
-if ($iii>0) { // если файл с сообщениями НЕ ПУСТОЙ
+// Р§Р•РўР’РЃР РўР«Р™ С†РёРєР» - РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕ РёС‰РµРј РІ РєР°Р¶РґРѕР№ С‚РµРјРµ РёСЃРєРѕРјРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ
+if ($iii>0) { // РµСЃР»Рё С„Р°Р№Р» СЃ СЃРѕРѕР±С‰РµРЅРёСЏРјРё РќР• РџРЈРЎРўРћР™
 do {$iii--; 
 $lines = file("$datadir/$id.dat");
 $dt = explode("|", $lines[$iii]); if (!isset($dt[4])) $dt[4]=" ";
 
-if ($gdefinder=="0") {$msgmass=array($dt[2],$dt[3],$dt[4]); $gi="3"; $add="ях <B>Автор, Текст, Заголовок</B> ";}
-if ($gdefinder=="1") {$msgmass=array($dt[14]); $gi="1"; $add="е <strong>Текст</strong> ";}
-if ($gdefinder=="2") {$msgmass=array($dt[3],$dt[4]); $gi="2"; $add="ях <B>Текст и Заголовок</B> ";}
-if ($gdefinder=="3") {$msgmass=array($dt[8]); $gi="1"; $add="е <B>Автор</B> ";}
-if ($gdefinder=="4") {$msgmass=array($dt[3]); $gi="1"; $add="е <B>Заголовок</B> ";}
+if ($gdefinder=="0") {$msgmass=array($dt[2],$dt[3],$dt[4]); $gi="3"; $add="СЏС… <B>РђРІС‚РѕСЂ, РўРµРєСЃС‚, Р—Р°РіРѕР»РѕРІРѕРє</B> ";}
+if ($gdefinder=="1") {$msgmass=array($dt[14]); $gi="1"; $add="Рµ <strong>РўРµРєСЃС‚</strong> ";}
+if ($gdefinder=="2") {$msgmass=array($dt[3],$dt[4]); $gi="2"; $add="СЏС… <B>РўРµРєСЃС‚ Рё Р—Р°РіРѕР»РѕРІРѕРє</B> ";}
+if ($gdefinder=="3") {$msgmass=array($dt[8]); $gi="1"; $add="Рµ <B>РђРІС‚РѕСЂ</B> ";}
+if ($gdefinder=="4") {$msgmass=array($dt[3]); $gi="1"; $add="Рµ <B>Р—Р°РіРѕР»РѕРІРѕРє</B> ";}
 
-// Цикл по местам поиска (0,1,2,3,4)
+// Р¦РёРєР» РїРѕ РјРµСЃС‚Р°Рј РїРѕРёСЃРєР° (0,1,2,3,4)
 do {$gi--;
 
 $msg=$dt[14];
 $msdat=$msgmass[$gi];
 $stroka="0"; $wi=$wordsitogo;
 
-// ЦИКЛ по КАЖДОМУ слову запроса !
+// Р¦РРљР› РїРѕ РљРђР–Р”РћРњРЈ СЃР»РѕРІСѓ Р·Р°РїСЂРѕСЃР° !
 do {$wi--;
 
 
-// БЛОК УСЛОВИЙ ПОИСКА
-if ($withregistr!="1") // регистронезависимый поиск - cимвол "i" после закрывающего ограничителя шаблона - /
+// Р‘Р›РћРљ РЈРЎР›РћР’РР™ РџРћРРЎРљРђ
+if ($withregistr!="1") // СЂРµРіРёСЃС‚СЂРѕРЅРµР·Р°РІРёСЃРёРјС‹Р№ РїРѕРёСЃРє - cРёРјРІРѕР» "i" РїРѕСЃР»Рµ Р·Р°РєСЂС‹РІР°СЋС‰РµРіРѕ РѕРіСЂР°РЅРёС‡РёС‚РµР»СЏ С€Р°Р±Р»РѕРЅР° - /
    {
     if ($ftype=="2") 
-        { if (stristr($msdat,$findme)) // ПОИСК по "ВСЕЙ ФРАЗЕ ЦЕЛИКОМ" БЕЗ учёта регистра
+        { if (stristr($msdat,$findme)) // РџРћРРЎРљ РїРѕ "Р’РЎР•Р™ Р¤Р РђР—Р• Р¦Р•Р›РРљРћРњ" Р‘Р•Р— СѓС‡С‘С‚Р° СЂРµРіРёСЃС‚СЂР°
           { $stroka++; $msg=str_replace($findme," <b><u>$findme</u></b> ",$msg); }
         } else {
            $str1=strtolower($msdat);  
            $str2=strtolower($findmeword[$wi]); 
            if ($str2!="" and strlen($str2) >= $minfindme)
-              { if (stristr($str1,$str2)) // ПОИСК БЕЗ учёта регистра при равных прочих условиях
+              { if (stristr($str1,$str2)) // РџРћРРЎРљ Р‘Р•Р— СѓС‡С‘С‚Р° СЂРµРіРёСЃС‚СЂР° РїСЂРё СЂР°РІРЅС‹С… РїСЂРѕС‡РёС… СѓСЃР»РѕРІРёСЏС…
                 { $stroka++; $msg=str_replace($findmeword[$wi]," <b><u>$findmeword[$wi]</u></b> ",$msg); }
               }
           }
@@ -1426,7 +1426,7 @@ else  // if ($withregistr!="1")
    {
     if ($ftype=="2")
        {
-        if (strstr($msdat,$findme)) // ПОИСК по "ВСЕЙ ФРАЗЕ ЦЕЛИКОМ" C учёта РЕГИСТРА
+        if (strstr($msdat,$findme)) // РџРћРРЎРљ РїРѕ "Р’РЎР•Р™ Р¤Р РђР—Р• Р¦Р•Р›РРљРћРњ" C СѓС‡С‘С‚Р° Р Р•Р“РРЎРўР Рђ
            {
             $stroka++;
             $msg=str_replace($findme," <b><u>$findme</u></b> ",$msg);
@@ -1435,7 +1435,7 @@ else  // if ($withregistr!="1")
      else {
            if ($msdat!="" and strlen($findmeword[$wi]) >= $minfindme)
               {
-               if (strstr($msdat,$findmeword[$wi])) // ПОИСК С учётом РЕГИСТРА при равных прочих условиях
+               if (strstr($msdat,$findmeword[$wi])) // РџРћРРЎРљ РЎ СѓС‡С‘С‚РѕРј Р Р•Р“РРЎРўР Рђ РїСЂРё СЂР°РІРЅС‹С… РїСЂРѕС‡РёС… СѓСЃР»РѕРІРёСЏС…
                   {
                    $stroka++;
                    $msg=str_replace($findmeword[$wi]," <b><u>$findmeword[$wi]</u></b> ",$msg);
@@ -1445,17 +1445,17 @@ else  // if ($withregistr!="1")
 
    }   // if ($withregistr!="1")
 
-} while($wi > "0"); // конец ЦИКЛа по КАЖДОМУ слову запроса
+} while($wi > "0"); // РєРѕРЅРµС† Р¦РРљР›Р° РїРѕ РљРђР–Р”РћРњРЈ СЃР»РѕРІСѓ Р·Р°РїСЂРѕСЃР°
 
 
-// Подготавливаем результирующее сообщение, и если результат соответствует условиям - выводим его
+// РџРѕРґРіРѕС‚Р°РІР»РёРІР°РµРј СЂРµР·СѓР»СЊС‚РёСЂСѓСЋС‰РµРµ СЃРѕРѕР±С‰РµРЅРёРµ, Рё РµСЃР»Рё СЂРµР·СѓР»СЊС‚Р°С‚ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓРµС‚ СѓСЃР»РѕРІРёСЏРј - РІС‹РІРѕРґРёРј РµРіРѕ
 if ($ftype=="0") { if ($stroka==$wordsitogo) $printflag="1"; }
 if ($ftype=="1") { if ($stroka>"0") $printflag="1"; }
 if ($ftype=="2") { if ($stroka==$wordsitogo) $printflag="1"; }
 
 if (!isset($printflag)) $printflag="0";
     if ($printflag=="1")
-       { $msg=str_replace("<br>", " &nbsp;&nbsp;", $msg); // заменяем в сообщении <br> на пару пробелов
+       { $msg=str_replace("<br>", " &nbsp;&nbsp;", $msg); // Р·Р°РјРµРЅСЏРµРј РІ СЃРѕРѕР±С‰РµРЅРёРё <br> РЅР° РїР°СЂСѓ РїСЂРѕР±РµР»РѕРІ
 
 if (strlen($msg)>150)
 {
@@ -1471,19 +1471,19 @@ else $msgtowrite=$msg;
 
 if (!isset($m)) {
 print"
-<small><BR>По запросу '<U><B>$findme</B></U>' в пол$add найдено: <HR size=+2 width=99% color=navy>
+<small><BR>РџРѕ Р·Р°РїСЂРѕСЃСѓ '<U><B>$findme</B></U>' РІ РїРѕР»$add РЅР°Р№РґРµРЅРѕ: <HR size=+2 width=99% color=navy>
 <BR><form action='tools.php?event=go&find' method=POST>
 <table class=forumline align=center width=700>
-<tr><th class=thHead colspan=4 height=25>Повторить поиск по сообщению</th></tr>
+<tr><th class=thHead colspan=4 height=25>РџРѕРІС‚РѕСЂРёС‚СЊ РїРѕРёСЃРє РїРѕ СЃРѕРѕР±С‰РµРЅРёСЋ</th></tr>
 <tr class=row2>
-<td class=row1>Запрос: <input type='text' value='$findme' style='width: 250px' class=post name=findme size=30>
+<td class=row1>Р—Р°РїСЂРѕСЃ: <input type='text' value='$findme' style='width: 250px' class=post name=findme size=30>
 <INPUT type=hidden value='1' name=ftype>
 <INPUT type=hidden value='0' name=user>
 <input type=hidden name=gdefinder value='1'>
-<input type=submit class=post value='  Поиск  '></td></table></form><br>
-<table width=100% class=forumline><TR align=center class=small><TH class=thCornerL><B>№</B></TH><TH class=thCornerL width=35%><B>Заголовок</B></TH><TH class=thCornerL width=70%><B>часть сообщения</B></TH><TH class=thCornerL><B>Совпадений<BR> в теме</B></TH></TR>"; $m="1"; }
+<input type=submit class=post value='  РџРѕРёСЃРє  '></td></table></form><br>
+<table width=100% class=forumline><TR align=center class=small><TH class=thCornerL><B>в„–</B></TH><TH class=thCornerL width=35%><B>Р—Р°РіРѕР»РѕРІРѕРє</B></TH><TH class=thCornerL width=70%><B>С‡Р°СЃС‚СЊ СЃРѕРѕР±С‰РµРЅРёСЏ</B></TH><TH class=thCornerL><B>РЎРѕРІРїР°РґРµРЅРёР№<BR> РІ С‚РµРјРµ</B></TH></TR>"; $m="1"; }
 
-$in=$iii+1; if ($in>$msg_onpage) {$page=ceil($in/$msg_onpage);} else $page="1"; // расчитываем верную страницу и номер сообщения
+$in=$iii+1; if ($in>$msg_onpage) {$page=ceil($in/$msg_onpage);} else $page="1"; // СЂР°СЃС‡РёС‚С‹РІР°РµРј РІРµСЂРЅСѓСЋ СЃС‚СЂР°РЅРёС†Сѓ Рё РЅРѕРјРµСЂ СЃРѕРѕР±С‰РµРЅРёСЏ
 
 if ($oldid!=$id and $number<100) { $number++; $msgnumber=$iii;
 
@@ -1497,39 +1497,39 @@ $printflag="0"; $nump="0";
 
 } else $nump++;
 
-if ($number>=100) { print"</TR></TABLE> * поиск останавливается, при нахождении более 100 вхождений!"; $gi=0; $iii=0; $ii=0; $itogofid=0;}
+if ($number>=100) { print"</TR></TABLE> * РїРѕРёСЃРє РѕСЃС‚Р°РЅР°РІР»РёРІР°РµС‚СЃСЏ, РїСЂРё РЅР°С…РѕР¶РґРµРЅРёРё Р±РѕР»РµРµ 100 РІС…РѕР¶РґРµРЅРёР№!"; $gi=0; $iii=0; $ii=0; $itogofid=0;}
 
 $oldid=$id;
 } // if $printflag==1
 
-} while($gi > "0"); // конец ЦИКЛа по МЕСТУ поиска
+} while($gi > "0"); // РєРѕРЅРµС† Р¦РРљР›Р° РїРѕ РњР•РЎРўРЈ РїРѕРёСЃРєР°
 
 } while($iii > "0");
-} // если файл с сообщениями НЕПУСТОЙ
+} // РµСЃР»Рё С„Р°Р№Р» СЃ СЃРѕРѕР±С‰РµРЅРёСЏРјРё РќР•РџРЈРЎРўРћР™
 
 } // if is_file("$datadir/$id.dat")
 } while($ii > "0");
 
 } // if isset($topicsid)
 
-} // if файл $fid.dat НЕ пуст
+} // if С„Р°Р№Р» $fid.dat РќР• РїСѓСЃС‚
 
 $itogofid--;
 } while($itogofid > "0");
 
-if (!isset($m)) echo'<table width=80% align=center><TR><TD>По вашему запросу ничего не найдено.</TD></TR></table>';
+if (!isset($m)) echo'<table width=80% align=center><TR><TD>РџРѕ РІР°С€РµРјСѓ Р·Р°РїСЂРѕСЃСѓ РЅРёС‡РµРіРѕ РЅРµ РЅР°Р№РґРµРЅРѕ.</TD></TR></table>';
 
 $time=explode(' ',microtime());
 $seconds=($time[1]+$time[0]-$start_time);
-echo "</TR></table><HR size=+2 width=99% color=navy><BR><p align=center><small>".str_replace("%1", sprintf("%01.3f", $seconds), "Время поиска: <b>%1</b> секунд.")."</small></p>";
+echo "</TR></table><HR size=+2 width=99% color=navy><BR><p align=center><small>".str_replace("%1", sprintf("%01.3f", $seconds), "Р’СЂРµРјСЏ РїРѕРёСЃРєР°: <b>%1</b> СЃРµРєСѓРЅРґ.")."</small></p>";
 
 }
 
-} // if isset($_GET['event']) - всё, что делается при наличии переменной $event
+} // if isset($_GET['event']) - РІСЃС‘, С‡С‚Рѕ РґРµР»Р°РµС‚СЃСЏ РїСЂРё РЅР°Р»РёС‡РёРё РїРµСЂРµРјРµРЅРЅРѕР№ $event
 
 ?>
 
 </td></tr></table>
-<center><small>Powered by <a href="http://www.wr-script.ru" title="Скрипт фотоальбома" class="copyright">WR-Foto</a> &copy; 1.2<br></small></center>
+<center><small>Powered by <a href="http://www.wr-script.ru" title="РЎРєСЂРёРїС‚ С„РѕС‚РѕР°Р»СЊР±РѕРјР°" class="copyright">WR-Foto</a> &copy; 1.2<br></small></center>
 </body>
 </html>

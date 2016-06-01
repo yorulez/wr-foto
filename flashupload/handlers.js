@@ -1,12 +1,12 @@
-/* Примечание: Этот пример использует FileProgress класс, который обрабатывает пользовательский 
-интерфейс для отображения имени файла и процент выполнения. FileProgress класс не является частью SWFUpload. */
+/* РџСЂРёРјРµС‡Р°РЅРёРµ: Р­С‚РѕС‚ РїСЂРёРјРµСЂ РёСЃРїРѕР»СЊР·СѓРµС‚ FileProgress РєР»Р°СЃСЃ, РєРѕС‚РѕСЂС‹Р№ РѕР±СЂР°Р±Р°С‚С‹РІР°РµС‚ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРёР№ 
+РёРЅС‚РµСЂС„РµР№СЃ РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РёРјРµРЅРё С„Р°Р№Р»Р° Рё РїСЂРѕС†РµРЅС‚ РІС‹РїРѕР»РЅРµРЅРёСЏ. FileProgress РєР»Р°СЃСЃ РЅРµ СЏРІР»СЏРµС‚СЃСЏ С‡Р°СЃС‚СЊСЋ SWFUpload. */
 
-/* ОБРАБОТЧИК СОБЫТИЙ SWFUPLOAD */
+/* РћР‘Р РђР‘РћРўР§РРљ РЎРћР‘Р«РўРР™ SWFUPLOAD */
 
 function fileQueued(file) {
     try {
         var progress = new FileProgress(file, this.customSettings.progressTarget);
-        progress.setStatus("Ожидание...");
+        progress.setStatus("РћР¶РёРґР°РЅРёРµ...");
         progress.toggleCancel(true, this);
 
     } catch (ex) {
@@ -18,7 +18,7 @@ function fileQueued(file) {
 function fileQueueError(file, errorCode, message) {
     try {
         if (errorCode === SWFUpload.QUEUE_ERROR.QUEUE_LIMIT_EXCEEDED) {
-            alert("Вы пытаетесь загрузить слишком много файлов.\n" + (message === 0 ? "Вы достигли лимита загрузки фото по количеству." : "Вам нужно выбрать " + (message > 1 ? "ДО " + message + " ФАЙЛОВ." : "ТОЛЬКО ОДИН ФАЙЛ.")));
+            alert("Р’С‹ РїС‹С‚Р°РµС‚РµСЃСЊ Р·Р°РіСЂСѓР·РёС‚СЊ СЃР»РёС€РєРѕРј РјРЅРѕРіРѕ С„Р°Р№Р»РѕРІ.\n" + (message === 0 ? "Р’С‹ РґРѕСЃС‚РёРіР»Рё Р»РёРјРёС‚Р° Р·Р°РіСЂСѓР·РєРё С„РѕС‚Рѕ РїРѕ РєРѕР»РёС‡РµСЃС‚РІСѓ." : "Р’Р°Рј РЅСѓР¶РЅРѕ РІС‹Р±СЂР°С‚СЊ " + (message > 1 ? "Р”Рћ " + message + " Р¤РђР™Р›РћР’." : "РўРћР›Р¬РљРћ РћР”РРќ Р¤РђР™Р›.")));
             return;
         }
 
@@ -28,20 +28,20 @@ function fileQueueError(file, errorCode, message) {
 
         switch (errorCode) {
         case SWFUpload.QUEUE_ERROR.FILE_EXCEEDS_SIZE_LIMIT:
-            progress.setStatus("Размер файла превышает лимит.");
+            progress.setStatus("Р Р°Р·РјРµСЂ С„Р°Р№Р»Р° РїСЂРµРІС‹С€Р°РµС‚ Р»РёРјРёС‚.");
             this.debug("Error Code: File too big, File name: " + file.name + ", File size: " + file.size + ", Message: " + message);
             break;
         case SWFUpload.QUEUE_ERROR.ZERO_BYTE_FILE:
-            progress.setStatus("Запрещено загружать файлы размером ноль байт.");
+            progress.setStatus("Р—Р°РїСЂРµС‰РµРЅРѕ Р·Р°РіСЂСѓР¶Р°С‚СЊ С„Р°Р№Р»С‹ СЂР°Р·РјРµСЂРѕРј РЅРѕР»СЊ Р±Р°Р№С‚.");
             this.debug("Error Code: Zero byte file, File name: " + file.name + ", File size: " + file.size + ", Message: " + message);
             break;
         case SWFUpload.QUEUE_ERROR.INVALID_FILETYPE:
-            progress.setStatus("Такой тип файла не поддерживается.");
+            progress.setStatus("РўР°РєРѕР№ С‚РёРї С„Р°Р№Р»Р° РЅРµ РїРѕРґРґРµСЂР¶РёРІР°РµС‚СЃСЏ.");
             this.debug("Error Code: Invalid File Type, File name: " + file.name + ", File size: " + file.size + ", Message: " + message);
             break;
         default:
             if (file !== null) {
-                progress.setStatus("Неизвестная ошибка.");
+                progress.setStatus("РќРµРёР·РІРµСЃС‚РЅР°СЏ РѕС€РёР±РєР°.");
             }
             this.debug("Error Code: " + errorCode + ", File name: " + file.name + ", File size: " + file.size + ", Message: " + message);
             break;
@@ -56,7 +56,7 @@ function fileDialogComplete(numFilesSelected, numFilesQueued) {
         if (numFilesSelected > 0) {
             document.getElementById(this.customSettings.cancelButtonId).disabled = false;
         }
-        this.startUpload(); /* АВТОСТАРТ ЗАГРУЗКИ */
+        this.startUpload(); /* РђР’РўРћРЎРўРђР Рў Р—РђР“Р РЈР—РљР */
     } catch (ex)  {
         this.debug(ex);
     }
@@ -71,9 +71,9 @@ function uploadStart(file) {
   "email": document.getElementById('txt_email').value,
   "usernum": document.getElementById('txt_usernum').value});
 
-        /* ОБНОВЛЕНИЕ ПОЛЬЗОВАТЕЛЬНОГО ИНТЕРФЕЙСА. НЕОБХОДИМА ДЛЯ Linux-СЕРВЕРОВ */
+        /* РћР‘РќРћР’Р›Р•РќРР• РџРћР›Р¬Р—РћР’РђРўР•Р›Р¬РќРћР“Рћ РРќРўР•Р Р¤Р•Р™РЎРђ. РќР•РћР‘РҐРћР”РРњРђ Р”Р›РЇ Linux-РЎР•Р Р’Р•Р РћР’ */
         var progress = new FileProgress(file, this.customSettings.progressTarget);
-        progress.setStatus("Загружается...");
+        progress.setStatus("Р—Р°РіСЂСѓР¶Р°РµС‚СЃСЏ...");
         progress.toggleCancel(true, this);
     }
     catch (ex) {}
@@ -87,8 +87,8 @@ function uploadProgress(file, bytesLoaded, bytesTotal) {
 
         var progress = new FileProgress(file, this.customSettings.progressTarget);
         progress.setProgress(percent);
-// так удобнее. WR.
-progress.setStatus("Загружено <B>" + Math.round(bytesLoaded/bytesTotal*100) + "%</B> файла " + file.name);
+// С‚Р°Рє СѓРґРѕР±РЅРµРµ. WR.
+progress.setStatus("Р—Р°РіСЂСѓР¶РµРЅРѕ <B>" + Math.round(bytesLoaded/bytesTotal*100) + "%</B> С„Р°Р№Р»Р° " + file.name);
 
     } catch (ex) {
         this.debug(ex);
@@ -99,7 +99,7 @@ function uploadSuccess(file, serverData) {
     try {
         var progress = new FileProgress(file, this.customSettings.progressTarget);
         progress.setComplete();
-        progress.setStatus("Загрузка завершена.");
+        progress.setStatus("Р—Р°РіСЂСѓР·РєР° Р·Р°РІРµСЂС€РµРЅР°.");
         progress.toggleCancel(false);
 
     } catch (ex) {
@@ -115,27 +115,27 @@ function uploadError(file, errorCode, message) {
 
         switch (errorCode) {
         case SWFUpload.UPLOAD_ERROR.HTTP_ERROR:
-            progress.setStatus("Ошибка загрузки: " + message);
+            progress.setStatus("РћС€РёР±РєР° Р·Р°РіСЂСѓР·РєРё: " + message);
             this.debug("Error Code: HTTP Error, File name: " + file.name + ", Message: " + message);
             break;
         case SWFUpload.UPLOAD_ERROR.UPLOAD_FAILED:
-            progress.setStatus("Ошибка загрузки.");
+            progress.setStatus("РћС€РёР±РєР° Р·Р°РіСЂСѓР·РєРё.");
             this.debug("Error Code: Upload Failed, File name: " + file.name + ", File size: " + file.size + ", Message: " + message);
             break;
         case SWFUpload.UPLOAD_ERROR.IO_ERROR:
-            progress.setStatus("Ошибка ввода-вывода сервера (IO Error).");
+            progress.setStatus("РћС€РёР±РєР° РІРІРѕРґР°-РІС‹РІРѕРґР° СЃРµСЂРІРµСЂР° (IO Error).");
             this.debug("Error Code: IO Error, File name: " + file.name + ", Message: " + message);
             break;
         case SWFUpload.UPLOAD_ERROR.SECURITY_ERROR:
-            progress.setStatus("Ошибка доступа (к папке загрузки).");
+            progress.setStatus("РћС€РёР±РєР° РґРѕСЃС‚СѓРїР° (Рє РїР°РїРєРµ Р·Р°РіСЂСѓР·РєРё).");
             this.debug("Error Code: Security Error, File name: " + file.name + ", Message: " + message);
             break;
         case SWFUpload.UPLOAD_ERROR.UPLOAD_LIMIT_EXCEEDED:
-            progress.setStatus("Достигнут лимит по загрузке файлов.");
+            progress.setStatus("Р”РѕСЃС‚РёРіРЅСѓС‚ Р»РёРјРёС‚ РїРѕ Р·Р°РіСЂСѓР·РєРµ С„Р°Р№Р»РѕРІ.");
             this.debug("Error Code: Upload Limit Exceeded, File name: " + file.name + ", File size: " + file.size + ", Message: " + message);
             break;
         case SWFUpload.UPLOAD_ERROR.FILE_VALIDATION_FAILED:
-            progress.setStatus("Ошибка валидации.  Загружаемый файл пропущен.");
+            progress.setStatus("РћС€РёР±РєР° РІР°Р»РёРґР°С†РёРё.  Р—Р°РіСЂСѓР¶Р°РµРјС‹Р№ С„Р°Р№Р» РїСЂРѕРїСѓС‰РµРЅ.");
             this.debug("Error Code: File Validation Failed, File name: " + file.name + ", File size: " + file.size + ", Message: " + message);
             break;
         case SWFUpload.UPLOAD_ERROR.FILE_CANCELLED:
@@ -143,14 +143,14 @@ function uploadError(file, errorCode, message) {
             if (this.getStats().files_queued === 0) {
                 document.getElementById(this.customSettings.cancelButtonId).disabled = true;
             }
-            progress.setStatus("Загрузка отменена");
+            progress.setStatus("Р—Р°РіСЂСѓР·РєР° РѕС‚РјРµРЅРµРЅР°");
             progress.setCancelled();
             break;
         case SWFUpload.UPLOAD_ERROR.UPLOAD_STOPPED:
-            progress.setStatus("Остановлено");
+            progress.setStatus("РћСЃС‚Р°РЅРѕРІР»РµРЅРѕ");
             break;
         default:
-            progress.setStatus("Неизвестная ошибка: " + errorCode);
+            progress.setStatus("РќРµРёР·РІРµСЃС‚РЅР°СЏ РѕС€РёР±РєР°: " + errorCode);
             this.debug("Error Code: " + errorCode + ", File name: " + file.name + ", File size: " + file.size + ", Message: " + message);
             break;
         }
@@ -165,8 +165,8 @@ function uploadComplete(file) {
     }
 }
 
-// Событие из Queue Plugin
+// РЎРѕР±С‹С‚РёРµ РёР· Queue Plugin
 function queueComplete(numFilesUploaded) {
     var status = document.getElementById("divStatus");
-    status.innerHTML = "<h1> Загружено " + numFilesUploaded + " фото. <A HREF='index.php'>Перейдите на главную</a><br> или обновите страницу!</h1>";
+    status.innerHTML = "<h1> Р—Р°РіСЂСѓР¶РµРЅРѕ " + numFilesUploaded + " С„РѕС‚Рѕ. <A HREF='index.php'>РџРµСЂРµР№РґРёС‚Рµ РЅР° РіР»Р°РІРЅСѓСЋ</a><br> РёР»Рё РѕР±РЅРѕРІРёС‚Рµ СЃС‚СЂР°РЅРёС†Сѓ!</h1>";
 }

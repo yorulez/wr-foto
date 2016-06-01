@@ -1,6 +1,6 @@
 /*
-Простой класс для отображения информации файла и прогресса.
-Примечание: Это демонстрация, а не часть SWFUpload. Возможны проблемы при работе под IE7.
+РџСЂРѕСЃС‚РѕР№ РєР»Р°СЃСЃ РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё С„Р°Р№Р»Р° Рё РїСЂРѕРіСЂРµСЃСЃР°.
+РџСЂРёРјРµС‡Р°РЅРёРµ: Р­С‚Рѕ РґРµРјРѕРЅСЃС‚СЂР°С†РёСЏ, Р° РЅРµ С‡Р°СЃС‚СЊ SWFUpload. Р’РѕР·РјРѕР¶РЅС‹ РїСЂРѕР±Р»РµРјС‹ РїСЂРё СЂР°Р±РѕС‚Рµ РїРѕРґ IE7.
 */
 
 // Constructor
@@ -119,7 +119,7 @@ FileProgress.prototype.setStatus = function (status) {
     this.fileProgressElement.childNodes[2].innerHTML = status;
 };
 
-// Отображать/скрыть кнопку отмены
+// РћС‚РѕР±СЂР°Р¶Р°С‚СЊ/СЃРєСЂС‹С‚СЊ РєРЅРѕРїРєСѓ РѕС‚РјРµРЅС‹
 FileProgress.prototype.toggleCancel = function (show, swfUploadInstance) {
     this.fileProgressElement.childNodes[0].style.visibility = show ? "visible" : "hidden";
     if (swfUploadInstance) {
@@ -141,7 +141,7 @@ FileProgress.prototype.appear = function () {
         try {
             this.fileProgressWrapper.filters.item("DXImageTransform.Microsoft.Alpha").opacity = 100;
         } catch (e) {
-            // Если он не установлен изначально, браузер выдаст ошибку. Это позволит установить его, если он еще не установлен.
+            // Р•СЃР»Рё РѕРЅ РЅРµ СѓСЃС‚Р°РЅРѕРІР»РµРЅ РёР·РЅР°С‡Р°Р»СЊРЅРѕ, Р±СЂР°СѓР·РµСЂ РІС‹РґР°СЃС‚ РѕС€РёР±РєСѓ. Р­С‚Рѕ РїРѕР·РІРѕР»РёС‚ СѓСЃС‚Р°РЅРѕРІРёС‚СЊ РµРіРѕ, РµСЃР»Рё РѕРЅ РµС‰Рµ РЅРµ СѓСЃС‚Р°РЅРѕРІР»РµРЅ.
             this.fileProgressWrapper.style.filter = "progid:DXImageTransform.Microsoft.Alpha(opacity=100)";
         }
     } else {
@@ -156,7 +156,7 @@ FileProgress.prototype.appear = function () {
     
 };
 
-// Постепенное исчезновение табличек FileProgress
+// РџРѕСЃС‚РµРїРµРЅРЅРѕРµ РёСЃС‡РµР·РЅРѕРІРµРЅРёРµ С‚Р°Р±Р»РёС‡РµРє FileProgress
 FileProgress.prototype.disappear = function () {
 
     var reduceOpacityBy = 15;
@@ -173,7 +173,7 @@ FileProgress.prototype.disappear = function () {
             try {
                 this.fileProgressWrapper.filters.item("DXImageTransform.Microsoft.Alpha").opacity = this.opacity;
             } catch (e) {
-                // Если он не установлен изначально, браузер выдаст ошибку. Это позволит установить его, если он еще не установлен.
+                // Р•СЃР»Рё РѕРЅ РЅРµ СѓСЃС‚Р°РЅРѕРІР»РµРЅ РёР·РЅР°С‡Р°Р»СЊРЅРѕ, Р±СЂР°СѓР·РµСЂ РІС‹РґР°СЃС‚ РѕС€РёР±РєСѓ. Р­С‚Рѕ РїРѕР·РІРѕР»РёС‚ СѓСЃС‚Р°РЅРѕРІРёС‚СЊ РµРіРѕ, РµСЃР»Рё РѕРЅ РµС‰Рµ РЅРµ СѓСЃС‚Р°РЅРѕРІР»РµРЅ.
                 this.fileProgressWrapper.style.filter = "progid:DXImageTransform.Microsoft.Alpha(opacity=" + this.opacity + ")";
             }
         } else {

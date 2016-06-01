@@ -39,16 +39,16 @@ font,th,td,p {font: normal 11px Verdana, Arial, Helvetica, sans-serif;}
 
 
 
-/* - ÁËÎÊ ñòèëåé äëÿ êîğğåêòíîãî îòîáğàæåíèÿ ÔËİØ-çàãğóç÷èêà! www.swfupload.org - */
+/* - Ğ‘Ğ›ĞĞš ÑÑ‚Ğ¸Ğ»ĞµĞ¹ Ğ´Ğ»Ñ ĞºĞ¾Ñ€Ñ€ĞµĞºÑ‚Ğ½Ğ¾Ğ³Ğ¾ Ğ¾Ñ‚Ğ¾Ğ±Ñ€Ğ°Ğ¶ĞµĞ½Ğ¸Ñ Ğ¤Ğ›Ğ­Ğ¨-Ğ·Ğ°Ğ³Ñ€ÑƒĞ·Ñ‡Ğ¸ĞºĞ°! www.swfupload.org - */
 
 :focus { outline: 0; } /* remember to define focus styles! */
 body {line-height: 1; color: black; background: white;}
 ol, ul {list-style: none;}
 
-/* ÍÀËÈ×ÈÅ 'cellspacing="0"' ÎÁßÇÀÒÅËÜÍÎ!!!! */
+/* ĞĞĞ›Ğ˜Ğ§Ğ˜Ğ• 'cellspacing="0"' ĞĞ‘Ğ¯Ğ—ĞĞ¢Ğ•Ğ›Ğ¬ĞĞ!!!! */
 table {border-collapse: separate; border-spacing: 0;}
 
-/* - ÎÑÍÎÍÛÅ İËÅÌÅÍÒÛ, ÑÒÈËÈ ÒÅÊÑÒÀ - */
+/* - ĞĞ¡ĞĞĞĞ«Ğ• Ğ­Ğ›Ğ•ĞœĞ•ĞĞ¢Ğ«, Ğ¡Ğ¢Ğ˜Ğ›Ğ˜ Ğ¢Ğ•ĞšĞ¡Ğ¢Ğ - */
 html, body { margin: 0; padding: 0; width: 100%;}
 
 a {color: #385ea2; text-decoration: none;}
@@ -61,7 +61,7 @@ ul li {padding: 4px 5px; margin: 0 20px; list-style:square;}
 code {display: block;background:#edffb8 none repeat scroll 0%;border-color:#b2da3a;border-style:solid;
 border-width:1px 0;font-size: 1em;margin: 1em 0pt;overflow:auto;padding: 0.3em 0.4em;white-space:pre;}
 
-/* - ÑËÎÈ - */
+/* - Ğ¡Ğ›ĞĞ˜ - */
 form { margin: 0; padding: 0;}
 div.fieldset {border: 1px solid #afe14c; margin: 10px 0; padding: 20px 10px;}
 div.fieldset span.legend {position: relative; background-color: #FFF; padding: 3px; top: -30px; color: #FF8040; font: 700 14px Arial, Helvetica, sans-serif;}
@@ -79,14 +79,14 @@ button,input,select,textarea {border-width: 1px; margin-bottom: 10px; padding: 2
 input[disabled]{ border: 1px solid #ccc } /* FF 2 Fix */
 #btnSubmit { margin: 0 0 0 155px ; }
 
-/* - ÑÒÈËÈ ÒÀÁËÈÖ - */
+/* - Ğ¡Ğ¢Ğ˜Ğ›Ğ˜ Ğ¢ĞĞ‘Ğ›Ğ˜Ğ¦ - */
 .progressWrapper { width: 357px; overflow: hidden;}
 .progressContainer {margin: 5px;padding: 4px;border: solid 1px #E8E8E8;background-color: #F7F7F7;overflow: hidden;}
 .message {margin: 1em 0;padding: 10px 20px;border: solid 1px #FFDD99;background-color: #FFFFCC;overflow: hidden;}
 
-.red { border: solid 1px #B50000; background-color: #FFA8A8;}  /* ÎØÈÁÊÀ */
-.green {border: solid 1px #727272; background-color: #E2E2E2;} /* ÒÅÊÓÙÈÉ */
-.blue {border: solid 1px #3CCE37; background-color: #DDFFDD;}  /* ÓÑÏÅØÍÎ ÇÀÃĞÓÆÅÍ */
+.red { border: solid 1px #B50000; background-color: #FFA8A8;}  /* ĞĞ¨Ğ˜Ğ‘ĞšĞ */
+.green {border: solid 1px #727272; background-color: #E2E2E2;} /* Ğ¢Ğ•ĞšĞ£Ğ©Ğ˜Ğ™ */
+.blue {border: solid 1px #3CCE37; background-color: #DDFFDD;}  /* Ğ£Ğ¡ĞŸĞ•Ğ¨ĞĞ Ğ—ĞĞ“Ğ Ğ£Ğ–Ğ•Ğ */
 
 .progressName {font-size: 8pt;font-weight: 700;color: #555;width: 323px;
 height: 14px;text-align: left;white-space: nowrap;overflow: hidden;}
@@ -110,7 +110,7 @@ a.progressCancel:hover {background-position: 0px 0px;}
 
 
 
-/*  ÒÀÁËÈÖÀ ÑÒÈËÅÉ îñíîâíîãî ñêèíà äîäåëàòü!!!!! âûêèíóòü ëèøíåå! */
+/*  Ğ¢ĞĞ‘Ğ›Ğ˜Ğ¦Ğ Ğ¡Ğ¢Ğ˜Ğ›Ğ•Ğ™ Ğ¾ÑĞ½Ğ¾Ğ²Ğ½Ğ¾Ğ³Ğ¾ ÑĞºĞ¸Ğ½Ğ° Ğ´Ğ¾Ğ´ĞµĞ»Ğ°Ñ‚ÑŒ!!!!! Ğ²Ñ‹ĞºĞ¸Ğ½ÑƒÑ‚ÑŒ Ğ»Ğ¸ÑˆĞ½ĞµĞµ! */
 body {
 font: normal 12px Verdana, Arial, Helvetica, sans-serif;
     background-color: #FFFFFF;
