@@ -1,0 +1,356 @@
+BODY {FONT-FAMILY: Verdana; FONT-SIZE: 13px;}
+
+a {text-decoration: none;}
+a:visited {text-decoration: none; color: #000000;}
+a:hover, a:active {text-decoration: underline; color: #FF9C00;}
+
+A.menu {COLOR: #666666; TEXT-DECORATION: none}
+A.menu:hover {COLOR: #009900; TEXT-DECORATION: none}
+
+.maxiinput {FONT-SIZE: 14px; WIDTH: 300px; font-size: 14; color: 000000; border: #808080 1 solid;}
+.maininput {FONT-SIZE: 12px; WIDTH: 200px; font-size: 10; color: 000000; border: #808080 1 solid;}
+.miniinput {FONT-SIZE: 12px; WIDTH: 100px; font-size: 10; color: 000000; border: #808080 1 solid;}
+
+.simpleok {WIDTH: 50px; height:18px; background-color: cccccc; font-size: 10; color: 000000; font-weight: bold; border: #808080 1 solid;}
+.longok {WIDTH: 130px; height:20px; background-color: cccccc; font-size: 10; color: 000000; border: #808080 1 solid;}
+
+.toptable {FONT-SIZE: 9px; background: #cccccc}
+
+.small {FONT-SIZE: 11px;}
+
+TD {FONT-SIZE: 11px}
+TD.menu {FONT-SIZE: 11px; FONT-WEIGHT: bold}
+TD.main {FONT-SIZE: 13px; FONT-WEIGHT: bold}
+
+TABLE.bigmaintbl {BORDER-RIGHT: #666666 1px solid; BORDER-TOP: #666666 1px solid; BORDER-LEFT: #666666 1px solid; BORDER-BOTTOM: #666666 1px solid;}
+
+TABLE.bakfon {background: #AAAAAA}
+TR.vip {background: #E5E5E5}
+TR.row1 {background: #FFFFFF}
+TR.row2 {background: #EEEEEE}
+
+.pgbutt     {font-family: Verdana; font-size:12px; padding-top:2px;padding-bottom:2px}
+.pgbutt .sel{color: #000000; border: 1px #FF8000 solid; background: #FF8000 padding:0px 2px 0px 2px;}
+.pgbutt a   {color: #FF8000; border: 1px #FF8000 solid; width:10px; padding:1px 3px 1px 3px; background: #ffffff;}
+.pgbutt a:hover   {color: #333333; border: 1px #FF8000 solid; background: #E5E5E5}
+.pgbutt a:visited {color: #333333; border: 1px #FF8000 solid; TEXT-DECORATION: none;}
+
+font,th,td,p {font: normal 11px Verdana, Arial, Helvetica, sans-serif;}
+
+
+
+/* - ¡ÀŒ  ÒÚËÎÂÈ ‰Îˇ ÍÓÂÍÚÌÓ„Ó ÓÚÓ·‡ÊÂÌËˇ ‘À›ÿ-Á‡„ÛÁ˜ËÍ‡! www.swfupload.org - */
+
+:focus { outline: 0; } /* remember to define focus styles! */
+body {line-height: 1; color: black; background: white;}
+ol, ul {list-style: none;}
+
+/* Õ¿À»◊»≈ 'cellspacing="0"' Œ¡ﬂ«¿“≈À‹ÕŒ!!!! */
+table {border-collapse: separate; border-spacing: 0;}
+
+/* - Œ—ÕŒÕ€≈ ›À≈Ã≈Õ“€, —“»À» “≈ —“¿ - */
+html, body { margin: 0; padding: 0; width: 100%;}
+
+a {color: #385ea2; text-decoration: none;}
+a:hover { text-decoration: underline; }
+strong {font-weight: 700;}
+p {margin-top: .25em; margin-bottom: .5em;}
+ul { padding: 4px 5px; }
+ul li {padding: 4px 5px; margin: 0 20px; list-style:square;}
+
+code {display: block;background:#edffb8 none repeat scroll 0%;border-color:#b2da3a;border-style:solid;
+border-width:1px 0;font-size: 1em;margin: 1em 0pt;overflow:auto;padding: 0.3em 0.4em;white-space:pre;}
+
+/* - —ÀŒ» - */
+form { margin: 0; padding: 0;}
+div.fieldset {border: 1px solid #afe14c; margin: 10px 0; padding: 20px 10px;}
+div.fieldset span.legend {position: relative; background-color: #FFF; padding: 3px; top: -30px; color: #FF8040; font: 700 14px Arial, Helvetica, sans-serif;}
+div.flash {width: 375px; margin: 10px 5px; border-color: #FF8040;
+-moz-border-radius-topleft : 5px;
+-webkit-border-top-left-radius : 5px;
+-moz-border-radius-topright : 5px;
+-webkit-border-top-right-radius : 5px;
+-moz-border-radius-bottomleft : 5px;
+-webkit-border-bottom-left-radius : 5px;
+-moz-border-radius-bottomright : 5px;
+-webkit-border-bottom-right-radius : 5px;}
+
+button,input,select,textarea {border-width: 1px; margin-bottom: 10px; padding: 2px 3px;}
+input[disabled]{ border: 1px solid #ccc } /* FF 2 Fix */
+#btnSubmit { margin: 0 0 0 155px ; }
+
+/* - —“»À» “¿¡À»÷ - */
+.progressWrapper { width: 357px; overflow: hidden;}
+.progressContainer {margin: 5px;padding: 4px;border: solid 1px #E8E8E8;background-color: #F7F7F7;overflow: hidden;}
+.message {margin: 1em 0;padding: 10px 20px;border: solid 1px #FFDD99;background-color: #FFFFCC;overflow: hidden;}
+
+.red { border: solid 1px #B50000; background-color: #FFA8A8;}  /* Œÿ»¡ ¿ */
+.green {border: solid 1px #727272; background-color: #E2E2E2;} /* “≈ ”Ÿ»… */
+.blue {border: solid 1px #3CCE37; background-color: #DDFFDD;}  /* ”—œ≈ÿÕŒ «¿√–”∆≈Õ */
+
+.progressName {font-size: 8pt;font-weight: 700;color: #555;width: 323px;
+height: 14px;text-align: left;white-space: nowrap;overflow: hidden;}
+
+.progressBarInProgress, .progressBarComplete, .progressBarError {
+font-size: 0;width: 0%;height: 2px;background-color: blue;margin-top: 2px;}
+
+.progressBarStatus {margin-top: 2px;width: 337px;font-size: 7pt;
+font-family: Arial;text-align: left;white-space: nowrap;}
+
+a.progressCancel {font-size: 0;display: block;height: 14px;width: 14px;
+background-image: url(../flashupload/cancelbutton.gif);background-repeat: no-repeat;
+background-position: -14px 0px;float: right;}
+
+.progressBarComplete {width: 100%;background-color: green;visibility: hidden;}
+.progressBarError {width: 100%;background-color: red;visibility: hidden;}
+a.progressCancel:hover {background-position: 0px 0px;}
+.swfupload {vertical-align: top;}
+
+
+
+
+
+/*  “¿¡À»÷¿ —“»À≈… ÓÒÌÓ‚ÌÓ„Ó ÒÍËÌ‡ ‰Ó‰ÂÎ‡Ú¸!!!!! ‚˚ÍËÌÛÚ¸ ÎË¯ÌÂÂ! */
+body {
+font: normal 12px Verdana, Arial, Helvetica, sans-serif;
+    background-color: #FFFFFF;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    background-attachment: fixed;
+}
+.background {
+    padding: 20px 5px;
+    background-color:#fffbe8;
+    border-left:3px solid #bad65c;
+    border-right:3px solid #bad65c;
+}
+ul#nav {
+    margin:0px;
+    padding:0px;
+    list-style:none;
+}
+#nav li a{
+    width:150px;
+    text-decoration:none;
+    padding-left:10px;
+    line-height: 30px;
+    display:block;
+    color:#ffac35;
+    list-style:none;
+    font-size:12px;
+    border-left:30px solid #fffbe8;
+    border-right:10px solid #fffbe8;
+}
+#nav li a:hover {
+    border-left:30px solid #bad65c;
+    border-right:10px solid #bad65c;
+    background-color: #ffac35;
+    color: #fffbe8;
+    text-decoration:none;
+}
+ul#admin {
+    margin:0px;
+    padding:0px;
+    list-style:none;
+}
+#admin li a{
+    width:160px;
+    text-decoration:none;
+    padding-left:8px;
+    line-height: 18px;
+    display:block;
+    color:#ffac35;
+    list-style:none;
+    font-size:12px;
+    border-left:20px solid #fffbe8;
+    border-right:8px solid #fffbe8;
+}
+#admin li a:hover {
+    border-left:20px solid #bad65c;
+    border-right:8px solid #bad65c;
+    background-color: #ffac35;
+    color: #fffbe8;
+    text-decoration:none;
+}
+/* General font families for common tags */
+font,th,td,p { font-family: Verdana, Arial, Helvetica, sans-serif }
+a:link,a:active,a:visited { color : #ff9703; text-decoration:none}
+a:hover        { text-decoration: underline; }
+hr    { height: 0px; border: solid #fffbe8 0px; border-top-width: 1px;}
+
+
+/* This is the outline round the main forum tables */
+.forumline    { background-color: #fffbe8; }
+
+
+/* Main table cell colours and backgrounds */
+td.row1    { background-color: #ffefbb; }
+td.row2    { background-color: #ffe9a3; }
+td.row3    { background-color: #ffe799; }
+
+
+/*
+  This is for the table cell above the Topics, Post & Last posts on the index.php page
+  By default this is the fading out gradiated silver background.
+  However, you could replace this with a bitmap specific for each forum
+*/
+td.rowpic {
+        background-color: #bad65c;
+}
+
+/* Header cells - the blue and silver gradient backgrounds */
+th    {
+    color: #fffbe8; font-size: 11px; font-weight : bold;
+    background-color: #ffac35; height: 25px;
+}
+
+td.cat,td.catHead,td.catSides,td.catLeft,td.catRight,td.catBottom {
+            background-color:#bad65c; height: 28px;
+}
+
+
+/*
+  Setting additional nice inner borders for the main table cells.
+  The names indicate which sides the border will be on.
+  Don't worry if you don't understand this, just ignore it :-)
+*/
+td.cat,td.catHead,td.catBottom {
+    height: 29px;
+}
+th.thHead,th.thSides,th.thTop,th.thLeft,th.thRight,th.thBottom,th.thCornerL,th.thCornerR {
+font: normal 12px Verdana, Arial, Helvetica, sans-serif;
+    font-weight: bold; height: 28px; }
+td.row3Right,td.spaceRow {
+    background-color: #ffefbb; }
+
+th.thHead,td.catHead { font-size: 12px;}
+
+
+/* The largest text used in the index page title and toptic title etc. */
+.maintitle,h1,h2    {
+            font-weight: bold; font-size: 22px; font-family: "Trebuchet MS",Verdana, Arial, Helvetica, sans-serif;
+            text-decoration: none; line-height : 120%; color : #926e54;
+}
+
+
+/* General text */
+.gen { font-size : 12px; }
+.genmed { font-size : 11px; }
+.gensmall { font-size : 10px; }
+.gen,.genmed,.gensmall { color : #926e54; }
+a.gen,a.genmed,a.gensmall { text-decoration: none; }
+a.gen:hover,a.genmed:hover,a.gensmall:hover    { color: #DD6900; text-decoration: underline; }
+
+
+/* The register, login, search etc links at the top of the page */
+.mainmenu        { font-size : 11px; color : #926e54 }
+a.mainmenu        { text-decoration: none;  }
+a.mainmenu:hover{ text-decoration: underline; }
+
+
+/* Forum category titles */
+.cattitle        { font-weight: bold; font-size: 12px ; letter-spacing: 1px; color : #584233}
+a.cattitle        { text-decoration: none; color : #584233; }
+a.cattitle:hover{ text-decoration: underline; }
+
+
+/* Forum title: Text and link to the forums used in: index.php */
+.forumlink        { font-weight: bold; font-size: 12px; color : #926e54; }
+a.forumlink     { text-decoration: none; }
+a.forumlink:hover{ text-decoration: underline; }
+
+
+/* Used for the navigation text, (Page 1,2,3 etc) and the navigation bar when in a forum */
+.nav            { font-weight: bold; font-size: 11px; color : #926e54;}
+a.nav            { text-decoration: none; }
+a.nav:hover        { text-decoration: underline; }
+
+
+/* titles for the topics: could specify viewed link colour too */
+.topictitle            { font-weight: bold; font-size: 11px; color : #926e54; }
+a.topictitle:link   { text-decoration: none; color : #926e54; }
+a.topictitle:visited { text-decoration: none; color : #926e54; }
+a.topictitle:hover    { text-decoration: underline; }
+
+
+/* Name of poster in viewmsg.php and viewtopic.php and other places */
+.name            { font-size : 11px; color : #584233;}
+
+/* Location, number of posts, post date etc */
+.postdetails        { font-size : 10px; color : #584233; }
+
+
+/* The content of the posts (body of text) */
+.postbody { font-size : 12px;}
+a.postlink:link    { text-decoration: none; }
+a.postlink:visited { text-decoration: none; color : #584233; }
+a.postlink:hover { text-decoration: underline;}
+
+
+/* Quote & Code blocks */
+.code {
+    font-family: Courier, 'Courier New', sans-serif; font-size: 11px; color: #006600;
+    background-color: #fffbe8; border: #bad65c; border-style: solid;
+    border-left-width: 1px; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px
+}
+
+.quote {
+    font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; color: #444444; line-height: 125%;
+    background-color: #fffbe8; border: #bad65c; border-style: solid;
+    border-left-width: 1px; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px
+}
+
+
+/* Copyright and bottom info */
+.copyright        { font-size: 10px; font-family: Verdana, Arial, Helvetica, sans-serif; color: #444444; letter-spacing: -1px;}
+a.copyright        { color: #444444; text-decoration: none;}
+a.copyright:hover { color: #584233; text-decoration: underline;}
+
+
+/* Form elements */
+input,textarea, select {
+    color : #584233;
+    font: normal 11px Verdana, Arial, Helvetica, sans-serif;
+    border: 1px solid #926e54;
+}
+
+/* The text input fields background colour */
+input.post, textarea.post, select {
+    background-color : #fffbe8;
+}
+
+input { text-indent : 2px; }
+
+/* The buttons used for bbCode styling in message post */
+input.button {
+    background-color : #fffbe8;
+    color : #584233;
+    font-size: 11px; font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+/* The main submit button option */
+input.mainoption {
+    background-color : #fffbe8;
+    font-weight : bold;
+}
+
+/* None-bold submit button */
+input.liteoption {
+    background-color : #fffbe8;
+    font-weight : normal;
+}
+
+/* This is the line in the posting page which shows the rollover
+  help line. This is actually a text box, but if set to be the same
+  colour as the background no one will know ;)
+*/
+.helpline { background-color: #fffbe8; border-style: none; }
+
+.vote_cap {
+    font-size:9px;
+    background-color:#bad65c;
+}
+.votebar {
+    font-size:9px;
+    background-color:#ffac35;
+}
